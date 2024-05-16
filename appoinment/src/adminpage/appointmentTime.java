@@ -31,7 +31,7 @@ public class appointmentTime extends adminform {
     private void addGuiComponents() {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(new Color (120, 187, 217, 255));
+        mainPanel.setBackground(new Color (0, 0, 0, 150));
         mainPanel.setBounds(250, 90, 550, 500);
 
         // Create a table model
