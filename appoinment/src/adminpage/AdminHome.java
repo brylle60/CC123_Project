@@ -1,5 +1,6 @@
 package adminpage;
 
+import constant.TimeSlotManager;
 import constant.commonconstant;
 import gui.loginpage;
 
@@ -25,6 +26,12 @@ public class AdminHome extends adminform {
         JLabel arrow = new JLabel(image1);
         arrow.setBounds ( 250, 25, 90, 50); // Adjust the position and size as needed
         add(arrow);
+        //this button should  reset all slot in time and should be pressed after a day or so and/or if its sunday dont press it.
+        JButton resetButton = new JButton("Reset Booked Time Slots");
+        resetButton.addActionListener(e -> {
+            TimeSlotManager.resetBookedTimeSlots();
+            JOptionPane.showMessageDialog(null, "Booked time slots have been reset.");
+        });
 
         //Admin home label
         JLabel AdminHomeLabel = new JLabel("Admin Home");

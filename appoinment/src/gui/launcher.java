@@ -15,7 +15,18 @@ public class launcher {
             @Override
             public void run() {
 
-                
+
+
+               // new loginpage().setVisible(true);
+//new AdminHome().setVisible(true);
+              new Appoinment().setVisible(true);
+              //new AppointmentList().setVisible(true);
+         //       new loginpage().setVisible(true);
+//new typeAppointment().setVisible(true);
+    //new home().setVisible(true);
+//new HowToAppointment().setVisible(true);
+
+              //  new ContactUs().setVisible(true);
 
               // System.out.println(MyJDBC.checkuser("username1234"));
                //System.out.println(MyJDBC.register("username1234", "password"));

@@ -4,7 +4,7 @@ import constant.commonconstant;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.rmi.server.RemoteCall;
+
 import javax.swing.*;
 
 public class ContactUs extends homepage {
@@ -30,9 +30,11 @@ public class ContactUs extends homepage {
         fbLabel.setBounds(215, 392, 140, 125); // Adjust the position and size as needed
         add(fbLabel);
 
+
         JLabel emailLabel = new JLabel(emailIcon);
         emailLabel.setBounds(830, 392, 140, 125); // Adjust the position and size as needed
         add(emailLabel);
+
 
         JLabel cellNum = new JLabel(contactIcon);
         cellNum.setBounds(520, 392, 140, 125); // Adjust the position and size as needed
@@ -221,6 +223,8 @@ public class ContactUs extends homepage {
 //        telNum.setForeground(commonconstant.TEXT_COLOR);
 //        telNum.setFont(new Font("Dialog", Font.BOLD, 17));
 //        telNum.setBounds(15,75, 300, 50);
+
+
 
 
 
