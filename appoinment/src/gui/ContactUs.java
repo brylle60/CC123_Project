@@ -9,7 +9,6 @@ import javax.swing.*;
 
 public class ContactUs extends homepage {
 
-
     public ContactUs(){
         super("ContactUs");
         addContactGUI();
