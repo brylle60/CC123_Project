@@ -20,9 +20,11 @@ import java.awt.event.MouseEvent;
 
 public class UserProfile extends homepage {
 
+    private String username;
     public UserProfile() {
         super("User Profile");
         addUserProfileGUI();
+        this.username = username;
     }
 
     private void addUserProfileGUI() {
@@ -81,14 +83,22 @@ public class UserProfile extends homepage {
 
         add(patientProfile);
 
+        //display user information:
+        JLabel nameLabel = new JLabel("Username: " + username);
+        nameLabel.setBounds(115, 165, 100, 150);
+        userProfilePanel.add(nameLabel);
+        add(userProfilePanel);
+
+
         //color
         JPanel BGlightblue = new JPanel(null);
         BGlightblue.setBounds(100,190,1000,550);
         BGlightblue.setBackground(commonconstant.HOME_BG1_GRAY);
 
+
+        add(patientProfile);
+        add(userProfilePanel);
         add(BGlightblue);
-
-
 
     }
 }
