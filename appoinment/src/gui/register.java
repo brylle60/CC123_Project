@@ -293,10 +293,8 @@ public class register extends form {
                 if(validateuserinput(LastName , FirstName , MiddleName , passsword, rePassword, email)){
                     if(MyJDBC.register(email , passsword, logg)){
                         register.this.dispose();
-
                         loginpage login = new loginpage();
                         login.setVisible(true);
-
                         JOptionPane.showMessageDialog(login, "Registered Account Successfully");
 
                     }else {  JOptionPane.showMessageDialog(register.this, "Error: Username is already taken");

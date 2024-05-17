@@ -14,6 +14,16 @@ public class typeAppointment extends homepage {
     }
 
     private void addGuiComponents() {
+
+        ImageIcon logoIcon6= new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
+
+        // Create a JLabel to display the logo image
+        JLabel logoLabel6 = new JLabel(logoIcon6);
+        logoLabel6.setBounds(10, -80, 150, 300); // Adjust the position and size as needed
+        add(logoLabel6);
+
+
+
         JLabel comment1 = new JLabel("OUR SERVICES");
         comment1.setBounds(220, -160, 800, 450);
         comment1.setForeground(commonconstant.TEXT_COLOR.brighter());
@@ -134,20 +144,9 @@ public class typeAppointment extends homepage {
         // Add the panel to the main container
         add(panel1);
 
-        JPanel panel2 = new JPanel();
 
-        panel2.setLayout(new BorderLayout());
 
-        JLabel panelLabel2 = new JLabel();
-        panel2.add(panelLabel1, BorderLayout.CENTER);
-        panel2.setBackground(new Color (1, 122, 194, 50));
-        // Set the size and location of the panel
-        panel2.setBounds( 0, 0, 1250, 800);
-
-        // Add the panel to the main container
-        add(panel2);
-
-        ImageIcon logoIcon5= new ImageIcon("appoinment/src/image/b2.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
+        ImageIcon logoIcon5= new ImageIcon("appoinment/src/image/medicalbg.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
 
         // Create a JLabel to display the logo image
         JLabel logoLabel5 = new JLabel(logoIcon5);

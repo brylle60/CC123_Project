@@ -161,6 +161,7 @@ public class ScheduleTable extends adminform{
 
 
 
+
         // Create the table
         BookedAppointment = new JTable(tableModel);
 

@@ -1,6 +1,7 @@
 
 package gui;
 
+import com.sun.tools.attach.AgentInitializationException;
 import constant.commonconstant;
 import db.userDb;
 
@@ -35,31 +36,13 @@ public class Appoinment extends homepage {
     private void addGuiComponents() {
       time = getCurrentTime();
 
-
-
-
-        JLabel id = new JLabel("ID");
-        id .setBounds(10, 100, 300, 25);
-        id .setForeground(commonconstant.TEXT_COLOR);
-        id .setFont(new Font("Dialog",Font.PLAIN, 18));
-
-        JTextField IdField = new JTextField();
-        IdField.setBounds(50, 100, 350, 25);
-        IdField.setBackground(commonconstant.SECONDARY_COLOR);
-        IdField.setForeground(commonconstant.TEXT_COLOR);
-        IdField.setFont(new Font("Dialog", Font.PLAIN, 24));
-
-        add(id);
-        add(IdField);
-
-
         JLabel lastName = new JLabel("Last Name");
-        lastName.setBounds(10, 1000, 300, 25);
+        lastName.setBounds(50, 100, 300, 25);
         lastName .setForeground(commonconstant.TEXT_COLOR);
         lastName .setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField lastNamefield = new JTextField();
-        lastNamefield.setBounds(10, 1000, 350, 25);
+        lastNamefield.setBounds(50, 130, 250, 25);
         lastNamefield.setBackground(commonconstant.SECONDARY_COLOR);
         lastNamefield.setForeground(commonconstant.TEXT_COLOR);
         lastNamefield.setFont(new Font("Dialog", Font.PLAIN, 24));
@@ -67,14 +50,13 @@ public class Appoinment extends homepage {
         add(lastName);
         add(lastNamefield);
 
-
         JLabel firstname = new JLabel("First Name");
-        firstname.setBounds(10, 1000, 300, 25);
+        firstname.setBounds(50, 160, 300, 25);
         firstname .setForeground(commonconstant.TEXT_COLOR);
         firstname .setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField firstnamefield = new JTextField();
-        firstnamefield.setBounds(10, 1000, 350, 25);
+        firstnamefield.setBounds(50, 190, 250, 25);
         firstnamefield.setBackground(commonconstant.SECONDARY_COLOR);
         firstnamefield.setForeground(commonconstant.TEXT_COLOR);
         firstnamefield.setFont(new Font("Dialog", Font.PLAIN, 24));
@@ -82,30 +64,54 @@ public class Appoinment extends homepage {
         add(firstname);
         add(firstnamefield);
 
-
-
-
         JLabel MI = new JLabel("Middle Name");
-        MI.setBounds(10, 1000, 300, 25);
+        MI.setBounds(50, 210, 300, 25);
         MI.setForeground(commonconstant.TEXT_COLOR);
         MI.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField Mifield = new JTextField();
-        Mifield.setBounds(10, 1000, 350, 25);
+        Mifield.setBounds(50, 240, 250, 25);
         Mifield.setBackground(commonconstant.SECONDARY_COLOR);
         Mifield.setForeground(commonconstant.TEXT_COLOR);
         Mifield.setFont(new Font("Dialog", Font.PLAIN, 24));
 
+        JLabel age = new JLabel("Age");
+        age.setBounds(50, 270, 300, 25);
+        age.setForeground(commonconstant.TEXT_COLOR);
+        age.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        JTextField agefield = new JTextField();
+        agefield.setBounds(50, 300, 150, 25);
+        agefield.setBackground(commonconstant.SECONDARY_COLOR);
+        agefield.setForeground(commonconstant.TEXT_COLOR);
+        agefield.setFont(new Font("Dialog", Font.PLAIN, 24));
+
         add(MI);
         add(Mifield);
+        add(age);
+        add(agefield);
+
+        JLabel id = new JLabel("ID");
+        id .setBounds(50, 330, 300, 25);
+        id .setForeground(commonconstant.TEXT_COLOR);
+        id .setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        JTextField IdField = new JTextField();
+        IdField.setBounds(50, 360, 150, 25);
+        IdField.setBackground(commonconstant.SECONDARY_COLOR);
+        IdField.setForeground(commonconstant.TEXT_COLOR);
+        IdField.setFont(new Font("Dialog", Font.PLAIN, 24));
+
+        add(id);
+        add(IdField);
 
         JLabel gender = new JLabel("Gender");
-        gender.setBounds(10, 1000, 200, 25);
+        gender.setBounds(50, 390, 200, 25);
         gender.setForeground(commonconstant.TEXT_COLOR);
         gender.setFont(new Font("Dialog",Font.PLAIN, 24));
 
         JTextField genderflield = new JTextField();
-        genderflield.setBounds(10, 1000, 200, 25);
+        genderflield.setBounds(50, 415, 150, 25);
         genderflield.setForeground(commonconstant.TEXT_COLOR);
         genderflield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
@@ -113,12 +119,12 @@ public class Appoinment extends homepage {
         add(genderflield);
 
         JLabel Address = new JLabel("Address");
-        Address.setBounds(10, 1000,300, 25);
+        Address.setBounds(50, 440,300, 25);
         Address.setForeground(commonconstant.TEXT_COLOR);
         Address.setFont(new Font("Dialog",Font.PLAIN, 24));
 
         JTextField Addressfield = new JTextField();
-        Addressfield.setBounds(10, 1000, 300, 25);
+        Addressfield.setBounds(50, 470, 350, 25);
         Addressfield.setForeground(commonconstant.TEXT_COLOR);
         Addressfield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
@@ -128,18 +134,32 @@ public class Appoinment extends homepage {
 
 
         JLabel number = new JLabel("Mobile Number");
-        number.setBounds(10, 1000,300, 25);
+        number.setBounds(50, 500,300, 25);
         number.setForeground(commonconstant.TEXT_COLOR);
         number.setFont(new Font("Dialog",Font.PLAIN, 24));
 
         JTextField numberfield = new JTextField();
-        numberfield.setBounds(10, 1000, 300, 25);
+        numberfield.setBounds(50, 530, 350, 25);
         numberfield.setForeground(commonconstant.TEXT_COLOR);
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
 
         add(number);
         add(numberfield);
+
+
+        JPanel panel = new JPanel();
+
+        panel.setLayout(new BorderLayout());
+
+        JLabel panelLabel = new JLabel();
+        panel.add(panelLabel, BorderLayout.CENTER);
+        panel.setBackground(new Color (255, 255, 255, 50));
+        // Set the size and location of the panel
+        panel.setBounds( 30, 85, 500, 600);
+
+        // Add the panel to the main container
+        add(panel);
 
 
 
@@ -183,14 +203,13 @@ public class Appoinment extends homepage {
         submitButton.addActionListener(e -> submitAppointment());// Add the button to the appointment type panel
 
         appointmentTypePanel.add(submitButton);
+
         JButton Booknow = new JButton("Register");
-        Booknow.setForeground(commonconstant.SECONDARY_COLOR);
-
+        Booknow.setForeground(commonconstant.TEXT_COLOR);
         Booknow.setFont(new Font("Dialog", Font.BOLD, 18));
-
         Booknow.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Booknow.setBackground(commonconstant.BUTTON_COLOR);
-        Booknow.setBounds(80, 600, 250,50);
+        Booknow.setBounds(200, 600, 250,50);
         Booknow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //database validation for users
@@ -255,8 +274,12 @@ public class Appoinment extends homepage {
         if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0 || appointment.length() == 0)
             return false;
 
-        if (id < 6) return false;
+        if (id < 6 || false) return false;
+        if(lastName.isBlank()) return false;
+        if(firstname.isBlank()) return false;
+        if (middle_name.isBlank()) return false;
         if(Gender.length() > 2) return false;
+        if(number == 12)  return false;
 
 
         return true;
