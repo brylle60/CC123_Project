@@ -15,8 +15,8 @@ public class launcher {
             public void run() {
 
 
-
-                new loginpage().setVisible(true);
+            new UserProfile().setVisible(true);
+               // new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
     //new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
