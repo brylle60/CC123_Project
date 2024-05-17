@@ -74,7 +74,14 @@ public class UserProfile extends homepage {
         });
         add(home);
 
+        JLabel patientProfile = new JLabel("Patient's Profile");
+        patientProfile.setBounds(125, 145, 550, 150);
+        patientProfile.setForeground(commonconstant.DARK_BLUE);
+        patientProfile.setFont(new Font("Serif", Font.BOLD,18));
 
+        add(patientProfile);
+
+        //color
         JPanel BGlightblue = new JPanel(null);
         BGlightblue.setBounds(100,190,1000,550);
         BGlightblue.setBackground(commonconstant.HOME_BG1_GRAY);
