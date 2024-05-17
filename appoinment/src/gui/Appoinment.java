@@ -3,6 +3,7 @@ package gui;
 
 import com.sun.tools.attach.AgentInitializationException;
 import constant.commonconstant;
+import constant.TimeSlotManager;
 import db.userDb;
 
 import javax.swing.*;
@@ -13,13 +14,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalTime;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import static com.mysql.cj.conf.PropertyKey.logger;
 import static db.userDb.book;
 import static db.userDb.validateuser;
 
 
 public class Appoinment extends homepage {
 
+    private static final Logger logger = Logger.getLogger(Appoinment.class.getName());
     private LocalTime time;
     private ButtonGroup appointmentTypeGroup;
     private JRadioButton selectedAppointmentType;
@@ -36,6 +41,24 @@ public class Appoinment extends homepage {
     private void addGuiComponents() {
       time = getCurrentTime();
 
+        JLabel timeLabel = new JLabel("Select Time Slot:");
+        timeLabel.setBounds(50, 560, 200, 25);
+        timeLabel.setForeground(commonconstant.TEXT_COLOR);
+        timeLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+        add(timeLabel);
+
+        JComboBox<LocalTime> timeComboBox = new JComboBox<>();
+        timeComboBox.setBounds(50, 590, 150, 25);
+        timeComboBox.setBackground(commonconstant.SECONDARY_COLOR);
+        timeComboBox.setForeground(commonconstant.TEXT_COLOR);
+        timeComboBox.setFont(new Font("Dialog", Font.PLAIN, 14));
+
+        // Add available time slots to the combo box
+        for (LocalTime time : TimeSlotManager.timeSlots.keySet()) {
+            timeComboBox.addItem(time);
+        }
+
+        add(timeComboBox);
         JLabel lastName = new JLabel("Last Name");
         lastName.setBounds(50, 100, 300, 25);
         lastName .setForeground(commonconstant.TEXT_COLOR);
@@ -190,15 +213,7 @@ public class Appoinment extends homepage {
         //reserved space for database
 
         JButton submitButton = new JButton("Book Appointment");
-        submitButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e) {
 
-
-                Appoinment.this.dispose();
-                new home().setVisible(true);
-            }
-
-        });
 //        submitButton.addActionListener(e -> submitAppointment());
         submitButton.addActionListener(e -> submitAppointment());// Add the button to the appointment type panel
 
@@ -209,97 +224,129 @@ public class Appoinment extends homepage {
         Booknow.setFont(new Font("Dialog", Font.BOLD, 18));
         Booknow.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Booknow.setBackground(commonconstant.BUTTON_COLOR);
-        Booknow.setBounds(200, 600, 250,50);
+        Booknow.setBounds(200, 600, 250, 50);
         Booknow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //database validation for users
-               int Id = Integer.parseInt(IdField.getText());
-                String LastName = lastNamefield.getText();
-                String firstname = firstnamefield.getText();
-                String MI = Mifield.getText();
-                String gender = genderflield.getText();
-                String Address = Addressfield.getText();
-                int number = Integer.parseInt(numberfield.getText());
-                appointmentTypePanel.setVisible(true);
+                // Database validation for users
+                int Id = 0;
+                String LastName = null;
+                String firstname = null;
+                String MI = null;
+                String gender = null;
+                String Address = null;
+                int number = 0;
                 String appointment = null;
 
-                if (selectedAppointmentType != null) {
+                try {
+                    Id = Integer.parseInt(IdField.getText());
+                    LastName = lastNamefield.getText();
+                    firstname = firstnamefield.getText();
+                    MI = Mifield.getText();
+                    gender = genderflield.getText();
+                    Address = Addressfield.getText();
+                    number = Integer.parseInt(numberfield.getText());
+                    appointmentTypePanel.setVisible(true);
 
-
-                    appointment = selectedAppointmentType.getText();
-                } else {
-                    JOptionPane.showMessageDialog(Appoinment.this, "Please select an appointment type");
-                    return; // Exit the method if no appointment type is selected
-                }
-
-
-
-
-                if(validateuserinput(Id, LastName, firstname, MI, gender, Address, number, appointment)){
-                    if(book(Id,LastName, firstname, MI, time,gender, Address, number, appointment)){
-
-
-                        home home = new home();
-                        Appoinment.this.dispose();
-                        new home().setVisible(true);
-
-
-                        JOptionPane.showMessageDialog(home, "Booked account successfully");
-
-
-                    }else {
-                        JOptionPane.showMessageDialog(Appoinment.this, "Error: Name already taken");
+                    if (selectedAppointmentType != null) {
+                        appointment = selectedAppointmentType.getText();
+                    } else {
+                        logger.warning("No appointment type selected");
+                        JOptionPane.showMessageDialog(Appoinment.this, "Please select an appointment type");
+                        return; // Exit the method if no appointment type is selected
                     }
-                }else{
-                    JOptionPane.showMessageDialog(Appoinment.this, "Error. Name and id must contain words and/or value\n");
+                } catch (NumberFormatException ex) {
+                    logger.severe("Invalid input: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(Appoinment.this, "Error: Invalid input. Please enter valid values.");
+                    return;
                 }
+                Boolean cancel = false;
+                LocalTime selectedTime = (LocalTime) timeComboBox.getSelectedItem();
+                if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
+                    // Book the appointment
+                    // ...
+                    JOptionPane.showMessageDialog(Appoinment.this,"This time is currently available.");
+                } else {
+                    JOptionPane.showMessageDialog(Appoinment.this, "Selected time slot is not available. Please choose another slot.");
+                }
+                if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
+                    if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, appointment)) {
+                        if (book(Id, LastName, firstname, MI, selectedTime, gender, Address, number, appointment, cancel)) {
+                            home home = new home();
+                            Appoinment.this.dispose();
+                            new AppointmentList().setVisible(true);
+
+                            JOptionPane.showMessageDialog(home, "Booked account successfully");
+                        } else {
+                            //logger.warning("Error: Name already taken");
+                            JOptionPane.showMessageDialog(Appoinment.this, "Error: Name already taken");
+                        }
+                    } else {
+                       // logger.warning("Error: Invalid user input");
+                        JOptionPane.showMessageDialog(Appoinment.this, "Error. Name and id must contain words and/or value\n");
+                    }
+                }else {
+                        JOptionPane.showMessageDialog(Appoinment.this, "Selected time slot is not available. Please choose another slot.");
+                    }
             }
         });
 
         add(Booknow);
 
-
-
-
-
-
-
-
-
-
-
+        // ... (existing code for adding GUI components)
     }
-    private boolean validateuserinput( int id, String lastName, String firstname, String middle_name, String Gender, String Address, int number, String appointment ) {
-        //database
-        if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0 || appointment.length() == 0)
+
+    private boolean validateuserinput(int id, String lastName, String firstname, String middle_name, String Gender, String Address, int number, String appointment) {
+        // Database
+        if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0 || appointment.length() == 0) {
+            logger.warning("Invalid user input: One or more fields are empty or zero");
             return false;
+        }
 
-        if (id < 6 || false) return false;
-        if(lastName.isBlank()) return false;
-        if(firstname.isBlank()) return false;
-        if (middle_name.isBlank()) return false;
-        if(Gender.length() > 2) return false;
-        if(number == 12)  return false;
-
+        if (id < 6 || false) {
+            logger.warning("Invalid user input: ID is less than 6");
+            return false;
+        }
+        if (lastName.isBlank()) {
+            logger.warning("Invalid user input: Last name is blank");
+            return false;
+        }
+        if (firstname.isBlank()) {
+            logger.warning("Invalid user input: First name is blank");
+            return false;
+        }
+        if (middle_name.isBlank()) {
+            logger.warning("Invalid user input: Middle name is blank");
+            return false;
+        }
+        if (Gender.length() > 2) {
+            logger.warning("Invalid user input: Gender should be a single character");
+            return false;
+        }
+        if (number == 12) {
+            logger.warning("Invalid user input: Number should not be 12");
+            return false;
+        }
 
         return true;
     }
+
     // Add this method
     private void submitAppointment() {
         ButtonModel selectedModel = appointmentTypeGroup.getSelection();
         if (selectedModel != null) {
-            for (Enumeration<AbstractButton> buttons = appointmentTypeGroup.getElements(); buttons.hasMoreElements();) {
+            for (Enumeration<AbstractButton> buttons = appointmentTypeGroup.getElements(); buttons.hasMoreElements(); ) {
                 AbstractButton button = buttons.nextElement();
                 if (button.getModel() == selectedModel) {
                     selectedAppointmentType = (JRadioButton) button;
                     String selectedAppointment = selectedAppointmentType.getText();
-                    JOptionPane.showMessageDialog(Appoinment.this,"Selected appointment type: " + selectedAppointment);
+                  //  logger.info("Selected appointment type: " + selectedAppointment);
                     // Do something with the selected appointment type
                     break;
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(Appoinment.this,"No appointment type selected.");
+          //  logger.warning("No appointment type selected");
+            JOptionPane.showMessageDialog(Appoinment.this, "No appointment type selected.");
         }
     }
-} 
+}
