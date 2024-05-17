@@ -57,20 +57,31 @@ public class home extends homepage {
         add(menulabel2);
 
 
-        //new time menu for the time selection mode
+        //new edit chelsie user profile 05-17-24
 
-        JLabel home = new JLabel("Home");
-        home.setFont(new Font("Dialog", Font.BOLD, 20));
+        JButton userProfile= new JButton("User Profile");
+        userProfile.setFont(new Font("Dialog", Font.BOLD, 18));
+
+        userProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        userProfile.setForeground(commonconstant.SECONDARY_COLOR);
+        userProfile.setBackground(commonconstant.HOME_BG1_BLUE);
+        userProfile.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                home.this.dispose();
+                new UserProfile().setVisible(true);
+            }
+        });
+//new edit change x loc
+        userProfile.setBounds(635, 90, 140,30);
 
 
-        home.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        home.setForeground(commonconstant.TEXT_COLOR);
-        home.setBounds(670, 91, 100,25);
 
+        //new edit change x loc
 
-        
         JLabel ContactUs= new JLabel("Contact Us");
-        ContactUs.setFont(new Font("Dialog", Font.BOLD, 20));
+        ContactUs.setFont(new Font("Dialog", Font.BOLD, 18));
 
         ContactUs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         ContactUs.setForeground(commonconstant.TEXT_COLOR);
@@ -80,21 +91,20 @@ public class home extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-
                 home.this.dispose();
                 new ContactUs().setVisible(true);
 
             }
         });
 
-        ContactUs.setBounds(860, 91, 200,25);
+        ContactUs.setBounds(885, 91, 130,25);
 
 
 
-
+//new edit change x loc
 
         JLabel about= new JLabel("About Us");
-        about.setFont(new Font("Dialog", Font.BOLD, 20));
+        about.setFont(new Font("Dialog", Font.BOLD, 18));
 
         about.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         about.setForeground(commonconstant.TEXT_COLOR);
@@ -109,7 +119,7 @@ public class home extends homepage {
 
         });
 
-        about.setBounds(755, 91, 160,25);
+        about.setBounds(790, 91, 100,25);
 
         // new edit nothing button
 
@@ -149,11 +159,11 @@ public class home extends homepage {
 
         signin.setBounds(1000, 81, 150,42);
 
+        add(userProfile);
         add(nothing); // new edit
         add(signin);
         add(about);
         add(ContactUs);
-        add(home);
 
 
         JLabel text = new JLabel("Consult your health");
@@ -363,7 +373,7 @@ public class home extends homepage {
         add(time);
         add(hoursPanel);
 
-//new edit chelsie txt spaces sa available services
+
         JPanel services = new JPanel(null);
         services.setBounds(670, 575, 520, 170);
         services.setBackground(new Color(1, 122, 194, 100));
@@ -414,7 +424,6 @@ public class home extends homepage {
         JLabel arrowImg4 = new JLabel(arrowServicesImg4);
         arrowImg4.setBounds(-85,45,200,200);
 
-//new edit arrow
         services.add(arrowImg1);
         services.add(arrowImg2);
         services.add(arrowImg3);

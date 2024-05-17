@@ -17,9 +17,11 @@ public class launcher {
 
 
 //new HowToAppointment().setVisible(true);
-new UserProfile().setVisible(true);
+//new UserProfile().setVisible(true);
 //                new ContactUs().setVisible(true);
-
+//new About().setVisible(true);
+//new loginpage().setVisible(true);
+                new home().setVisible(true);
 
               // System.out.println(MyJDBC.checkuser("username1234"));
                //System.out.println(MyJDBC.register("username1234", "password"));
