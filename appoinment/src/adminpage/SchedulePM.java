@@ -1,27 +1,31 @@
 package adminpage;
 
 import constant.commonconstant;
-import db.MyJDBC;
-import gui.form;
+import db.userDb;
+import gui.home;
 import gui.loginpage;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
-
-public class AdminPageController extends adminform {
-    private JTable loggedInUsersTable;
 
 
-    public AdminPageController() {
-        super("MedCare Appointment System (Account Table)");
+
+public class SchedulePM extends adminform{
+    private JTable SchedulePM1;
+    public SchedulePM() {
+        super("MedCare Appointment System (Schedule PM)");
+
 
         addGuiComponents();
     }
-
     private void addGuiComponents() {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -30,11 +34,8 @@ public class AdminPageController extends adminform {
 
         // Create a table model
         DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("Id Number");
-        tableModel.addColumn("Username");
-        tableModel.addColumn("Email");
-        tableModel.addColumn("Password");
-        tableModel.addColumn("Logged In");
+        tableModel.addColumn("Name of the Patient");
+        tableModel.addColumn("Time Schedule");
 
         //arrow
         ImageIcon imageA = new ImageIcon("appoinment/src/image/arrowtr.png");
@@ -44,7 +45,7 @@ public class AdminPageController extends adminform {
 
 
         //ACCOUNT TABLE LABEL
-        JLabel accountlabel = new JLabel("Account Table");
+        JLabel accountlabel = new JLabel("Time Schedule (PM)");
         accountlabel .setBounds(345, 0, 520, 100);
         accountlabel.setForeground(commonconstant.DARK_BLUE);
         accountlabel.setFont(new Font("Georgia", Font.BOLD, 30));
@@ -82,8 +83,7 @@ public class AdminPageController extends adminform {
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                AdminPageController.this.dispose();
-
+                SchedulePM.this.dispose();
                 new AdminHome().setVisible(true);
 
             }
@@ -94,7 +94,7 @@ public class AdminPageController extends adminform {
         //Schedule Table BUTTON
         JButton ScheduleTable = new JButton("Schedule Table");
         ScheduleTable.setFont(new Font("Dialog", Font.BOLD, 15));
-        ScheduleTable.setBounds(25, 245, 170, 40);
+        ScheduleTable.setBounds(25, 240, 170, 40);
         ScheduleTable.setBackground(commonconstant.HOME_BG1_BLUE);
         ScheduleTable.setForeground(commonconstant.SECONDARY_COLOR);
 
@@ -103,8 +103,8 @@ public class AdminPageController extends adminform {
         ScheduleTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                SchedulePM.this.dispose();
 
-                AdminPageController.this.dispose();
                 new ScheduleTable().setVisible(true);
 
             }
@@ -113,9 +113,28 @@ public class AdminPageController extends adminform {
         add(ScheduleTable);
 
 
+        //account table button
+        JButton accountButton= new JButton("Account Table");
+        accountButton.setBounds(25, 310, 170, 40);
+        accountButton.setForeground(commonconstant.SECONDARY_COLOR);
+        accountButton.setBackground(commonconstant.HOME_BG1_BLUE);;
+        accountButton.setFont(new Font("Dialog", Font.BOLD, 15));
+
+        accountButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        accountButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SchedulePM.this.dispose();
+                new AdminPageController().setVisible(true);
+            }
+        });
+        add(accountButton);
+
+
+
         //MORNING SCHEDULE table button
         JButton ScheduleAM= new JButton("Morning Schedule");
-        ScheduleAM.setBounds(25, 310, 170, 40);
+        ScheduleAM.setBounds(25, 380, 170, 40);
         ScheduleAM.setForeground(commonconstant.SECONDARY_COLOR);
         ScheduleAM.setBackground(commonconstant.HOME_BG1_BLUE);;
         ScheduleAM.setFont(new Font("Dialog", Font.BOLD, 15));
@@ -124,7 +143,7 @@ public class AdminPageController extends adminform {
         ScheduleAM.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                AdminPageController.this.dispose();
+                SchedulePM.this.dispose();
                 new ScheduleAM().setVisible(true);
             }
         });
@@ -132,30 +151,12 @@ public class AdminPageController extends adminform {
 
 
 
-        //AFTERNOON SCHEDULE table button
-        JButton SchedulePM= new JButton("Afternoon Schedule");
-        SchedulePM.setBounds(25, 380, 170, 40);
-        SchedulePM.setForeground(commonconstant.SECONDARY_COLOR);
-        SchedulePM.setBackground(commonconstant.HOME_BG1_BLUE);;
-        SchedulePM.setFont(new Font("Dialog", Font.BOLD, 13));
-
-        SchedulePM.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        SchedulePM.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                AdminPageController.this.dispose();
-                new SchedulePM().setVisible(true);
-            }
-        });
-        add(SchedulePM);
-
-
 
         // Create the table
-        loggedInUsersTable = new JTable(tableModel);
+        SchedulePM1 = new JTable(tableModel);
 
         // Add the table to a scroll pane
-        JScrollPane loggedInUsersScrollPane = new JScrollPane(loggedInUsersTable);
+        JScrollPane loggedInUsersScrollPane = new JScrollPane(SchedulePM1);
 
         // Add some spacing around the scroll pane
         loggedInUsersScrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -215,32 +216,35 @@ public class AdminPageController extends adminform {
         JLabel wave = new JLabel(image3);
         wave.setBounds ( 580, -20, 300, 702); // Adjust the position and size as needed
         add(wave);
-}
+    }
 
     private void populateLoggedInUsersTable() {
-        DefaultTableModel tableModel = (DefaultTableModel) loggedInUsersTable.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) SchedulePM1.getModel();
         tableModel.setRowCount(0); // Clear the existing data
 
-        List<User> loggedInUsers = MyJDBC.getLoggedInUsers();
-        for (User user : loggedInUsers) {
-            int id = user.getid();
-            String username = user.getUsername();
-            String email = user.getEmail();
-            // Consider removing password from the table for security reasons.
-            String password = user.getPassword();
-            boolean isLoggedIn = user.isLoggedIn();
-
+        List<schedules> Appointment = userDb.getAppointment();
+        for (schedules schedules : Appointment) {
+            int id = schedules.getid();
+            String last_name = schedules.getlast_name();
+            String first_name = schedules.getFirst_name();
+            String middle_name = schedules.getMidlle_name();
+            LocalTime time = schedules.getTime();
+            LocalDate date = schedules.getDate();
+            String gender = schedules.getGender();
+            String address = schedules.getAdress();
+            int number = schedules.getNumber();
+            String appointment = schedules.getAppointmet();
             //debugger
-          //  System.out.println("Logged-in Users:");
+            //  System.out.println("Logged-in Users:");
 
-           // System.out.println( " Username: " + user.getUsername() + ", Password: " + user.getPassword()+", logged in:"+user.isLoggedIn());
+            // System.out.println( " Username: " + user.getUsername() + ", Password: " + user.getPassword()+", logged in:"+user.isLoggedIn());
 
-            tableModel.addRow(new Object[]{id, username, email, password, isLoggedIn});
+            tableModel.addRow(new Object[]{id, last_name, first_name, middle_name, time, date, gender, address, number, appointment});
 
 
         }
 
-        loggedInUsersTable.revalidate();
+        SchedulePM1.revalidate();
     }
 
 }
