@@ -39,7 +39,7 @@ public class AppointmentList extends JFrame {
         add(cancelButton, BorderLayout.SOUTH);
 
         loadAppointments();
-        listModel.clear(); // Clear the existing list
+
        // Reload appointments from the database
 
     }

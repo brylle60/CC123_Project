@@ -13,45 +13,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class userDb {
-    public static boolean book(int id, String last_name, String first_name, String midlle_name, LocalTime time, String Gender, String Address, int number, String appointment, boolean cacel) {
-        try {
-            if (!checkuser(id)) {
-                Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-                connection.setAutoCommit(false);
+        public static boolean book(int id, String last_name, String first_name, String midlle_name, LocalTime time, String Gender, String Address, int number, String appointment, boolean cacel) {
+            try {
                 if (TimeSlotManager.isTimeSlotAvailable(time)) {
-                    PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, time, gender, adress, number, Appointment, canceled )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    insertUser.setInt(1, id);
-                    insertUser.setString(2, last_name);
-                    insertUser.setString(3, first_name);
-                    insertUser.setString(4, midlle_name);
-                    insertUser.setTime(5, Time.valueOf(time));
-                    insertUser.setString(6, Gender);
-                    insertUser.setString(7, Address);
-                    insertUser.setInt(8, number);
-                    insertUser.setString(9, appointment);
-                    insertUser.setBoolean(10, cacel);
+                    if (!checkuser(id)) {
+                        if (!isTimeSlotBooked(time)) {
 
+                            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+                            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, time, gender, adress, number, Appointment, canceled )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            insertUser.setInt(1, id);
+                            insertUser.setString(2, last_name);
+                            insertUser.setString(3, first_name);
+                            insertUser.setString(4, midlle_name);
+                            insertUser.setTime(5, Time.valueOf(time));
+                            insertUser.setString(6, Gender);
+                            insertUser.setString(7, Address);
+                            insertUser.setInt(8, number);
+                            insertUser.setString(9, appointment);
+                            insertUser.setBoolean(10, cacel);
 
-                    int rowsInserted = insertUser.executeUpdate();
-                    if (rowsInserted > 0) {
-                        // Book the time slot
-                        TimeSlotManager.bookTimeSlot(time);
-                        return true;
+                            int rowsInserted = insertUser.executeUpdate();
+                            if (rowsInserted > 0) {
+                                // Book the time slot
+                                TimeSlotManager.bookTimeSlot(time);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            // Time slot is not available
+                            return false;
+                        }
+
                     }
-                    connection.commit(); // Commit the transaction
-                    return true;
-                } else {
-                    connection.rollback();
-                    // Time slot is not available
-                    return false;
                 }
-
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
-        return false;
-    }
     //check existing user
     public static boolean checkuser(int id){
         try {
@@ -98,6 +98,20 @@ public class userDb {
         return true;
 
     }
+    public static boolean isTimeSlotBooked(LocalTime time) {
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement checkTimeSlot = connection.prepareStatement("SELECT COUNT(*) FROM " + commonconstant.DB_USER_INFO + " WHERE time = ? AND canceled = false");
+            checkTimeSlot.setTime(1, Time.valueOf(time));
+            ResultSet resultSet = checkTimeSlot.executeQuery();
+            resultSet.next();
+            int count = resultSet.getInt(1);
+            return count > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public static boolean cancelAppointment(int userId, LocalTime appointmentTime) {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
@@ -107,7 +121,7 @@ public class userDb {
             cancelStatement.setTime(3, Time.valueOf(appointmentTime));
             int rowsAffected = cancelStatement.executeUpdate();
             if (rowsAffected > 0) {
-                TimeSlotManager.cancelTimeSlot(appointmentTime); // Update the bookedTimeSlots map
+                TimeSlotManager.freeTimeSlot(appointmentTime); // Update the available time slots
                 return true;
             }
         } catch (SQLException e) {

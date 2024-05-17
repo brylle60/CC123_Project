@@ -19,14 +19,14 @@ public class TimeSlotManager {
         }
     }
 
-    public static boolean isTimeSlotAvailable(LocalTime time) {
-        if (!bookedTimeSlots.containsKey(time)) {
-            return true; // Time slot is available
-        }
-        int currentAppointments = bookedTimeSlots.get(time);
-        return currentAppointments < MAX_APPOINTMENTS_PER_SLOT;
-    }
 
+        public static boolean isTimeSlotAvailable(LocalTime time) {
+            if (!bookedTimeSlots.containsKey(time)) {
+                return true; // Time slot is available
+            }
+            int currentAppointments = bookedTimeSlots.get(time);
+            return currentAppointments < MAX_APPOINTMENTS_PER_SLOT;
+        }
     public static boolean bookTimeSlot(LocalTime time) {
         if (!bookedTimeSlots.containsKey(time)) {
             bookedTimeSlots.put(time, 1);
@@ -52,5 +52,11 @@ public class TimeSlotManager {
     }
     public static void resetBookedTimeSlots() {
         bookedTimeSlots.clear();
+    }
+
+
+
+    public static void freeTimeSlot(LocalTime time) {
+        TimeSlotManager.timeSlots.replace(time, bookedTimeSlots.get(time)); // Mark the time slot as available
     }
 }

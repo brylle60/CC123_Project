@@ -1,6 +1,7 @@
 
 package gui;
 
+import adminpage.schedules;
 import com.sun.tools.attach.AgentInitializationException;
 import constant.commonconstant;
 import constant.TimeSlotManager;
@@ -14,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalTime;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +28,8 @@ public class Appoinment extends homepage {
 
     private static final Logger logger = Logger.getLogger(Appoinment.class.getName());
     private LocalTime time;
+    private JList<String> appointmentList;
+    private DefaultListModel<String> listModel;
     private ButtonGroup appointmentTypeGroup;
     private JRadioButton selectedAppointmentType;
 
@@ -237,6 +241,7 @@ public class Appoinment extends homepage {
                 int number = 0;
                 String appointment = null;
 
+                LocalTime selectedTime;
                 try {
                     Id = Integer.parseInt(IdField.getText());
                     LastName = lastNamefield.getText();
@@ -246,6 +251,7 @@ public class Appoinment extends homepage {
                     Address = Addressfield.getText();
                     number = Integer.parseInt(numberfield.getText());
                     appointmentTypePanel.setVisible(true);
+
 
                     if (selectedAppointmentType != null) {
                         appointment = selectedAppointmentType.getText();
@@ -260,49 +266,69 @@ public class Appoinment extends homepage {
                     return;
                 }
                 Boolean cancel = false;
-                LocalTime selectedTime = (LocalTime) timeComboBox.getSelectedItem();
+                selectedTime = (LocalTime) timeComboBox.getSelectedItem();
                 if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
-                    // Book the appointment
-                    // ...
-                    JOptionPane.showMessageDialog(Appoinment.this,"This time is currently available.");
+                    if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, appointment)) {
+
+                        if (book(Id, LastName, firstname, MI, selectedTime, gender, Address, number, appointment, cancel)) {
+
+                                home home = new home();
+                                Appoinment.this.dispose();
+                                new AppointmentList().setVisible(true);
+
+                                JOptionPane.showMessageDialog(home, "Booked account successfully");
+                            }else {
+                                JOptionPane.showMessageDialog(Appoinment.this, "Un able to Booked time\n"+"because someone is already booked in that time");
+                            }
+                    } else {
+                         //logger.warning("Error: Invalid user input");
+                        JOptionPane.showMessageDialog(Appoinment.this, "Error. Name and id must contain words and/or value\n"+"And/or the id must be equal to 6"+" and/or the time is already taken\n"+"the phone number must be 9");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(Appoinment.this, "Selected time slot is not available. Please choose another slot.");
                 }
-                if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
-                    if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, appointment)) {
-                        if (book(Id, LastName, firstname, MI, selectedTime, gender, Address, number, appointment, cancel)) {
-                            home home = new home();
-                            Appoinment.this.dispose();
-                            new AppointmentList().setVisible(true);
 
-                            JOptionPane.showMessageDialog(home, "Booked account successfully");
-                        } else {
-                            //logger.warning("Error: Name already taken");
-                            JOptionPane.showMessageDialog(Appoinment.this, "Error: Name already taken");
-                        }
-                    } else {
-                       // logger.warning("Error: Invalid user input");
-                        JOptionPane.showMessageDialog(Appoinment.this, "Error. Name and id must contain words and/or value\n");
-                    }
-                }else {
-                        JOptionPane.showMessageDialog(Appoinment.this, "Selected time slot is not available. Please choose another slot.");
-                    }
             }
         });
 
         add(Booknow);
 
         // ... (existing code for adding GUI components)
+
+        JPanel schedules = new JPanel();
+        schedules.setBackground(new Color (120, 187, 217, 255));
+        schedules.setBounds(500, 115, 800, 500);
+
+
+        listModel = new DefaultListModel<>();
+        appointmentList = new JList<>(listModel);
+        appointmentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        JScrollPane scrollPane = new JScrollPane(appointmentList);
+        schedules.add(scrollPane, BorderLayout.CENTER);
+        add(schedules);
+
+        JButton cancelButton = new JButton("Cancel Appointment");
+        cancelButton.setBounds(120, 500, 50, 20);
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelAppointment();
+            }
+        });
+        schedules.add(cancelButton);
+
+        loadAppointments();
     }
 
     private boolean validateuserinput(int id, String lastName, String firstname, String middle_name, String Gender, String Address, int number, String appointment) {
         // Database
-        if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0 || appointment.length() == 0) {
-            logger.warning("Invalid user input: One or more fields are empty or zero");
+        if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0 || appointment.length() == 0 ) {
+            //logger.warning("Invalid user input: One or more fields are empty or zero");
             return false;
         }
 
-        if (id < 6 || false) {
+        if (id < 6) {
             logger.warning("Invalid user input: ID is less than 6");
             return false;
         }
@@ -326,8 +352,14 @@ public class Appoinment extends homepage {
             logger.warning("Invalid user input: Number should not be 12");
             return false;
         }
+//        if (TimeSlotManager.isTimeSlotAvailable(time)){
+//            logger.warning("Invalid user input: Time is already taken");
+//
+//            return false;
+//        }
 
         return true;
+
     }
 
     // Add this method
@@ -347,6 +379,50 @@ public class Appoinment extends homepage {
         } else {
           //  logger.warning("No appointment type selected");
             JOptionPane.showMessageDialog(Appoinment.this, "No appointment type selected.");
+        }
+    }
+    private void loadAppointments() {
+        List<schedules> appointments = userDb.getAppointment();
+        for (schedules appointment : appointments) {
+            String appointmentString = String.format("%s %s (%s) - %s at %s", appointment.getFirst_name(), appointment.getlast_name(), appointment.getid(), appointment.getAppointmet(), appointment.getTime());
+            listModel.addElement(appointmentString);
+        }
+    }
+
+    private void cancelAppointment() {
+        int selectedIndex = appointmentList.getSelectedIndex();
+        if (selectedIndex != -1) {
+            String selectedAppointment = appointmentList.getSelectedValue();
+
+            if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
+                String[] parts = selectedAppointment.split(" ");
+                if (parts.length >= 4) {
+                    try {
+                        int userId = Integer.parseInt(parts[2].replace("(", "").replace(")", ""));
+                        String[] timeParts = parts[parts.length - 1].split(":");
+                        if (timeParts.length == 2) {
+                            LocalTime appointmentTime = LocalTime.of(Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
+
+                            boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
+                            if (cancelled) {
+                                listModel.removeElementAt(selectedIndex);
+                                TimeSlotManager.cancelTimeSlot(appointmentTime);
+                                JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Invalid time format in the selected appointment.");
+                        }
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(this, "Invalid user ID or time format in the selected appointment.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No appointment selected.");
+            }
         }
     }
 }
