@@ -161,22 +161,22 @@ public class ScheduleTable extends adminform{
 
 
         //Log out BUTTON
-        JButton Logout= new JButton("Log out");
-        Logout.setBounds(720, 10, 100, 30);
-        Logout.setForeground(commonconstant.SECONDARY_COLOR);
-        Logout.setBackground(commonconstant.TEAL_REGISTER);;
-        Logout.setFont(new Font("Dialog", Font.BOLD, 10));
-
-        Logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Logout.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                ScheduleTable.this.dispose();
-                new loginpage().setVisible(true);
-            }
-        });
-        add(Logout);
+//        JButton Logout= new JButton("Log out");
+//        Logout.setBounds(720, 10, 100, 30);
+//        Logout.setForeground(commonconstant.SECONDARY_COLOR);
+//        Logout.setBackground(commonconstant.TEAL_REGISTER);;
+//        Logout.setFont(new Font("Dialog", Font.BOLD, 10));
+//
+//        Logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//        Logout.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+//                ScheduleTable.this.dispose();
+//                new loginpage().setVisible(true);
+//            }
+//        });
+//        add(Logout);
 
 
         // Create the table

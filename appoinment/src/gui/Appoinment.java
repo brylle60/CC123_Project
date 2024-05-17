@@ -274,8 +274,12 @@ public class Appoinment extends homepage {
         if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0 || appointment.length() == 0)
             return false;
 
-        if (id < 6) return false;
+        if (id < 6 || false) return false;
+        if(lastName.isBlank()) return false;
+        if(firstname.isBlank()) return false;
+        if (middle_name.isBlank()) return false;
         if(Gender.length() > 2) return false;
+        if(number == 12)  return false;
 
 
         return true;
