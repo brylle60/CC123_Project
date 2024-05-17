@@ -4,6 +4,7 @@ import constant.commonconstant;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+<
 import javax.swing.*;
 
 public class ContactUs extends homepage {
@@ -22,6 +23,7 @@ private void addContactGUI(){
     contactPanel.setBounds(0,0, 1300, 900);
 
     ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
+
 
     // Create a JLabel to display the logo image
     JLabel logoLabel = new JLabel(logoIcon);
@@ -184,7 +186,6 @@ private void addContactGUI(){
 
     add(BGlightblue);
     add(bgBluePic);
-
 
 }
 }
