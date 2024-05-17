@@ -13,16 +13,16 @@ import java.awt.event.MouseEvent;
 public class AdminHome extends adminform {
     public AdminHome() {
         super("Admin Homepage");
-        addGuiComponenets();
+        addGuiComponents();
     }
 
 
-    private void addGuiComponenets() {
+    private void addGuiComponents() {
 
 
         //arrow
-        ImageIcon imageA = new ImageIcon("appoinment/src/image/arrowtr.png");
-        JLabel arrow = new JLabel(imageA);
+        ImageIcon image1 = new ImageIcon("appoinment/src/image/arrowtr.png");
+        JLabel arrow = new JLabel(image1);
         arrow.setBounds ( 250, 25, 90, 50); // Adjust the position and size as needed
         add(arrow);
 
@@ -55,14 +55,33 @@ public class AdminHome extends adminform {
         add(tag);
 
         //3d
-        ImageIcon image3d = new ImageIcon("appoinment/src/image/3d500.png");
-        JLabel imaged3 = new JLabel(image3d);
-        imaged3.setBounds(290, 150, 450, 450); // Adjust the position and size as needed
-        add(imaged3);
+        ImageIcon image2 = new ImageIcon("appoinment/src/image/3d500.png");
+        JLabel image3d = new JLabel(image2);
+        image3d.setBounds(290, 150, 450, 450); // Adjust the position and size as needed
+        add(image3d);
+
+        //nothing button
+        JButton nothing= new JButton("");
+        nothing.setBounds(0, 0, 0, 0);
+        nothing.setForeground(new Color(0,0,0,0));
+        nothing.setBackground(new Color(0,0,0,0));
+        nothing.setFont(new Font("Dialog", Font.BOLD, 0));
+
+        nothing.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //set mouse listener
+        nothing.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                new AdminHome().setVisible(true);
+
+            }
+        });
+        add(nothing);
 
 
 
-        //pannel for  backg picture
+        //pannel for  background picture
         JPanel panel2 = new JPanel();
 
         panel2.setLayout(new BorderLayout());
@@ -76,16 +95,34 @@ public class AdminHome extends adminform {
 
 
         //right image
-        ImageIcon imageR = new ImageIcon("appoinment/src/image/hexag.png");
-        JLabel imagehex = new JLabel(imageR);
+        ImageIcon image3 = new ImageIcon("appoinment/src/image/hexag.png");
+        JLabel imagehex = new JLabel(image3);
         imagehex.setBounds(220, 0, 640, 700); // Adjust the position and size as needed
         add(imagehex);
+
+
+        //account table button
+        JButton accountButton= new JButton("Account Table");
+        accountButton.setBounds(25, 170, 170, 40);
+        accountButton.setForeground(commonconstant.SECONDARY_COLOR);
+        accountButton.setBackground(commonconstant.HOME_BG1_BLUE);;
+        accountButton.setFont(new Font("Dialog", Font.BOLD, 15));
+
+        accountButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        accountButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                AdminHome.this.dispose();
+                new AdminPageController().setVisible(true);
+            }
+        });
+        add(accountButton);
 
 
         //Schedule Table BUTTON
         JButton ScheduleTable = new JButton("Schedule Table");
         ScheduleTable.setFont(new Font("Dialog", Font.BOLD, 15));
-        ScheduleTable.setBounds(25, 180, 170, 40);
+        ScheduleTable.setBounds(25, 240, 170, 40);
         ScheduleTable.setBackground(commonconstant.HOME_BG1_BLUE);
         ScheduleTable.setForeground(commonconstant.SECONDARY_COLOR);
 
@@ -94,38 +131,55 @@ public class AdminHome extends adminform {
         ScheduleTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                AdminHome.this.dispose();
 
                 new ScheduleTable().setVisible(true);
 
             }
         });
-
         add(ScheduleTable);
 
 
-        //appointment table button
-        JButton Appointment= new JButton("Account Table");
-        Appointment.setBounds(25, 250, 170, 40);
-        Appointment.setForeground(commonconstant.SECONDARY_COLOR);
-        Appointment.setBackground(commonconstant.HOME_BG1_BLUE);;
-        Appointment.setFont(new Font("Dialog", Font.BOLD, 15));
+        //appointment schedule (day) table button
+        JButton appointmentSchedule= new JButton("Appointment Schedule (day)");
+        appointmentSchedule.setBounds(25, 310, 170, 40);
+        appointmentSchedule.setForeground(commonconstant.SECONDARY_COLOR);
+        appointmentSchedule.setBackground(commonconstant.HOME_BG1_BLUE);;
+        appointmentSchedule.setFont(new Font("Dialog", Font.BOLD, 10));
 
-        Appointment.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Appointment.addMouseListener(new MouseAdapter() {
+        appointmentSchedule.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        appointmentSchedule.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 AdminHome.this.dispose();
-                new AdminPageController().setVisible(true);
+                new appointmentSchedule().setVisible(true);
             }
         });
-        add(Appointment);
+        add(appointmentSchedule);
+
+
+        //appointment schedule (time) table button
+        JButton appointmentTime= new JButton("Appointment Schedule (time)");
+        appointmentTime.setBounds(25, 380, 170, 40);
+        appointmentTime.setForeground(commonconstant.SECONDARY_COLOR);
+        appointmentTime.setBackground(commonconstant.HOME_BG1_BLUE);;
+        appointmentTime.setFont(new Font("Dialog", Font.BOLD, 9));
+
+        appointmentTime.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        appointmentTime.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                AdminHome.this.dispose();
+                new appointmentTime().setVisible(true);
+            }
+        });
+        add(appointmentTime);
 
 
 
         //Log out BUTTON
-
         JButton Logout= new JButton("Log out");
-        Logout.setBounds(25, 380, 170, 40);
+        Logout.setBounds(25, 560, 170, 40);
         Logout.setForeground(commonconstant.SECONDARY_COLOR);
         Logout.setBackground(commonconstant.TEAL_REGISTER);;
         Logout.setFont(new Font("Dialog", Font.BOLD, 15));
@@ -144,15 +198,14 @@ public class AdminHome extends adminform {
 
 
         //logo
-        ImageIcon image = new ImageIcon("appoinment/src/image/logotransparent.png");
-        JLabel image6 = new JLabel(image);
-        image6.setBounds(-25, -70, 250, 250); // Adjust the position and size as needed
-        add(image6);
+        ImageIcon image4 = new ImageIcon("appoinment/src/image/logotransparent.png");
+        JLabel Logo = new JLabel(image4);
+        Logo.setBounds(-25, -70, 250, 250); // Adjust the position and size as needed
+        add(Logo);
 
 
         //Panel Transparent upper
         JPanel panel3 = new JPanel();
-
         panel3.setLayout(new BorderLayout());
 
         JLabel panelLabel3 = new JLabel();
@@ -161,6 +214,7 @@ public class AdminHome extends adminform {
         // Set the size and location of the panel
         panel3.setBounds(0, 0, 220, 120);
         add(panel3);
+
 
         //Panel Transparent
         JPanel panel1 = new JPanel();
@@ -176,10 +230,10 @@ public class AdminHome extends adminform {
 
 
         //left image
-        ImageIcon imageL = new ImageIcon("appoinment/src/image/AdminBack.png");
-        JLabel image5 = new JLabel(imageL);
-        image5.setBounds(0, 0, 220, 660); // Adjust the position and size as needed
-        add(image5);
+        ImageIcon image5 = new ImageIcon("appoinment/src/image/AdminBack.png");
+        JLabel imageL = new JLabel(image5);
+        imageL.setBounds(0, 0, 220, 660); // Adjust the position and size as needed
+        add(imageL);
 
 
 

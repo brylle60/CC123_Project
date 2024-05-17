@@ -10,10 +10,11 @@ public class schedules {
     private String midlle_name;
     LocalTime time;
     LocalDate date;
-    private  String gender;
-    private  String address;
+    private String gender;
+    private String adress;
     private int number;
-    private  String Appointment;
+    private String Appointmet;
+
 
     public schedules() {
         // Default constructor
@@ -24,17 +25,17 @@ public class schedules {
 
     }
 
-    public schedules(int id, String last_name, String first_name, String midlle_name, LocalTime time, LocalDate date, String gender, String address, int number, String Appointment) {
-     this.id = id;
-     this.last_name = last_name;
-     this.first_name = first_name;
-     this.midlle_name = midlle_name;
-     this.time = time;
-     this.date = date;
-     this.gender = gender;
-     this.address = address;
-     this.number = number;
-     this.Appointment = Appointment;
+    public schedules(int id, String last_name, String first_name, String midlle_name, LocalTime time, LocalDate date, String gender, String adress, int number, String appointment) {
+        this.id = id;
+        this.last_name = last_name;
+        this.first_name = first_name;
+        this.midlle_name = midlle_name;
+        this.time = time;
+        this.date = date;
+        this.gender = gender;
+        this.adress = adress;
+        this.number = number;
+        this.Appointmet = appointment;
 
     }
 
@@ -53,6 +54,7 @@ public class schedules {
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
+
     public String getFirst_name() {
         return first_name;
     }
@@ -60,6 +62,7 @@ public class schedules {
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }
+
     public String getMidlle_name() {
         return midlle_name;
     }
@@ -75,11 +78,13 @@ public class schedules {
     public void setTime(LocalTime time) {
         this.time = time;
     }
-    public LocalDate getDate(){
+
+    public LocalDate getDate() {
         return date;
 
     }
-    public void setDate(LocalDate date){
+
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -91,12 +96,12 @@ public class schedules {
         this.gender = gender;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAdress() {
+        return adress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 
     public int getNumber() {
@@ -107,11 +112,14 @@ public class schedules {
         this.number = number;
     }
 
-    public String getAppointment() {
-        return Appointment;
+    public String getAppointmet() {
+        return Appointmet;
     }
 
-    public void setAppointment(String appointment) {
-        Appointment = appointment;
+    public void setAppointmet(String appointmet) {
+        Appointmet = appointmet;
     }
 }
+
+
+

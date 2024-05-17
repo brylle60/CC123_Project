@@ -16,7 +16,7 @@ public class adminform extends JFrame {
 
         setResizable(false);
 
-        getContentPane().setBackground(commonconstant.BUTTON_COLOR);
+        getContentPane().setBackground(commonconstant.SECONDARY_COLOR);
 
     }
 }

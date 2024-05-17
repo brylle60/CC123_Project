@@ -41,21 +41,6 @@ public class About extends homepage{
         add(logoLabel3);
 
 
-
-
-
-
-/*JLabel menulabel = new JLabel("Medical Appointment");
-
-        menulabel.setBounds(90, 37, 400, 100);
-        menulabel.setForeground(commonconstant.DARK_BLUE.brighter());
-        menulabel.setFont(new Font("Dialog", Font.BOLD, 23));
-
-        menulabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-        add(menulabel);*/
-
-
         //new time menu for the time selection mode
 
         JButton home = new JButton("Home");

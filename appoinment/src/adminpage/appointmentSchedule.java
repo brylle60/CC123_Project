@@ -17,58 +17,53 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
+public class appointmentSchedule extends adminform{
 
-public class ScheduleTable extends adminform{
     private JTable BookedAppointment;
-    public ScheduleTable() {
+    public appointmentSchedule() {
         super("MedCare Appointment System");
 
+        addGuiComponents();
 
-       addGuiComponents();
-    }
+}
+
 
     private void addGuiComponents() {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color (120, 187, 217, 255));
-        mainPanel.setBounds(19, 115, 800, 500);
+        mainPanel.setBounds(250, 90, 550, 500);
 
         // Create a table model
         DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("Id Number");
-        tableModel.addColumn("Last Name");
-        tableModel.addColumn("First Name");
-        tableModel.addColumn("M.I");
-        tableModel.addColumn("Time");
-        tableModel.addColumn("Date");
-        tableModel.addColumn("Gender");
-        tableModel.addColumn("Address");
-        tableModel.addColumn("Number");
-        tableModel.addColumn("Appointment");
+        tableModel.addColumn("Monday");
+        tableModel.addColumn("Tuesday");
+        tableModel.addColumn("Wednesday");
+        tableModel.addColumn("Thursday");
+        tableModel.addColumn("Friday");
+        tableModel.addColumn("Saturday");
+
+        //arrow
+        ImageIcon image1 = new ImageIcon("appoinment/src/image/arrowtr.png");
+        JLabel arrow = new JLabel(image1);
+        arrow.setBounds ( 250, 25, 90, 50); // Adjust the position and size as needed
+        add(arrow);
 
 
-        //SCHEDULE TABLE LABEL
-        JLabel scheduleTablelabel = new JLabel("Schedule");
-        scheduleTablelabel .setBounds(170, -30, 520, 100);
-        scheduleTablelabel.setForeground(commonconstant.DARK_BLUE);
-        scheduleTablelabel.setFont(new Font("Georgia", Font.BOLD, 25));
-        add(scheduleTablelabel);
-
-
-        //SCHEDULE TABLE LABEL
-        JLabel scheduleTablelabel1 = new JLabel("Table");
-        scheduleTablelabel1 .setBounds(290, -30, 520, 100);
-        scheduleTablelabel1.setForeground(commonconstant.DARKERBLUE_REG);
-        scheduleTablelabel1.setFont(new Font("Georgia", Font.BOLD, 25));
-        add(scheduleTablelabel1);
-
+        //APPOINTMENT SCHEDULE TABLE LABEL
+        JLabel AppointmentSchedule = new JLabel("Appointment Schedule Table (day)");
+        AppointmentSchedule .setBounds(270, 0, 520, 100);
+        AppointmentSchedule.setForeground(commonconstant.DARK_BLUE);
+        AppointmentSchedule.setFont(new Font("Georgia", Font.BOLD, 20));
+        AppointmentSchedule.setHorizontalAlignment(SwingConstants.CENTER);
+        add(AppointmentSchedule);
 
 
         //nothing button
-        JButton nothing= new JButton("");
+        JButton nothing = new JButton("");
         nothing.setBounds(0, 0, 0, 0);
-        nothing.setForeground(new Color(0,0,0,0));
-        nothing.setBackground(new Color(0,0,0,0));
+        nothing.setForeground(new Color(0, 0, 0, 0));
+        nothing.setBackground(new Color(0, 0, 0, 0));
         nothing.setFont(new Font("Dialog", Font.BOLD, 0));
 
         nothing.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -76,7 +71,7 @@ public class ScheduleTable extends adminform{
         nothing.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ScheduleTable.this.dispose();
+                appointmentSchedule.this.dispose();
 
                 new AdminHome().setVisible(true);
 
@@ -85,19 +80,20 @@ public class ScheduleTable extends adminform{
         add(nothing);
 
 
+
         //HOME BUTTON
-        JButton home= new JButton("H O M E");
-        home.setBounds(180, 50, 100, 30);
+        JButton home= new JButton("H o m e");
+        home.setBounds(25, 170, 170, 40);
         home.setForeground(commonconstant.SECONDARY_COLOR);
-        home.setBackground(commonconstant.HOME_BG1_BLUE);
-        home.setFont(new Font("Dialog", Font.BOLD, 10));
+        home.setBackground(commonconstant.HOME_BG1_BLUE);;
+        home.setFont(new Font("Dialog", Font.BOLD, 15));
 
         home.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         //set mouse listener
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ScheduleTable.this.dispose();
+                appointmentSchedule.this.dispose();
 
                 new AdminHome().setVisible(true);
 
@@ -107,44 +103,47 @@ public class ScheduleTable extends adminform{
 
 
         //account table button
-        JButton account= new JButton("Account Table");
-        account.setBounds(300, 50, 110, 30);
-        account.setForeground(commonconstant.SECONDARY_COLOR);
-        account.setBackground(commonconstant.HOME_BG1_BLUE);
-        account.setFont(new Font("Dialog", Font.BOLD, 10));
+        JButton accountButton= new JButton("Account Table");
+        accountButton.setBounds(25, 240, 170, 40);
+        accountButton.setForeground(commonconstant.SECONDARY_COLOR);
+        accountButton.setBackground(commonconstant.HOME_BG1_BLUE);;
+        accountButton.setFont(new Font("Dialog", Font.BOLD, 15));
 
-        account.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        account.addMouseListener(new MouseAdapter() {
+        accountButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        accountButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ScheduleTable.this.dispose();
+                appointmentSchedule.this.dispose();
                 new AdminPageController().setVisible(true);
             }
         });
-        add(account);
+        add(accountButton);
 
 
-        //appointment schedule (day) table button
-        JButton appointmentSchedule= new JButton("Appointment Schedule (day)");
-        appointmentSchedule.setBounds(430, 50, 170, 30);
-        appointmentSchedule.setForeground(commonconstant.SECONDARY_COLOR);
-        appointmentSchedule.setBackground(commonconstant.HOME_BG1_BLUE);;
-        appointmentSchedule.setFont(new Font("Dialog", Font.BOLD, 10));
+        //Schedule Table BUTTON
+        JButton ScheduleTable = new JButton("Schedule Table");
+        ScheduleTable.setFont(new Font("Dialog", Font.BOLD, 15));
+        ScheduleTable.setBounds(25, 310, 170, 40);
+        ScheduleTable.setBackground(commonconstant.HOME_BG1_BLUE);
+        ScheduleTable.setForeground(commonconstant.SECONDARY_COLOR);
 
-        appointmentSchedule.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        appointmentSchedule.addMouseListener(new MouseAdapter() {
+        ScheduleTable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //set mouse listener
+        ScheduleTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ScheduleTable.this.dispose();
-                new appointmentSchedule().setVisible(true);
+                appointmentSchedule.this.dispose();
+
+                new ScheduleTable().setVisible(true);
+
             }
         });
-        add(appointmentSchedule);
+        add(ScheduleTable);
 
 
         //appointment schedule (time) table button
         JButton appointmentTime= new JButton("Appointment Schedule (time)");
-        appointmentTime.setBounds(620, 50, 170, 30);
+        appointmentTime.setBounds(25, 380, 170, 40);
         appointmentTime.setForeground(commonconstant.SECONDARY_COLOR);
         appointmentTime.setBackground(commonconstant.HOME_BG1_BLUE);;
         appointmentTime.setFont(new Font("Dialog", Font.BOLD, 9));
@@ -153,7 +152,7 @@ public class ScheduleTable extends adminform{
         appointmentTime.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ScheduleTable.this.dispose();
+                appointmentSchedule.this.dispose();
                 new appointmentTime().setVisible(true);
             }
         });
@@ -162,17 +161,17 @@ public class ScheduleTable extends adminform{
 
         //Log out BUTTON
         JButton Logout= new JButton("Log out");
-        Logout.setBounds(720, 10, 100, 30);
+        Logout.setBounds(25, 560, 170, 40);
         Logout.setForeground(commonconstant.SECONDARY_COLOR);
         Logout.setBackground(commonconstant.TEAL_REGISTER);;
-        Logout.setFont(new Font("Dialog", Font.BOLD, 10));
+        Logout.setFont(new Font("Dialog", Font.BOLD, 15));
 
         Logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                ScheduleTable.this.dispose();
+                appointmentSchedule.this.dispose();
                 new loginpage().setVisible(true);
             }
         });
@@ -197,56 +196,51 @@ public class ScheduleTable extends adminform{
         populateLoggedInUsersTable();
 
 
-
         //logo
-        ImageIcon image1 = new ImageIcon("appoinment/src/image/logotransparent.png");
-        JLabel Logo = new JLabel(image1);
-        Logo.setBounds ( -50, -80, 250, 250); // Adjust the position and size as needed
+        ImageIcon image2 = new ImageIcon("appoinment/src/image/logotransparent.png");
+        JLabel Logo = new JLabel(image2);
+        Logo.setBounds(-25, -70, 250, 250); // Adjust the position and size as needed
         add(Logo);
 
 
         //Panel Transparent upper
         JPanel panel1 = new JPanel();
-
         panel1.setLayout(new BorderLayout());
 
         JLabel panelLabel1 = new JLabel();
         panel1.add(panelLabel1, BorderLayout.CENTER);
-        panel1.setBackground(new Color (255, 255, 255, 100));
+        panel1.setBackground(new Color(255, 255, 255, 110));
         // Set the size and location of the panel
-        panel1.setBounds( 0, 0, 900, 95);
-        // Add the panel to the main container
+        panel1.setBounds(0, 0, 220, 120);
         add(panel1);
 
 
-        //Upper image
-        ImageIcon image2 = new ImageIcon("appoinment/src/image/upperImage (2).png");
-        JLabel upperImage = new JLabel(image2);
-        upperImage.setBounds ( 0, 0, 900, 95); // Adjust the position and size as needed
-        add(upperImage);
-
-
-        //Panel Transparent lower
+        //Panel Transparent
         JPanel panel2 = new JPanel();
-        panel2.setLayout(new BorderLayout());
+        panel1.setLayout(new BorderLayout());
 
         JLabel panelLabel2 = new JLabel();
-        panel2.add(panelLabel1, BorderLayout.CENTER);
-        panel2.setBackground(new Color (255, 255, 255, 180));
+        panel2.add(panelLabel2, BorderLayout.CENTER);
+        panel2.setBackground(new Color(130, 130, 130, 110));
         // Set the size and location of the panel
-        panel2.setBounds( 0, 95, 900, 605);
+        panel2.setBounds(0, 0, 220, 700);
         // Add the panel to the main container
         add(panel2);
 
 
-        //lower image
-        ImageIcon image3 = new ImageIcon("appoinment/src/image/skedyul.png");
-        JLabel imagedarkblue = new JLabel(image3);
-        imagedarkblue.setBounds ( 0, 95, 900, 605); // Adjust the position and size as needed
-        add(imagedarkblue);
+        //left image for options
+        ImageIcon image3 = new ImageIcon("appoinment/src/image/AdminBack.png");
+        JLabel imageL = new JLabel(image3);
+        imageL.setBounds(0, 0, 220, 660); // Adjust the position and size as needed
+        add(imageL);
+
+        //abstract wave image right
+        ImageIcon image4 = new ImageIcon("appoinment/src/image/side.png");
+        JLabel wave = new JLabel(image4);
+        wave.setBounds ( 580, -20, 300, 702); // Adjust the position and size as needed
+        add(wave);
 
     }
-
 
     private void populateLoggedInUsersTable() {
         DefaultTableModel tableModel = (DefaultTableModel) BookedAppointment.getModel();
