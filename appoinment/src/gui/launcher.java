@@ -3,6 +3,7 @@ package gui;
 
 import adminpage.AdminHome;
 import adminpage.ScheduleTable;
+import adminpage.User;
 import db.userDb;
 
 
@@ -16,10 +17,10 @@ public class launcher {
 
 
 
-    new home().setVisible(true);
+//    new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
-
-              //  new ContactUs().setVisible(true);
+new UserProfile().setVisible(true);
+//                new ContactUs().setVisible(true);
 
 
               // System.out.println(MyJDBC.checkuser("username1234"));
