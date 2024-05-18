@@ -4,8 +4,13 @@ import constant.commonconstant;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalTime;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 
 public class typeAppointment extends homepage {
     public typeAppointment (){
@@ -50,86 +55,99 @@ public class typeAppointment extends homepage {
 
         // Create a JLabel to display the logo image
         JLabel logoLabel = new JLabel(logoIcon);
-        logoLabel.setBounds(-320, -160, 1000, 1000); // Adjust the position and size as needed
+        logoLabel.setBounds(-320, -240, 1000, 1000); // Adjust the position and size as needed
         add(logoLabel);
 
         ImageIcon logoIcon1 = new ImageIcon("appoinment/src/image/Logo 2.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
         // Create a JLabel to display the logo image
         JLabel logoLabel1 = new JLabel(logoIcon1);
-        logoLabel1.setBounds(-70, -160, 1000, 1000); // Adjust the position and size as needed
+        logoLabel1.setBounds(-70, -240, 1000, 1000); // Adjust the position and size as needed
         add(logoLabel1);
 
         ImageIcon logoIcon2 = new ImageIcon("appoinment/src/image/Logo 1.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
         // Create a JLabel to display the logo image
         JLabel logoLabel2 = new JLabel(logoIcon2);
-        logoLabel2.setBounds(230, -160, 1000, 1000); // Adjust the position and size as needed
+        logoLabel2.setBounds(230, -240, 1000, 1000); // Adjust the position and size as needed
         add(logoLabel2);
 
         ImageIcon logoIcon3 = new ImageIcon("appoinment/src/image/logo4.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
         // Create a JLabel to display the logo image
         JLabel logoLabel3 = new JLabel(logoIcon3);
-        logoLabel3.setBounds(550, -160, 1000, 1000); // Adjust the position and size as needed
+        logoLabel3.setBounds(550, -240, 1000, 1000); // Adjust the position and size as needed
         add(logoLabel3);
 
-        JLabel label1= new JLabel("General Consultation");
-        label1.setFont(new Font("Dialog", Font.BOLD, 18));
-        label1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label1.setForeground(commonconstant.TEXT_COLOR);
-        //set mouse listener
-        label1.addMouseListener(new MouseAdapter() {
+        JCheckBox checkBox = new JCheckBox("General Consultation");
+        checkBox.setFont(new Font("Dialog", Font.PLAIN, 18));
+        checkBox.setForeground(commonconstant.TEXT_COLOR);
+        checkBox.setBounds(70, 340, 220, 25);
+        checkBox.setOpaque(false);
+        add(checkBox);
+
+        JCheckBox checkBox1 = new JCheckBox("Laboratory and Diagnostics");
+        checkBox1.setFont(new Font("Dialog", Font.PLAIN, 18));
+        checkBox1.setForeground(commonconstant.TEXT_COLOR);
+        checkBox1.setBounds(320, 340, 280, 25);
+        checkBox1.setOpaque(false);
+        add(checkBox1);
+
+        JCheckBox checkBox2 = new JCheckBox("Rehabilitation Medicine Services");
+        checkBox2.setFont(new Font("Dialog", Font.PLAIN, 18));
+        checkBox2.setForeground(commonconstant.TEXT_COLOR);
+        checkBox2.setBounds(600, 340, 300, 25);
+        checkBox2.setOpaque(false);
+        add(checkBox2);
+
+        JCheckBox checkBox3 = new JCheckBox("Online Consultation Services");
+        checkBox3.setFont(new Font("Dialog", Font.PLAIN, 18));
+        checkBox3.setForeground(commonconstant.TEXT_COLOR);
+        checkBox3.setBounds(935, 340, 300, 25);
+        checkBox3.setOpaque(false);
+        add(checkBox3);
+
+        JLabel comment = new JLabel("for whom?");
+        comment.setBounds(70, 333, 600, 150);
+        comment.setForeground(commonconstant.TEXT_COLOR.brighter());
+        comment.setFont(new Font("Dialog", Font.PLAIN, 15));
+        comment.setHorizontalAlignment(SwingConstants.CENTER);
+        add(comment);
+
+
+        String[] appointmentType = {
+                "For myself",
+                "Parent",
+                "Child",
+                "Spouse",
+                "Relatives",
+                "Friend",
+        };
+
+
+        JComboBox<String> comboBox = new JComboBox<>(appointmentType);
+        comboBox.setFont(new Font("Dialog", Font.PLAIN,25));
+        comboBox.setForeground(commonconstant.TEXT_COLOR);
+        comboBox.setBounds(325, 420, 250, 30);
+        add(comboBox);
+
+
+        JButton Submit = new JButton("SUBMIT");
+        Submit.setFont(new Font("Dialog", Font.BOLD, 18));
+        Submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Submit.setForeground(commonconstant.TEXT_COLOR);
+
+
+        Submit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 typeAppointment.this.dispose();
-                new Appoinment().setVisible(true);
-            }
-        });
-        label1.setBounds(85, 420, 200,25);
-        add(label1);
 
-        JLabel label2= new JLabel("Laboratory and Diagnostics");
-        label2.setFont(new Font("Dialog", Font.BOLD, 18));
-        label2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label2.setForeground(commonconstant.TEXT_COLOR);
-        //set mouse listener
-        label2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-               typeAppointment.this.dispose();
                 new Appoinment().setVisible(true);
             }
         });
-        label2.setBounds(320, 420, 300,25);
-        add(label2);
+        Submit.setBounds(660, 500, 180, 30);
+        //reserved space for database
+        add(Submit);
 
-        JLabel label3= new JLabel("Rehabilitation Medicine Services");
-        label3.setFont(new Font("Dialog", Font.BOLD, 18));
-        label3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label3.setForeground(commonconstant.TEXT_COLOR);
-        //set mouse listener
-        label3.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                typeAppointment.this.dispose();
-                new Appoinment().setVisible(true);
-            }
-        });
-        label3.setBounds(600, 420, 300,25);
-        add(label3);
 
-        JLabel label4= new JLabel("Online Consultation Services");
-        label4.setFont(new Font("Dialog", Font.BOLD, 18));
-        label4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label4.setForeground(commonconstant.TEXT_COLOR);
-        //set mouse listener
-        label4.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                typeAppointment.this.dispose();
-                new Appoinment().setVisible(true);
-            }
-        });
-        label4.setBounds(920, 420, 300,25);
-        add(label4);
 
         JPanel panel1 = new JPanel();
 
@@ -139,7 +157,7 @@ public class typeAppointment extends homepage {
         panel1.add(panelLabel1, BorderLayout.CENTER);
         panel1.setBackground(new Color (225, 255, 255, 150));
         // Set the size and location of the panel
-        panel1.setBounds( 45, 200, 1150, 380);
+        panel1.setBounds( 0, 180, 1250, 400);
 
         // Add the panel to the main container
         add(panel1);
