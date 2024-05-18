@@ -105,6 +105,26 @@ public class HowToAppointment extends homepage {
 
         ContactUs.setBounds(860, 91, 200,25);
 
+        // new edit nothing button
+
+        JButton nothing = new JButton("");
+        nothing.setBounds(0, 0, 0, 0);
+        nothing.setForeground(new Color(0, 0, 0, 0));
+        nothing.setBackground(new Color(0, 0, 0, 0));
+        nothing.setFont(new Font("Dialog", Font.BOLD, 0));
+
+        nothing.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //set mouse listener
+        nothing.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                HowToAppointment.this.dispose();
+
+                new loginpage().setVisible(true);
+
+            }
+        });
+
 
         JButton signin= new JButton("Logout");
         signin.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -124,6 +144,7 @@ public class HowToAppointment extends homepage {
         signin.setBounds(1000, 81, 150,42);
 
 
+        add(nothing); // new edit
         add(menulabel);
         add(menulabel2);
         add(signin);
@@ -146,7 +167,7 @@ public class HowToAppointment extends homepage {
         JLabel step1 = new JLabel(T1);
         step1.setBounds(0, 50, 300, 300);
 
-        JLabel txtT1 = new JLabel("After logging in click \"Book now\"");
+        JLabel txtT1 = new JLabel("After logging in, click \"Book now\"");
         txtT1.setFont(new Font("Dialogs", Font.BOLD, 17));
         txtT1.setBounds(25, 280, 700, 50);
         txtT1.setForeground(commonconstant.TEXT_COLOR);

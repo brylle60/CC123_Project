@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyJDBC {
-    public static boolean register(String username,String email, String password, Boolean loggin){
+    private static String password;
+
+    public static boolean register(String username, String email, Boolean loggin){
         try{
             if (!checkuser(username)) {
                 Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME,commonconstant.DB_PASSWORD);

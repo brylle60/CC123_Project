@@ -1,5 +1,6 @@
 package adminpage;
 
+import constant.TimeSlotManager;
 import constant.commonconstant;
 import gui.loginpage;
 
@@ -25,6 +26,12 @@ public class AdminHome extends adminform {
         JLabel arrow = new JLabel(image1);
         arrow.setBounds ( 250, 25, 90, 50); // Adjust the position and size as needed
         add(arrow);
+        //this button should  reset all slot in time and should be pressed after a day or so and/or if its sunday dont press it.
+        JButton resetButton = new JButton("Reset Booked Time Slots");
+        resetButton.addActionListener(e -> {
+            TimeSlotManager.resetBookedTimeSlots();
+            JOptionPane.showMessageDialog(null, "Booked time slots have been reset.");
+        });
 
         //Admin home label
         JLabel AdminHomeLabel = new JLabel("Admin Home");
@@ -140,40 +147,42 @@ public class AdminHome extends adminform {
         add(ScheduleTable);
 
 
-        //appointment schedule (day) table button
-        JButton appointmentSchedule= new JButton("Appointment Schedule (day)");
-        appointmentSchedule.setBounds(25, 310, 170, 40);
-        appointmentSchedule.setForeground(commonconstant.SECONDARY_COLOR);
-        appointmentSchedule.setBackground(commonconstant.HOME_BG1_BLUE);;
-        appointmentSchedule.setFont(new Font("Dialog", Font.BOLD, 10));
 
-        appointmentSchedule.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        appointmentSchedule.addMouseListener(new MouseAdapter() {
+        //MORNING SCHEDULE table button
+        JButton ScheduleAM= new JButton("Morning Schedule");
+        ScheduleAM.setBounds(25, 310, 170, 40);
+        ScheduleAM.setForeground(commonconstant.SECONDARY_COLOR);
+        ScheduleAM.setBackground(commonconstant.HOME_BG1_BLUE);;
+        ScheduleAM.setFont(new Font("Dialog", Font.BOLD, 15));
+
+        ScheduleAM.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        ScheduleAM.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 AdminHome.this.dispose();
-                new appointmentSchedule().setVisible(true);
+                new ScheduleAM().setVisible(true);
             }
         });
-        add(appointmentSchedule);
+        add(ScheduleAM);
 
 
-        //appointment schedule (time) table button
-        JButton appointmentTime= new JButton("Appointment Schedule (time)");
-        appointmentTime.setBounds(25, 380, 170, 40);
-        appointmentTime.setForeground(commonconstant.SECONDARY_COLOR);
-        appointmentTime.setBackground(commonconstant.HOME_BG1_BLUE);;
-        appointmentTime.setFont(new Font("Dialog", Font.BOLD, 9));
 
-        appointmentTime.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        appointmentTime.addMouseListener(new MouseAdapter() {
+        //AFTERNOON SCHEDULE table button
+        JButton SchedulePM= new JButton("Afternoon Schedule");
+        SchedulePM.setBounds(25, 380, 170, 40);
+        SchedulePM.setForeground(commonconstant.SECONDARY_COLOR);
+        SchedulePM.setBackground(commonconstant.HOME_BG1_BLUE);;
+        SchedulePM.setFont(new Font("Dialog", Font.BOLD, 13));
+
+        SchedulePM.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        SchedulePM.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 AdminHome.this.dispose();
-                new appointmentTime().setVisible(true);
+                new SchedulePM().setVisible(true);
             }
         });
-        add(appointmentTime);
+        add(SchedulePM);
 
 
 

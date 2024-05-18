@@ -3,17 +3,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class calendar extends JFrame {
-    private HashMap<String, String> appointments;
+     private List<String> appointments;
 
     private JTextField dateField;
     private JTextField appointmentField;
 
     public calendar() {
-        appointments = new HashMap<>();
+        appointments = new ArrayList<>();
 
         setTitle("Appointment Calendar");
         setSize(400, 200);
@@ -23,8 +23,7 @@ public class calendar extends JFrame {
         panel.setLayout(new GridLayout(3, 2));
 
         JLabel dateLabel = new JLabel("Date:");
-        panel.add(dateLabel);
-        dateField = new JTextField();
+        panel.add(dateLabel);        Component dateField = new JTextField();
         panel.add(dateField);
 
         JLabel appointmentLabel = new JLabel("Appointment:");
@@ -34,16 +33,15 @@ public class calendar extends JFrame {
 
         JButton addButton = new JButton("Add Appointment");
         addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String date = dateField.getText();
+            public void actionPerformed(ActionEvent e) {                Toolkit date = dateField.getToolkit();
                 String appointment = appointmentField.getText();
 
-                if (date.isEmpty() || appointment.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please enter a date and appointment.");
+                if (appointment.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter an appointment.");
                     return;
                 }
 
-                appointments.put(date, appointment);
+                appointments.add(appointment);
                 JOptionPane.showMessageDialog(null, "Appointment added successfully.");
             }
         });
@@ -53,8 +51,8 @@ public class calendar extends JFrame {
         viewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 StringBuilder appointmentsText = new StringBuilder("Appointments:\n");
-                for (Map.Entry<String, String> entry : appointments.entrySet()) {
-                    appointmentsText.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+                for (String appointment : appointments) {
+                    appointmentsText.append(appointment).append("\n");
                 }
                 JOptionPane.showMessageDialog(null, appointmentsText.toString());
             }

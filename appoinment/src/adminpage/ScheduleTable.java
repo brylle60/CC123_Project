@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent;
 public class ScheduleTable extends adminform{
     private JTable BookedAppointment;
     public ScheduleTable() {
-        super("MedCare Appointment System");
+        super("MedCare Appointment System (Schedule Table)");
 
 
        addGuiComponents();
@@ -87,7 +87,7 @@ public class ScheduleTable extends adminform{
 
         //HOME BUTTON
         JButton home= new JButton("H O M E");
-        home.setBounds(180, 50, 100, 30);
+        home.setBounds(190, 50, 135, 30);
         home.setForeground(commonconstant.SECONDARY_COLOR);
         home.setBackground(commonconstant.HOME_BG1_BLUE);
         home.setFont(new Font("Dialog", Font.BOLD, 10));
@@ -108,7 +108,7 @@ public class ScheduleTable extends adminform{
 
         //account table button
         JButton account= new JButton("Account Table");
-        account.setBounds(300, 50, 110, 30);
+        account.setBounds(340, 50, 135, 30);
         account.setForeground(commonconstant.SECONDARY_COLOR);
         account.setBackground(commonconstant.HOME_BG1_BLUE);
         account.setFont(new Font("Dialog", Font.BOLD, 10));
@@ -124,59 +124,42 @@ public class ScheduleTable extends adminform{
         add(account);
 
 
-        //appointment schedule (day) table button
-        JButton appointmentSchedule= new JButton("Appointment Schedule (day)");
-        appointmentSchedule.setBounds(430, 50, 170, 30);
-        appointmentSchedule.setForeground(commonconstant.SECONDARY_COLOR);
-        appointmentSchedule.setBackground(commonconstant.HOME_BG1_BLUE);;
-        appointmentSchedule.setFont(new Font("Dialog", Font.BOLD, 10));
+        //MORNING SCHEDULE table button
+        JButton ScheduleAM= new JButton("Morning Schedule");
+        ScheduleAM.setBounds(490, 50, 135, 30);
+        ScheduleAM.setForeground(commonconstant.SECONDARY_COLOR);
+        ScheduleAM.setBackground(commonconstant.HOME_BG1_BLUE);;
+        ScheduleAM.setFont(new Font("Dialog", Font.BOLD, 9));
 
-        appointmentSchedule.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        appointmentSchedule.addMouseListener(new MouseAdapter() {
+        ScheduleAM.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        ScheduleAM.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 ScheduleTable.this.dispose();
-                new appointmentSchedule().setVisible(true);
+                new ScheduleAM().setVisible(true);
             }
         });
-        add(appointmentSchedule);
+        add(ScheduleAM);
 
 
-        //appointment schedule (time) table button
-        JButton appointmentTime= new JButton("Appointment Schedule (time)");
-        appointmentTime.setBounds(620, 50, 170, 30);
-        appointmentTime.setForeground(commonconstant.SECONDARY_COLOR);
-        appointmentTime.setBackground(commonconstant.HOME_BG1_BLUE);;
-        appointmentTime.setFont(new Font("Dialog", Font.BOLD, 9));
+        //AFTERNOON SCHEDULE table button
+        JButton SchedulePM= new JButton("Afternoon Schedule");
+        SchedulePM.setBounds(640, 50, 135, 30);
+        SchedulePM.setForeground(commonconstant.SECONDARY_COLOR);
+        SchedulePM.setBackground(commonconstant.HOME_BG1_BLUE);;
+        SchedulePM.setFont(new Font("Dialog", Font.BOLD, 10));
 
-        appointmentTime.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        appointmentTime.addMouseListener(new MouseAdapter() {
+        SchedulePM.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        SchedulePM.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 ScheduleTable.this.dispose();
-                new appointmentTime().setVisible(true);
+                new SchedulePM().setVisible(true);
             }
         });
-        add(appointmentTime);
+        add(SchedulePM);
 
 
-        //Log out BUTTON
-        JButton Logout= new JButton("Log out");
-        Logout.setBounds(720, 10, 100, 30);
-        Logout.setForeground(commonconstant.SECONDARY_COLOR);
-        Logout.setBackground(commonconstant.TEAL_REGISTER);;
-        Logout.setFont(new Font("Dialog", Font.BOLD, 10));
-
-        Logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Logout.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                ScheduleTable.this.dispose();
-                new loginpage().setVisible(true);
-            }
-        });
-        add(Logout);
 
 
         // Create the table
