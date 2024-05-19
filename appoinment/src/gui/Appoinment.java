@@ -14,13 +14,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.Book;
 import java.time.LocalTime;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.mysql.cj.conf.PropertyKey.logger;
 import static db.userDb.book;
 import static db.userDb.validateuser;
 
@@ -58,11 +58,13 @@ public class Appoinment extends homepage {
 //
 //        };
 
-//        JComboBox<String> timeComboBox1 = new JComboBox<>(SelectedTime);
-//        timeComboBox1.setFont(new Font("Dialog", Font.PLAIN, 18));
-//        timeComboBox1.setForeground(commonconstant.TEXT_COLOR);
-//        timeComboBox1.setBounds(625, 195, 350, 20);
-//        add(timeComboBox1);
+
+//        JComboBox<String> timeComboBox = new JComboBox<>(SelectedTime);
+//        timeComboBox.setFont(new Font("Dialog", Font.PLAIN, 18));
+//        timeComboBox.setForeground(commonconstant.TEXT_COLOR);
+//        timeComboBox.setBounds(625, 195, 350, 20);
+//        add(timeComboBox);
+
 
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/logotransparent.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
         // Create a JLabel to display the logo image
@@ -238,10 +240,9 @@ public class Appoinment extends homepage {
         panel.add(panelLabel, BorderLayout.CENTER);
         panel.setBackground(new Color (255, 255, 255, 200));
         // Set the size and location of the panel
-        panel.setBounds( 220, 50, 800, 600);
+        panel.setBounds( 220, 50, 800, 660);
 
-        // Add the panel to the main container
-        add(panel);
+        add(panel); //white transparent bg
 
 
 
@@ -287,7 +288,7 @@ public class Appoinment extends homepage {
         Booknow.setBounds(740, 560, 200,50);
 
         Booknow.setBackground(commonconstant.BUTTON_COLOR);
-        Booknow.setBounds(200, 600, 250, 50);
+        Booknow.setBounds(770, 600, 250, 50);
 
         Booknow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -349,25 +350,24 @@ public class Appoinment extends homepage {
                 }
 
             }
+
         });
-
-        add(Booknow);
-
 
         ImageIcon logoIcon3= new ImageIcon("appoinment/src/image/appointmentBG.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
 
         // Create a JLabel to display the logo image
         JLabel logoLabel4 = new JLabel(logoIcon3);
         logoLabel4.setBounds(0, 0, 1250, 800); // Adjust the position and size as needed
-        add(logoLabel4);
 
         // ... (existing code for adding GUI components)
 
         JPanel schedules = new JPanel();
         schedules.setBackground(new Color (120, 187, 217, 255));
-        schedules.setBounds(500, 115, 800, 500);
+        schedules.setBounds(500, 115, 800, 700);
 
-
+        add(logoLabel4);
+        logoLabel4.add(Booknow);
+        add(schedules);
 
         listModel = new DefaultListModel<>();
         appointmentList = new JList<>(listModel);
@@ -375,17 +375,16 @@ public class Appoinment extends homepage {
 
         JScrollPane scrollPane = new JScrollPane(appointmentList);
         schedules.add(scrollPane, BorderLayout.CENTER);
-        add(schedules);
 
-        JButton cancelButton = new JButton("Cancel Appointment");
-        cancelButton.setBounds(120, 500, 50, 20);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelAppointment();
-            }
-        });
-        schedules.add(cancelButton);
+//        JButton cancelButton = new JButton("Cancel Appointment");
+////        cancelButton.setBounds(120, 500, 50, 20);
+//        cancelButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                cancelAppointment();
+//            }
+//        });
+//        schedules.add(cancelButton);
 
         loadAppointments();
     }

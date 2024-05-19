@@ -23,7 +23,7 @@ public class launcher {
               new AppointmentList().setVisible(true);
          //       new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
-    //new home().setVisible(true);
+    new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
 
               //  new ContactUs().setVisible(true);
