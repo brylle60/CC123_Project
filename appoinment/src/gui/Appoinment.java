@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.Book;
 import java.time.LocalTime;
 import java.util.Enumeration;
 import java.util.List;
@@ -44,6 +45,7 @@ public class Appoinment extends homepage {
 
     private void addGuiComponents() {
       time = getCurrentTime();
+
 
 
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/logotransparent.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
@@ -258,7 +260,12 @@ public class Appoinment extends homepage {
         panel.add(panelLabel, BorderLayout.CENTER);
         panel.setBackground(new Color (255, 255, 255, 200));
         // Set the size and location of the panel
+
         panel.setBounds( 100, 50, 930, 600);
+
+
+        add(panel); //white transparent bg
+
 
         add(panel);// White background transparent
 
@@ -305,6 +312,7 @@ public class Appoinment extends homepage {
         Booknow.setBounds(740, 560, 200,50);
 
         Booknow.setBackground(commonconstant.BUTTON_COLOR);
+
         Booknow.setBounds(650, 530, 250, 50);
 
         Booknow.addActionListener(new ActionListener() {
@@ -367,25 +375,24 @@ public class Appoinment extends homepage {
                 }
 
             }
+
         });
-
-        add(Booknow);
-
 
         ImageIcon logoIcon3= new ImageIcon("appoinment/src/image/appointmentBG.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
 
         // Create a JLabel to display the logo image
         JLabel logoLabel4 = new JLabel(logoIcon3);
         logoLabel4.setBounds(0, 0, 1250, 800); // Adjust the position and size as needed
-        add(logoLabel4);
 
         // ... (existing code for adding GUI components)
 
         JPanel schedules = new JPanel();
         schedules.setBackground(new Color (120, 187, 217, 255));
-        schedules.setBounds(500, 115, 800, 500);
+        schedules.setBounds(500, 115, 800, 700);
 
-
+        add(logoLabel4);
+        logoLabel4.add(Booknow);
+        add(schedules);
 
         listModel = new DefaultListModel<>();
         appointmentList = new JList<>(listModel);
@@ -393,7 +400,6 @@ public class Appoinment extends homepage {
 
         JScrollPane scrollPane = new JScrollPane(appointmentList);
         schedules.add(scrollPane, BorderLayout.CENTER);
-        add(schedules);
 
 
         loadAppointments();

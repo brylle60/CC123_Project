@@ -64,6 +64,7 @@ public class About extends homepage{
 
     JButton about1 = new JButton("About Us");
      about1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     about1.setFont(new Font("Dialog", Font.BOLD, 18));
      about1.setForeground(commonconstant.TEXT_COLOR);
      about1.setBounds(910, 130, 150, 25);
 
