@@ -19,8 +19,8 @@ public class launcher {
 
                // new loginpage().setVisible(true);
 //new AdminHome().setVisible(true);
-              new Appoinment().setVisible(true);
-              //new AppointmentList().setVisible(true);
+              //new Appoinment().setVisible(true);
+              new AppointmentList().setVisible(true);
          //       new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
     //new home().setVisible(true);

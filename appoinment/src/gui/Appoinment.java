@@ -2,6 +2,7 @@
 package gui;
 
 
+import adminpage.schedules;
 import com.sun.tools.attach.AgentInitializationException;
 import constant.commonconstant;
 import constant.TimeSlotManager;
@@ -46,22 +47,22 @@ public class Appoinment extends homepage {
       time = getCurrentTime();
 
 
-        String [] SelectedTime = {
-                "08:00 AM - 09:00 AM",
-                "09:00 AM - 10:00 AM",
-                "10:00 AM - 11:00 AM",
-                "01:00 PM - 02:00 PM",
-                "02:00 PM - 03:00 PM",
-                "03:00 PM - 04:00 PM",
-                "04:00 PM - 05:00 PM"
+//        String [] SelectedTime = {
+//                "08:00 AM - 09:00 AM",
+//                "09:00 AM - 10:00 AM",
+//                "10:00 AM - 11:00 AM",
+//                "01:00 PM - 02:00 PM",
+//                "02:00 PM - 03:00 PM",
+//                "03:00 PM - 04:00 PM",
+//                "04:00 PM - 05:00 PM"
+//
+//        };
 
-        };
-
-        JComboBox<String> timeComboBox = new JComboBox<>(SelectedTime);
-        timeComboBox.setFont(new Font("Dialog", Font.PLAIN, 18));
-        timeComboBox.setForeground(commonconstant.TEXT_COLOR);
-        timeComboBox.setBounds(625, 195, 350, 20);
-        add(timeComboBox);
+//        JComboBox<String> timeComboBox1 = new JComboBox<>(SelectedTime);
+//        timeComboBox1.setFont(new Font("Dialog", Font.PLAIN, 18));
+//        timeComboBox1.setForeground(commonconstant.TEXT_COLOR);
+//        timeComboBox1.setBounds(625, 195, 350, 20);
+//        add(timeComboBox1);
 
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/logotransparent.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
         // Create a JLabel to display the logo image
