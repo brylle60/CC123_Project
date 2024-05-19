@@ -43,7 +43,7 @@ public class typeAppointment extends homepage {
         comment2.setHorizontalAlignment(SwingConstants.CENTER);
         add(comment2);
 
-        JLabel comment3 = new JLabel("Click on each text to proceed");
+        JLabel comment3 = new JLabel("Please select what type of services do you want!");
         comment3.setBounds(315, 60, 600, 150);
         comment3.setForeground(commonconstant.TEXT_COLOR.brighter());
         comment3.setFont(new Font("Dialog", Font.BOLD, 18));
