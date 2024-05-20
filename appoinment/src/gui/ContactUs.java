@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 
+
 public class ContactUs extends homepage {
+
 
     public ContactUs(){
         super("ContactUs");
@@ -52,6 +54,7 @@ public class ContactUs extends homepage {
         Remarks.setFont(new Font("Rockwell", Font.BOLD, 20));
         Remarks.setHorizontalAlignment(SwingConstants.CENTER);
         add(Remarks);
+
 
         JLabel FB = new JLabel("www.facebook.com/MedCareCEBU");
         FB.setBounds(33, 485, 520, 100);
@@ -102,8 +105,10 @@ public class ContactUs extends homepage {
         menulabel.setFont(new Font("Dialog", Font.BOLD, 20));
 
         menulabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(menulabel)
 
 
+      
         JLabel menulabel2 = new JLabel("Appointment");
 
         menulabel2.setBounds(91, 53, 400, 100);
@@ -220,6 +225,7 @@ public class ContactUs extends homepage {
         telImgSmall.setBounds(5,55, 30, 25);
 
 
+
         JLabel txttelNum = new JLabel("TEL. NO.");
         txttelNum.setForeground(commonconstant.SECONDARY_COLOR);
         txttelNum.setFont(new Font("Dialog", Font.BOLD, 23));
@@ -245,8 +251,33 @@ public class ContactUs extends homepage {
         email.setForeground(commonconstant.TEXT_COLOR);
         email.setBounds(180,75, 300, 50);
 
+        JPanel BGlightblue = new JPanel(null);
+        BGlightblue.setBounds(100,190,1000,550);
+        BGlightblue.setBackground(commonconstant.HOME_BG1_GRAY);
+
+        ImageIcon bgBlue = new ImageIcon ("appoinment/src/image/BGlikodIMG.jpg");
+        JLabel bgBluePic = new JLabel(bgBlue);
+        bgBluePic.setBounds(0, 150, 1300, 650);
+
+//        JLabel txttelNum = new JLabel("TEL. NO.");
+//        txttelNum.setForeground(commonconstant.SECONDARY_COLOR);
+//        txttelNum.setFont(new Font("Dialog", Font.BOLD, 23));
+//        txttelNum.setBounds(40,45, 200, 50);
+//
+//        JLabel telNum = new JLabel("<html><u> 0234-567-890</u></html>");
+//        telNum.setForeground(commonconstant.TEXT_COLOR);
+//        telNum.setFont(new Font("Dialog", Font.BOLD, 17));
+//        telNum.setBounds(15,75, 300, 50);
+
+
+
+
+
+
+
 
         add(BGlightblue);
         add(bgBluePic);
     }
+
 }

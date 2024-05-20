@@ -57,18 +57,19 @@ public class About extends homepage{
                 new home().setVisible(true);
             }
         });
-        home.setBounds(760, 130, 150, 25);
+        home.setBounds(620, 130, 150, 25);
         //reserved space for database
         add(home);
 
-     JButton about1 = new JButton("About us");
-     about1.setFont(new Font("Dialog", Font.BOLD, 18));
+
+    JButton about1 = new JButton("About Us");
      about1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     about1.setFont(new Font("Dialog", Font.BOLD, 18));
      about1.setForeground(commonconstant.TEXT_COLOR);
      about1.setBounds(910, 130, 150, 25);
+
      //reserved space for database
      add(about1);
-
      JButton logout = new JButton("Logout");
      logout.setFont(new Font("Dialog", Font.BOLD, 18));
      logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -84,6 +85,47 @@ public class About extends homepage{
      logout.setBounds(1060, 130, 150, 25);
      //reserved space for database
      add(logout);
+
+//new edit chelsie nothing og ang user profile button
+
+       JButton nothing = new JButton("");
+        nothing.setBounds(0, 0, 0, 0);
+        nothing.setForeground(new Color(0, 0, 0, 0));
+        nothing.setBackground(new Color(0, 0, 0, 0));
+        nothing.setFont(new Font("Dialog", Font.BOLD, 0));
+
+        nothing.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        //set mouse listener
+        nothing.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                About.this.dispose();
+
+                new loginpage().setVisible(true);
+
+            }
+        });
+        add(nothing);
+
+        JButton userProfile= new JButton("User Profile");
+        userProfile.setFont(new Font("Dialog", Font.BOLD, 18));
+
+        userProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        userProfile.setForeground(commonconstant.TEXT_COLOR);
+
+        userProfile.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                About.this.dispose();
+                new UserProfile().setVisible(true);
+            }
+        });
+
+        userProfile.setBounds(770, 130, 140,25);
+
+        add(userProfile);
+//until here og sa ubos katong panel
 
 
 
@@ -180,18 +222,15 @@ public class About extends homepage{
 
 
 
-
-
-
         JPanel panel2 = new JPanel();
-
         panel2.setLayout(new BorderLayout());
-
         JLabel panelLabel1 = new JLabel();
         panel2.add(panelLabel1, BorderLayout.CENTER);
         panel2.setBackground(new Color (255, 255, 255, 120));
         // Set the size and location of the panel
-        panel2.setBounds( 0, 0, 1500, 700);
+        panel2.setBounds( 0, 0, 1500, 780);
+//chelsie gi resize ang white transparent panel
+
 
         // Add the panel to the main container
         add(panel2);

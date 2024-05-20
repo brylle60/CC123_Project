@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
 
 public class register extends form {
     public register() {
@@ -29,14 +30,14 @@ public class register extends form {
 
 
         JLabel registerlabel = new JLabel("MEDCare");
-        registerlabel .setBounds(470, 40, 520, 100);
+        registerlabel .setBounds(470, 5, 520, 100);
         registerlabel.setForeground(commonconstant.BUTTON_COLOR);
         registerlabel.setFont(new Font("Dialog", Font.BOLD, 30));
 
         add(registerlabel);
 //
         JLabel registerlabel2 = new JLabel("Registration");
-        registerlabel2 .setBounds(610, 40, 520, 100);
+        registerlabel2 .setBounds(610, 5, 520, 100);
         registerlabel2.setForeground(commonconstant.HOME_BG1_GRAY);
         registerlabel2.setFont(new Font("Dialog", Font.BOLD, 30));
         add(registerlabel2);
@@ -93,20 +94,126 @@ public class register extends form {
         description2Dlabel.setFont(new Font("Dialog",Font.PLAIN, 14));
         add(description2Dlabel);
 
-        // add new username label
 
-        JLabel namelabel = new JLabel("Username:");
-        namelabel.setBounds(450, 155, 400, 25);
-        namelabel.setForeground(commonconstant.SECONDARY_COLOR);
-        namelabel.setFont(new Font("Dialog",Font.PLAIN, 18));
+        //last name
+        JLabel namelabel1 = new JLabel("Last Name:");
+        namelabel1.setBounds(450, 125, 400, 25);
+        namelabel1.setForeground(commonconstant.SECONDARY_COLOR);
+        namelabel1.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField nameField = new JTextField();
-        nameField.setBounds(450, 190, 350, 35);
-        nameField.setBackground(commonconstant.SECONDARY_COLOR);
-        nameField.setForeground(commonconstant.TEXT_COLOR);
-        nameField.setFont(new Font("Dialog", Font.PLAIN, 18));
-        add(namelabel);
-        add(nameField);
+        JTextField nameField1 = new JTextField();
+        nameField1.setBounds(450, 150, 350, 30);
+        nameField1.setBackground(commonconstant.SECONDARY_COLOR);
+        nameField1.setForeground(commonconstant.TEXT_COLOR);
+        nameField1.setFont(new Font("Dialog", Font.PLAIN, 15));
+        add(namelabel1);
+        add(nameField1);
+
+        //first name
+        JLabel namelabel2 = new JLabel("First Name:");
+        namelabel2.setBounds(450, 170, 400, 25);
+        namelabel2.setForeground(commonconstant.SECONDARY_COLOR);
+        namelabel2.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        JTextField nameField2 = new JTextField();
+        nameField2.setBounds(450, 190, 350, 30);
+        nameField2.setBackground(commonconstant.SECONDARY_COLOR);
+        nameField2.setForeground(commonconstant.TEXT_COLOR);
+        nameField2.setFont(new Font("Dialog", Font.PLAIN, 15));
+        add(namelabel2);
+        add(nameField2);
+
+        //middle name
+        JLabel namelabel3 = new JLabel("Middle Name:");
+        namelabel3.setBounds(450, 225, 400, 25);
+        namelabel3.setForeground(commonconstant.SECONDARY_COLOR);
+        namelabel3.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        JTextField nameField3 = new JTextField();
+        nameField3.setBounds(450, 190, 350, 35);
+        nameField3.setBackground(commonconstant.SECONDARY_COLOR);
+        nameField3.setForeground(commonconstant.TEXT_COLOR);
+        nameField3.setFont(new Font("Dialog", Font.PLAIN, 18));
+        add(namelabel3);
+        add(nameField3);
+
+        //Sex
+        String[] appointmentType = {
+                "Male", "Female"
+        };
+        JComboBox<String> comboBox = new JComboBox<>(appointmentType);
+        comboBox.setFont(new Font("Dialog", Font.PLAIN,18));
+        comboBox.setForeground(commonconstant.TEXT_COLOR);
+        comboBox.setBounds(230, 300, 100, 30);
+        add(comboBox);
+
+        //birthdate
+        String[] birthdate = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+
+
+        JComboBox<String> Birthdate = new JComboBox<>(birthdate);
+        Birthdate.setFont(new Font("Dialog", Font.PLAIN,18));
+        Birthdate.setForeground(commonconstant.TEXT_COLOR);
+        Birthdate.setBounds(230, 400, 100, 30);
+        add(Birthdate);
+
+        //birthdate
+        String[] birthdate1 = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+        JComboBox<String> Birthdate1 = new JComboBox<>(birthdate1);
+        Birthdate1.setFont(new Font("Dialog", Font.PLAIN,18));
+        Birthdate1.setForeground(commonconstant.TEXT_COLOR);
+        Birthdate1.setBounds(350, 400, 100, 30);
+        add(Birthdate1);
+
+        //birthdate
+        String[] birthdate2 = {"2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017",
+                "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009",
+                "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001",
+                "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993",
+                "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985",
+                "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977",
+                "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969",
+                "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961",
+                "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953",
+                "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945",
+                "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937",
+                "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929",
+                "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921",
+                "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913",
+                "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905",
+                "1904", "1903", "1902", "1901", "1900"};
+        JComboBox<String> Birthdate2 = new JComboBox<>(birthdate2);
+        Birthdate2.setFont(new Font("Dialog", Font.PLAIN,18));
+        Birthdate2.setForeground(commonconstant.TEXT_COLOR);
+        Birthdate2.setBounds(350, 500, 100, 30);
+        add(Birthdate2);
+
+        //Age
+        JLabel age = new JLabel("Age:");
+        age.setBounds(450, 155, 400, 25);
+        age.setForeground(commonconstant.SECONDARY_COLOR);
+        age.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        JTextField age1 = new JTextField();
+        age1.setBounds(450, 190, 350, 35);
+        age1.setBackground(commonconstant.SECONDARY_COLOR);
+        age1.setForeground(commonconstant.TEXT_COLOR);
+        age1.setFont(new Font("Dialog", Font.PLAIN, 18));
+        add(age);
+        add(age1);
+        //Address
+        JLabel address1 = new JLabel("Address:");
+        address1.setBounds(450, 155, 400, 25);
+        address1.setForeground(commonconstant.SECONDARY_COLOR);
+        address1.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        JTextField address2 = new JTextField();
+        address2.setBounds(450, 190, 350, 35);
+        address2.setBackground(commonconstant.SECONDARY_COLOR);
+        address2.setForeground(commonconstant.TEXT_COLOR);
+        address2.setFont(new Font("Dialog", Font.PLAIN, 18));
+        add(address1);
+        add(address2);
 
 
         // add email label
@@ -123,6 +230,7 @@ public class register extends form {
 
         add(email);
         add(emailField);
+
 
         //password label
         JLabel passwordlabel = new JLabel("Password:");
@@ -174,14 +282,16 @@ public class register extends form {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //database validation for users
-                String username = nameField.getText();
+                String LastName = nameField1.getText();
+                String FirstName = nameField2.getText();
+                String MiddleName = nameField3.getText();
                 String passsword = new String(passwordField.getPassword());
                 String rePassword = new String(repasswordField.getPassword());
                 String email = new String(emailField.getText());
                 Boolean logg = true;
 
-                if(validateuserinput(username, passsword, rePassword, email)){
-                    if(MyJDBC.register(username,email, passsword, logg)){
+                if(validateuserinput(LastName , FirstName , MiddleName , passsword, rePassword, email)){
+                    if(MyJDBC.register(email , passsword, logg)){
                         register.this.dispose();
                         loginpage login = new loginpage();
                         login.setVisible(true);
@@ -249,7 +359,7 @@ public class register extends form {
         add(image3);
 
     }
-    private boolean validateuserinput( String username, String password, String rePassword, String email){
+    private boolean validateuserinput(String username, String password, String rePassword, String email, String s, String string){
         //database
         if (username.length()==0 || password.length()==0||rePassword.length()==0 || email.length() ==0) return false;
 

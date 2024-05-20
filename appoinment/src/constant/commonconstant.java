@@ -48,7 +48,7 @@ public class commonconstant {
     public static final String DB_USER_INFO = "user_data";
 
 
-    //public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/logindata";
+    //public static final String DB_URL = "jdbc:mysql://172.17.0.2:3306/logindata";
 //    public static final String DB_USER = "jdbc:mysql://127.0.0.1:3306/user_registration";
 //    public static final String DB_USERNAME = "username";
 //    public static final String DB_PASSWORD = "password";
