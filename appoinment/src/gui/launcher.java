@@ -17,6 +17,7 @@ public class launcher {
 
 
 
+
                // new loginpage().setVisible(true);
 //new AdminHome().setVisible(true);
               new Appoinment().setVisible(true);
