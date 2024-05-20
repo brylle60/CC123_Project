@@ -9,10 +9,18 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalTime;
+import java.util.Enumeration;
+import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 
+
+
+
 public class typeAppointment extends homepage {
+    private static final Logger logger = Logger.getLogger(Appoinment.class.getName());
+
+    public static CheckboxGroup service;
     public typeAppointment (){
         super ("Types of Appointment");
         addGuiComponents();
@@ -111,6 +119,11 @@ public class typeAppointment extends homepage {
         comment.setHorizontalAlignment(SwingConstants.CENTER);
         add(comment);
 
+        service = new CheckboxGroup();
+        checkBox.add(service.getSelectedCheckbox());
+        checkBox1.add(service.getSelectedCheckbox());
+        checkBox2.add(service.getSelectedCheckbox());
+        checkBox3.add(service.getSelectedCheckbox());
 
         String[] appointmentType = {
                 "For myself",
@@ -133,18 +146,27 @@ public class typeAppointment extends homepage {
         Submit.setFont(new Font("Dialog", Font.BOLD, 18));
         Submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Submit.setForeground(commonconstant.TEXT_COLOR);
+        Submit.addActionListener(e -> submitAppointment());
 
 
         Submit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                String appointment = null;
                 typeAppointment.this.dispose();
-
+                if (service != null) {
+                    appointment = String.valueOf(service.getSelectedCheckbox());
+                } else {
+                    logger.warning("No appointment type selected");
+                    JOptionPane.showMessageDialog(typeAppointment.this, "Please select an appointment type");
+                    return; // Exit the method if no appointment type is selected
+                }
                 new Appoinment().setVisible(true);
             }
         });
         Submit.setBounds(660, 500, 180, 30);
         //reserved space for database
+
         add(Submit);
 
 
@@ -175,6 +197,24 @@ public class typeAppointment extends homepage {
 
 
 
+    }
+    public  void submitAppointment() {
+        Checkbox selectedModel = service.getSelectedCheckbox();
+        if (selectedModel != null) {
+            for (Enumeration<CheckboxGroup> Checkbox = (Enumeration<CheckboxGroup>) service.getSelectedCheckbox(); Checkbox.hasMoreElements(); ) {
+                CheckboxGroup button = Checkbox.nextElement();
+                if (button.getSelectedCheckbox() == selectedModel) {
+                    service = (CheckboxGroup) Checkbox;
+                    String type = String.valueOf(service.getSelectedCheckbox());
+                    //  logger.info("Selected appointment type: " + selectedAppointment);
+                    // Do something with the selected appointment type
+                    break;
+                }
+            }
+        } else {
+            //  logger.warning("No appointment type selected");
+            JOptionPane.showMessageDialog(typeAppointment.this, "No appointment type selected.");
+        }
     }
 
 }

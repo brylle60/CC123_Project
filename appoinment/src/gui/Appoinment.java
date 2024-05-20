@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 
 import static db.userDb.book;
 import static db.userDb.validateuser;
+import static gui.typeAppointment.service;
 
 
 public class Appoinment extends homepage {
@@ -252,30 +253,30 @@ public class Appoinment extends homepage {
         appointmentTypePanel.setBounds(500, 200, 300, 200); // Set the position and size of the panel
         appointmentTypePanel.setVisible(false); // Initially make it invisible
 
-        // Create radio buttons for different appointment types
-        JRadioButton generalCheckup = new JRadioButton("General Checkup");
-        JRadioButton dentalCheckup = new JRadioButton("Dental Checkup");
-        JRadioButton eyeCheckup = new JRadioButton("Eye Checkup");
-// Add more radio buttons as needed
-
-// Add radio buttons to a ButtonGroup to ensure only one selection
-        appointmentTypeGroup = new ButtonGroup();
-        appointmentTypeGroup.add(generalCheckup);
-        appointmentTypeGroup.add(dentalCheckup);
-        appointmentTypeGroup.add(eyeCheckup);
-
-// Add radio buttons to the panel
-        appointmentTypePanel.add(generalCheckup);
-        appointmentTypePanel.add(dentalCheckup);
-        appointmentTypePanel.add(eyeCheckup);
-
-        add(appointmentTypePanel); // Add the panel to the main container
-        //reserved space for database
+//        // Create radio buttons for different appointment types
+//        JRadioButton generalCheckup = new JRadioButton("General Checkup");
+//        JRadioButton dentalCheckup = new JRadioButton("Dental Checkup");
+//        JRadioButton eyeCheckup = new JRadioButton("Eye Checkup");
+//// Add more radio buttons as needed
+//
+//// Add radio buttons to a ButtonGroup to ensure only one selection
+//        appointmentTypeGroup = new ButtonGroup();
+//        appointmentTypeGroup.add(generalCheckup);
+//        appointmentTypeGroup.add(dentalCheckup);
+//        appointmentTypeGroup.add(eyeCheckup);
+//
+//// Add radio buttons to the panel
+//        appointmentTypePanel.add(generalCheckup);
+//        appointmentTypePanel.add(dentalCheckup);
+//        appointmentTypePanel.add(eyeCheckup);
+//
+//        add(appointmentTypePanel); // Add the panel to the main container
+//        //reserved space for database
 
         JButton submitButton = new JButton("Book Appointment");
 
-//        submitButton.addActionListener(e -> submitAppointment());
-        submitButton.addActionListener(e -> submitAppointment());// Add the button to the appointment type panel
+//
+        //submitButton.addActionListener(e -> submitAppointment());// Add the button to the appointment type panel
 
         appointmentTypePanel.add(submitButton);
 
@@ -300,8 +301,6 @@ public class Appoinment extends homepage {
                 String gender = null;
                 String Address = null;
                 int number = 0;
-                String appointment = null;
-
                 LocalTime selectedTime;
                 try {
                     Id = Integer.parseInt(IdField.getText());
@@ -311,16 +310,10 @@ public class Appoinment extends homepage {
                     gender = genderflield.getText();
                     Address = Addressfield.getText();
                     number = Integer.parseInt(numberfield.getText());
-                    appointmentTypePanel.setVisible(true);
+                    //appointmentTypePanel.setVisible(true);
 
 
-                    if (selectedAppointmentType != null) {
-                        appointment = selectedAppointmentType.getText();
-                    } else {
-                        logger.warning("No appointment type selected");
-                        JOptionPane.showMessageDialog(Appoinment.this, "Please select an appointment type");
-                        return; // Exit the method if no appointment type is selected
-                    }
+
                 } catch (NumberFormatException ex) {
                     logger.severe("Invalid input: " + ex.getMessage());
                     JOptionPane.showMessageDialog(Appoinment.this, "Error: Invalid input. Please enter valid values.");
@@ -329,9 +322,9 @@ public class Appoinment extends homepage {
                 Boolean cancel = false;
                 selectedTime = (LocalTime) timeComboBox.getSelectedItem();
                 if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
-                    if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, appointment)) {
+                    if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, String.valueOf(service))) {
 
-                        if (book(Id, LastName, firstname, MI, selectedTime, gender, Address, number, appointment, cancel)) {
+                        if (book(Id, LastName, firstname, MI, selectedTime, gender, Address, number, String.valueOf(service), cancel)) {
 
                                 home home = new home();
                                 Appoinment.this.dispose();
@@ -431,24 +424,6 @@ public class Appoinment extends homepage {
     }
 
     // Add this method
-    private void submitAppointment() {
-        ButtonModel selectedModel = appointmentTypeGroup.getSelection();
-        if (selectedModel != null) {
-            for (Enumeration<AbstractButton> buttons = appointmentTypeGroup.getElements(); buttons.hasMoreElements(); ) {
-                AbstractButton button = buttons.nextElement();
-                if (button.getModel() == selectedModel) {
-                    selectedAppointmentType = (JRadioButton) button;
-                    String selectedAppointment = selectedAppointmentType.getText();
-                  //  logger.info("Selected appointment type: " + selectedAppointment);
-                    // Do something with the selected appointment type
-                    break;
-                }
-            }
-        } else {
-          //  logger.warning("No appointment type selected");
-            JOptionPane.showMessageDialog(Appoinment.this, "No appointment type selected.");
-        }
-    }
     private void loadAppointments() {
         List<schedules> appointments = userDb.getAppointment();
         for (schedules appointment : appointments) {

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import javax.swing.JComboBox;
 
 public class register extends form {
@@ -148,7 +149,7 @@ public class register extends form {
         add(comboBox);
 
         //birthdate
-        String[] birthdate = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        String[] birthdate = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
 
 
         JComboBox<String> Birthdate = new JComboBox<>(birthdate);
@@ -182,6 +183,7 @@ public class register extends form {
                 "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913",
                 "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905",
                 "1904", "1903", "1902", "1901", "1900"};
+
         JComboBox<String> Birthdate2 = new JComboBox<>(birthdate2);
         Birthdate2.setFont(new Font("Dialog", Font.PLAIN,18));
         Birthdate2.setForeground(commonconstant.TEXT_COLOR);
@@ -287,11 +289,16 @@ public class register extends form {
                 String MiddleName = nameField3.getText();
                 String passsword = new String(passwordField.getPassword());
                 String rePassword = new String(repasswordField.getPassword());
+                int number = 0;//Integer.parseInt(numberfield.getText());
+                int age = Integer.parseInt(age1.getText());
                 String email = new String(emailField.getText());
+                String address = new String(address2.getText());
+
+                LocalDate birthdate = null;
                 Boolean logg = true;
 
                 if(validateuserinput(LastName , FirstName , MiddleName , passsword, rePassword, email)){
-                    if(MyJDBC.register(email , passsword, logg)){
+                    if(MyJDBC.register(LastName, FirstName, MiddleName, age, number, email , passsword, address, birthdate, logg)){
                         register.this.dispose();
                         loginpage login = new loginpage();
                         login.setVisible(true);
