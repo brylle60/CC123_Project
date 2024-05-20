@@ -105,7 +105,7 @@ public class ContactUs extends homepage {
         menulabel.setFont(new Font("Dialog", Font.BOLD, 20));
 
         menulabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(menulabel)
+        add(menulabel);
 
 
       
@@ -251,13 +251,13 @@ public class ContactUs extends homepage {
         email.setForeground(commonconstant.TEXT_COLOR);
         email.setBounds(180,75, 300, 50);
 
-        JPanel BGlightblue = new JPanel(null);
-        BGlightblue.setBounds(100,190,1000,550);
-        BGlightblue.setBackground(commonconstant.HOME_BG1_GRAY);
+        // JPanel BGlightblue = new JPanel(null);
+        // BGlightblue.setBounds(100,190,1000,550);
+        // BGlightblue.setBackground(commonconstant.HOME_BG1_GRAY);
 
-        ImageIcon bgBlue = new ImageIcon ("appoinment/src/image/BGlikodIMG.jpg");
-        JLabel bgBluePic = new JLabel(bgBlue);
-        bgBluePic.setBounds(0, 150, 1300, 650);
+        // ImageIcon bgBlue = new ImageIcon ("appoinment/src/image/BGlikodIMG.jpg");
+        // JLabel bgBluePic = new JLabel(bgBlue);
+        // bgBluePic.setBounds(0, 150, 1300, 650);
 
 //        JLabel txttelNum = new JLabel("TEL. NO.");
 //        txttelNum.setForeground(commonconstant.SECONDARY_COLOR);
