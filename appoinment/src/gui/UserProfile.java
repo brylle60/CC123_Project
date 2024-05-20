@@ -128,6 +128,7 @@ public class UserProfile extends homepage  {
         add(about1);
         add(ContactUs);
         add(logout);
+
         //size and position sa menu
         home.setBounds(480, 130, 150, 25);
         about1.setBounds(780, 130, 150, 25);
@@ -149,5 +150,6 @@ public class UserProfile extends homepage  {
         //image position and size
         logsLabel.setBounds(0, 0, 1300,900 );//background sa userprofile
         logoLabel.setBounds(100, 45, 180, 100);//logo sa medical
+
     }
 }
