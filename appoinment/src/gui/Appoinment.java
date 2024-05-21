@@ -2,6 +2,7 @@
 package gui;
 
 
+import adminpage.User;
 import adminpage.schedules;
 import com.sun.tools.attach.AgentInitializationException;
 import constant.commonconstant;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
 
 import static db.userDb.book;
 import static db.userDb.validateuser;
+import static gui.typeAppointment.appointment;
 import static gui.typeAppointment.service;
 
 
@@ -34,15 +36,30 @@ public class Appoinment extends homepage {
     private DefaultListModel<String> listModel;
     private ButtonGroup appointmentTypeGroup;
     private JRadioButton selectedAppointmentType;
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
+    private String appointmentType;
 
+    public void setAppointmentType(String appointmentType) {
+        this.appointmentType = appointmentType;
+    }
     private LocalTime getCurrentTime() {
         return LocalTime.now();
     }
-    public Appoinment(){
-        super("Appointment Booking");
-        addGuiComponents();
 
+    // Add other user information fields as needed
+
+    public Appoinment( String loggedInLastName, String loggedInFirstName, String loggedInMiddleName) {
+        super("Appointment Booking");
+
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+
+        addGuiComponents();
     }
+
 
     private void addGuiComponents() {
       time = getCurrentTime();
@@ -73,7 +90,7 @@ public class Appoinment extends homepage {
             public void mouseClicked(MouseEvent e) {
                 Appoinment.this.dispose();
 
-                new home().setVisible(true);
+                new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
             }
         });
         home.setBounds(1055, 50, 140, 30);
@@ -151,7 +168,7 @@ public class Appoinment extends homepage {
         lastName .setForeground(commonconstant.TEXT_COLOR);
         lastName .setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField lastNamefield = new JTextField();
+        JTextField lastNamefield = new JTextField(loggedInLastName);
         lastNamefield.setBounds(150, 220, 250, 25);
         lastNamefield.setBackground(commonconstant.SECONDARY_COLOR);
         lastNamefield.setForeground(commonconstant.TEXT_COLOR);
@@ -163,7 +180,7 @@ public class Appoinment extends homepage {
         firstname .setForeground(commonconstant.TEXT_COLOR);
         firstname .setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField firstnamefield = new JTextField();
+        JTextField firstnamefield = new JTextField(loggedInFirstName);
         firstnamefield.setBounds(150, 270, 250, 25);
         firstnamefield.setBackground(commonconstant.SECONDARY_COLOR);
         firstnamefield.setForeground(commonconstant.TEXT_COLOR);
@@ -175,7 +192,7 @@ public class Appoinment extends homepage {
         MI.setForeground(commonconstant.TEXT_COLOR);
         MI.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField Mifield = new JTextField();
+        JTextField Mifield = new JTextField(loggedInMiddleName);
         Mifield.setBounds(150, 322, 250, 25);
         Mifield.setBackground(commonconstant.SECONDARY_COLOR);
         Mifield.setForeground(commonconstant.TEXT_COLOR);
@@ -326,6 +343,8 @@ public class Appoinment extends homepage {
                 String gender = null;
                 String Address = null;
                 int number = 0;
+
+
                 LocalTime selectedTime;
                 try {
                     Id = Integer.parseInt(IdField.getText());
@@ -346,12 +365,13 @@ public class Appoinment extends homepage {
                 }
                 Boolean cancel = false;
                 selectedTime = (LocalTime) timeComboBox1.getSelectedItem();
+                String selectedService = appointmentType;
                 if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
-                    if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, String.valueOf(service))) {
+                    if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, selectedService)) {
 
-                        if (book(Id, LastName, firstname, MI, selectedTime, gender, Address, number, String.valueOf(service), cancel)) {
+                        if (book(Id, LastName, firstname, MI, selectedTime, gender, Address, number, selectedService, cancel)) {
 
-                                home home = new home();
+                                home home = new home(loggedInLastName, loggedInFirstName, loggedInMiddleName);
                                 Appoinment.this.dispose();
                                 new AppointmentList().setVisible(true);
 

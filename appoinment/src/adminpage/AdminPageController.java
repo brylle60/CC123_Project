@@ -224,7 +224,7 @@ public class AdminPageController extends adminform {
         List<User> loggedInUsers = MyJDBC.getLoggedInUsers();
         for (User user : loggedInUsers) {
             int id = user.getid();
-            String username = user.getUsername();
+            String username = user.getLast_name();
             String email = user.getEmail();
             // Consider removing password from the table for security reasons.
             String password = user.getPassword();

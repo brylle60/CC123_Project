@@ -8,6 +8,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class HowToAppointment extends homepage {
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
     public HowToAppointment() {
         super("AppointmentTutorial");
         addTutorialGUI();
@@ -63,7 +66,7 @@ public class HowToAppointment extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 HowToAppointment.this.dispose();
-                new home().setVisible(true);
+                new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
             }
         });
 

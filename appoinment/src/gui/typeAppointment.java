@@ -1,6 +1,8 @@
 package gui;
 
+import adminpage.User;
 import constant.commonconstant;
+import db.userDb;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,15 +20,26 @@ import javax.swing.JComboBox;
 
 
 public class typeAppointment extends homepage {
+    private String email;
+    private String password;
+    private  User loggeduser;
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
     private static final Logger logger = Logger.getLogger(Appoinment.class.getName());
+    private String selectedService;
+    public static ButtonGroup service;
+    public static String appointment;
 
-    public static CheckboxGroup service;
-    public typeAppointment (){
-        super ("Types of Appointment");
+    public typeAppointment(String loggedInLastName, String loggedInFirstName, String loggedInMiddleName) {
+        super("Types of Appointment");
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
         addGuiComponents();
     }
-
     private void addGuiComponents() {
+        service = new ButtonGroup();
 
         ImageIcon logoIcon6= new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
 
@@ -90,20 +103,25 @@ public class typeAppointment extends homepage {
         checkBox.setBounds(70, 340, 220, 25);
         checkBox.setOpaque(false);
         add(checkBox);
+        service.add(checkBox);
 
         JCheckBox checkBox1 = new JCheckBox("Laboratory and Diagnostics");
         checkBox1.setFont(new Font("Dialog", Font.PLAIN, 18));
         checkBox1.setForeground(commonconstant.TEXT_COLOR);
         checkBox1.setBounds(320, 340, 280, 25);
         checkBox1.setOpaque(false);
+
         add(checkBox1);
+        service.add(checkBox1);
 
         JCheckBox checkBox2 = new JCheckBox("Rehabilitation Medicine Services");
         checkBox2.setFont(new Font("Dialog", Font.PLAIN, 18));
         checkBox2.setForeground(commonconstant.TEXT_COLOR);
         checkBox2.setBounds(600, 340, 300, 25);
         checkBox2.setOpaque(false);
+
         add(checkBox2);
+        service.add(checkBox2);
 
         JCheckBox checkBox3 = new JCheckBox("Online Consultation Services");
         checkBox3.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -111,6 +129,7 @@ public class typeAppointment extends homepage {
         checkBox3.setBounds(935, 340, 300, 25);
         checkBox3.setOpaque(false);
         add(checkBox3);
+        service.add(checkBox3);
 
         JLabel comment = new JLabel("for whom?");
         comment.setBounds(70, 333, 600, 150);
@@ -119,11 +138,8 @@ public class typeAppointment extends homepage {
         comment.setHorizontalAlignment(SwingConstants.CENTER);
         add(comment);
 
-        service = new CheckboxGroup();
-        checkBox.add(service.getSelectedCheckbox());
-        checkBox1.add(service.getSelectedCheckbox());
-        checkBox2.add(service.getSelectedCheckbox());
-        checkBox3.add(service.getSelectedCheckbox());
+
+// Add similar ItemListeners for checkBox2 and checkBox3
 
         String[] appointmentType = {
                 "For myself",
@@ -146,24 +162,24 @@ public class typeAppointment extends homepage {
         Submit.setFont(new Font("Dialog", Font.BOLD, 18));
         Submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Submit.setForeground(commonconstant.TEXT_COLOR);
-        Submit.addActionListener(e -> submitAppointment());
 
 
+        // In the typeAppointment class
         Submit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String appointment = null;
-                typeAppointment.this.dispose();
-                if (service != null) {
-                    appointment = String.valueOf(service.getSelectedCheckbox());
+                if (selectedService != null) {
+                    typeAppointment.this.dispose();
+                   // Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
+                    //appoinment.setAppointmentType(selectedService);
+                    //appoinment.setVisible(true);
                 } else {
                     logger.warning("No appointment type selected");
                     JOptionPane.showMessageDialog(typeAppointment.this, "Please select an appointment type");
-                    return; // Exit the method if no appointment type is selected
                 }
-                new Appoinment().setVisible(true);
             }
         });
+        Submit.addActionListener(e -> submitAppointment());
         Submit.setBounds(660, 500, 180, 30);
         //reserved space for database
 
@@ -198,23 +214,33 @@ public class typeAppointment extends homepage {
 
 
     }
-    public  void submitAppointment() {
-        Checkbox selectedModel = service.getSelectedCheckbox();
-        if (selectedModel != null) {
-            for (Enumeration<CheckboxGroup> Checkbox = (Enumeration<CheckboxGroup>) service.getSelectedCheckbox(); Checkbox.hasMoreElements(); ) {
-                CheckboxGroup button = Checkbox.nextElement();
-                if (button.getSelectedCheckbox() == selectedModel) {
-                    service = (CheckboxGroup) Checkbox;
-                    String type = String.valueOf(service.getSelectedCheckbox());
-                    //  logger.info("Selected appointment type: " + selectedAppointment);
-                    // Do something with the selected appointment type
-                    break;
-                }
+
+    // Add this method
+    public void submitAppointment() {
+        selectedService = null; // Reset selectedService
+
+        for (Enumeration<AbstractButton> buttons = service.getElements(); buttons.hasMoreElements(); ) {
+            AbstractButton button = buttons.nextElement();
+            if (button instanceof JCheckBox && ((JCheckBox) button).isSelected()) {
+                selectedService = ((JCheckBox) button).getText();
+                break;
             }
-        } else {
-            //  logger.warning("No appointment type selected");
-            JOptionPane.showMessageDialog(typeAppointment.this, "No appointment type selected.");
         }
+
+        if (selectedService != null) {
+            typeAppointment.this.dispose();
+
+            loginpage login = new loginpage();
+            login.handleSuccessfulLogin();
+            Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
+            appoinment.setAppointmentType(selectedService);
+            //appoinment.setVisible(true);
+        } else {
+            logger.warning("No appointment type selected");
+            JOptionPane.showMessageDialog(typeAppointment.this, "Please select an appointment type");
+        }
+     }
     }
 
-}
+
+

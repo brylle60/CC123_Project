@@ -8,6 +8,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class UserProfile extends homepage  {
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
 
     public UserProfile() {
         super("User Profile");
@@ -58,7 +61,7 @@ public class UserProfile extends homepage  {
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
 
-                new home().setVisible(true);
+                new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
             }
         });
 

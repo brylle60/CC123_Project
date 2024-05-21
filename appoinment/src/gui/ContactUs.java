@@ -10,7 +10,9 @@ import javax.swing.*;
 
 public class ContactUs extends homepage {
 
-
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
     public ContactUs(){
         super("ContactUs");
         addContactGUI();
@@ -135,7 +137,7 @@ public class ContactUs extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 ContactUs.this.dispose();
-                new home().setVisible(true);
+                new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
             }
         });
 
