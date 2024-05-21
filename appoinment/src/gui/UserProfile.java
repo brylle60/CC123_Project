@@ -1,21 +1,44 @@
 package gui;
 
+
+import adminpage.*;
+import db.userDb;
+
+import java.time.LocalTime;
+import java.util.List;
+import adminpage.User;
+import adminpage.schedules;
+
 import constant.commonconstant;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class UserProfile extends homepage {
 
-    public UserProfile() {
+public class UserProfile extends homepage  {
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
+    private int age;
+    private int number;
+    private String address;
+    private int id;
+    private String sex;
+    private schedules loggedInUser;
+    private List<schedules> userAppointments;
+
+    public UserProfile(int userId) {
         super("User Profile");
+        loggedInUser =userDb.getUserById(userId);
+        userAppointments = AppoinmentManager.getAppointmentsByUserId(userId);
         addUserProfileGUI();
     }
 
     private void addUserProfileGUI() {
         JPanel userProfilePanel = new JPanel();
         userProfilePanel.setLayout(null);
+
         userProfilePanel.setBounds(0, 0, 1300, 900);
 
         //for image
@@ -65,6 +88,7 @@ public class UserProfile extends homepage {
         about1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         about1.setForeground(commonconstant.TEXT_COLOR);
 
+
         // Contact Us button
         JButton contactUs = new JButton("Contact Us");
         contactUs.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -79,6 +103,7 @@ public class UserProfile extends homepage {
         });
 
         // Logout button
+
         JButton logout = new JButton("Logout");
         logout.setFont(new Font("Dialog", Font.BOLD, 18));
         logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -87,9 +112,12 @@ public class UserProfile extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
+
+
                 new loginpage().setVisible(true);
             }
         });
+
 
         // User information section
         JLabel patientProfile = new JLabel("Patient's Profile");

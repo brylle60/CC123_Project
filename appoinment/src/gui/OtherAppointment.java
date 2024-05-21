@@ -28,7 +28,7 @@ import static gui.typeAppointment.appointment;
 import static gui.typeAppointment.service;
 
 
-public class Appoinment extends homepage {
+public class OtherAppointment extends homepage {
     private static final Logger logger = Logger.getLogger(Appoinment.class.getName());
     private LocalTime time;
     private JList<String> appointmentList;
@@ -55,23 +55,15 @@ public class Appoinment extends homepage {
 
     // Add other user information fields as needed
 
-    public Appoinment( int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String address) {
-        super("Appointment Booking");
+    public OtherAppointment( ){
 
-        this.loggedInLastName = loggedInLastName;
-        this.loggedInFirstName = loggedInFirstName;
-        this.loggedInMiddleName = loggedInMiddleName;
-        this.sex = sex;
-        this.age1 = age;
-        this.number1 = number;
-        this.address = address;
-        this.id1 = id;
+        super("Appointment Booking");
         addGuiComponents();
     }
 
 
     private void addGuiComponents() {
-      time = getCurrentTime();
+        time = getCurrentTime();
 
 
 
@@ -97,7 +89,7 @@ public class Appoinment extends homepage {
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Appoinment.this.dispose();
+                OtherAppointment.this.dispose();
 
                 new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age1, number1, address).setVisible(true);
             }
@@ -117,7 +109,7 @@ public class Appoinment extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                Appoinment.this.dispose();
+                OtherAppointment.this.dispose();
                 new UserProfile(id2).setVisible(true);
             }
         });
@@ -136,7 +128,7 @@ public class Appoinment extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                Appoinment.this.dispose();
+                OtherAppointment.this.dispose();
                 new ContactUs().setVisible(true);
 
             }
@@ -177,7 +169,7 @@ public class Appoinment extends homepage {
         lastName .setForeground(commonconstant.TEXT_COLOR);
         lastName .setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField lastNamefield = new JTextField(loggedInLastName);
+        JTextField lastNamefield = new JTextField();
         lastNamefield.setBounds(150, 220, 250, 25);
         lastNamefield.setBackground(commonconstant.SECONDARY_COLOR);
         lastNamefield.setForeground(commonconstant.TEXT_COLOR);
@@ -189,7 +181,7 @@ public class Appoinment extends homepage {
         firstname .setForeground(commonconstant.TEXT_COLOR);
         firstname .setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField firstnamefield = new JTextField(loggedInFirstName);
+        JTextField firstnamefield = new JTextField();
         firstnamefield.setBounds(150, 270, 250, 25);
         firstnamefield.setBackground(commonconstant.SECONDARY_COLOR);
         firstnamefield.setForeground(commonconstant.TEXT_COLOR);
@@ -201,7 +193,7 @@ public class Appoinment extends homepage {
         MI.setForeground(commonconstant.TEXT_COLOR);
         MI.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField Mifield = new JTextField(loggedInMiddleName);
+        JTextField Mifield = new JTextField();
         Mifield.setBounds(150, 322, 250, 25);
         Mifield.setBackground(commonconstant.SECONDARY_COLOR);
         Mifield.setForeground(commonconstant.TEXT_COLOR);
@@ -212,7 +204,7 @@ public class Appoinment extends homepage {
         age.setForeground(commonconstant.TEXT_COLOR);
         age.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField agefield = new JTextField(String.valueOf(age1));
+        JTextField agefield = new JTextField();
         agefield.setBounds(150, 372, 150, 25);
         agefield.setBackground(commonconstant.SECONDARY_COLOR);
         agefield.setForeground(commonconstant.TEXT_COLOR);
@@ -224,7 +216,7 @@ public class Appoinment extends homepage {
         id .setForeground(commonconstant.TEXT_COLOR);
         id .setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField IdField = new JTextField(String.valueOf(id1));
+        JTextField IdField = new JTextField();
         IdField.setBounds(150, 420, 150, 25);
         IdField.setBackground(commonconstant.SECONDARY_COLOR);
         IdField.setForeground(commonconstant.TEXT_COLOR);
@@ -235,7 +227,7 @@ public class Appoinment extends homepage {
         gender.setForeground(commonconstant.TEXT_COLOR);
         gender.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField genderflield = new JTextField(sex);
+        JTextField genderflield = new JTextField();
         genderflield.setBounds(150, 470, 150, 25);
         genderflield.setForeground(commonconstant.TEXT_COLOR);
         genderflield.setFont(new Font("Dialog",Font.PLAIN, 24));
@@ -246,7 +238,7 @@ public class Appoinment extends homepage {
         Address.setForeground(commonconstant.TEXT_COLOR);
         Address.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField Addressfield = new JTextField(address);
+        JTextField Addressfield = new JTextField();
         Addressfield.setBounds(150, 520, 350, 25);
         Addressfield.setForeground(commonconstant.TEXT_COLOR);
         Addressfield.setFont(new Font("Dialog",Font.PLAIN, 24));
@@ -256,7 +248,7 @@ public class Appoinment extends homepage {
         number.setForeground(commonconstant.TEXT_COLOR);
         number.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField numberfield = new JTextField(String.valueOf(number1));
+        JTextField numberfield = new JTextField();
         numberfield.setBounds(150, 572, 350, 25);
         numberfield.setForeground(commonconstant.TEXT_COLOR);
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));
@@ -277,9 +269,9 @@ public class Appoinment extends homepage {
         appointmentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(appointmentList);
-         list.add(scrollPane);
+        list.add(scrollPane);
         list.add(scrollPane, BorderLayout.CENTER);
-         add(list, BorderLayout.CENTER);
+        add(list, BorderLayout.CENTER);
 
         loadAppointments();
 
@@ -373,7 +365,7 @@ public class Appoinment extends homepage {
                 String firstname = null;
                 String MI = null;
                 int age = 0;
-                String gender = sex;
+                String gender = null;
                 String Address = null;
                 long number = 0;
 
@@ -394,13 +386,13 @@ public class Appoinment extends homepage {
 
                 } catch (NumberFormatException ex) {
                     logger.severe("Invalid input: " + ex.getMessage());
-                    JOptionPane.showMessageDialog(Appoinment.this, "Error: Invalid input. Please enter valid values.");
+                    JOptionPane.showMessageDialog(OtherAppointment.this, "Error: Invalid input. Please enter valid values.");
                     return;
                 }
                 Boolean cancel = false;
                 selectedTime = (LocalTime) timeComboBox1.getSelectedItem();
                 String selectedService = appointmentType;
-                int dailogbox =    JOptionPane.showConfirmDialog(Appoinment.this, "Is the info above is correct?");
+                int dailogbox =    JOptionPane.showConfirmDialog(OtherAppointment.this, "Is the info above is correct?");
                 if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
                     if (dailogbox == JOptionPane.YES_OPTION) {
                         if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, selectedService)) {
@@ -408,22 +400,22 @@ public class Appoinment extends homepage {
                             if (book(Id, LastName, firstname, MI, age, selectedTime, gender, Address, number, selectedService, cancel)) {
 
                                 home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, address);
-                                Appoinment.this.dispose();
+                                OtherAppointment.this.dispose();
                                 home.setVisible(true);
                                 // new AppointmentList().setVisible(true);
 
                                 JOptionPane.showMessageDialog(home, "Booked account successfully");
                             } else {
-                                JOptionPane.showMessageDialog(Appoinment.this, "Un able to Booked time\n" + "because someone is already booked in that time");
+                                JOptionPane.showMessageDialog(OtherAppointment.this, "Un able to Booked time\n" + "because someone is already booked in that time");
                             }
                         } else {
                             //logger.warning("Error: Invalid user input");
-                            JOptionPane.showMessageDialog(Appoinment.this, "Error. Name and id must contain words and/or value\n" + "And/or the id must be equal to 6" + " and/or the time is already taken\n" + "the phone number must be 10");
+                            JOptionPane.showMessageDialog(OtherAppointment.this, "Error. Name and id must contain words and/or value\n" + "And/or the id must be equal to 6" + " and/or the time is already taken\n" + "the phone number must be 10");
                         }
                     }
 
                 }else {
-                    JOptionPane.showMessageDialog(Appoinment.this, "Selected time slot is not available. Please choose another slot.");
+                    JOptionPane.showMessageDialog(OtherAppointment.this, "Selected time slot is not available. Please choose another slot.");
                 }
 
             }
@@ -444,7 +436,7 @@ public class Appoinment extends homepage {
 
         add(logoLabel4);
         logoLabel4.add(Booknow);
-       // add(schedules);
+        // add(schedules);
 
 
     }

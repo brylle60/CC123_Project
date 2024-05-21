@@ -4,10 +4,20 @@ import constant.commonconstant;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.*;
 
+
+
 public class ContactUs extends homepage {
+
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
+    private int age;
+    private int number;
+    private String address;
+    private int id;
+    private String sex;
 
     public ContactUs(){
         super("ContactUs");
@@ -23,18 +33,16 @@ public class ContactUs extends homepage {
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
         ImageIcon fbIcon = new ImageIcon("appoinment/src/image/fblogs.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
         ImageIcon emailIcon = new ImageIcon("appoinment/src/image/email.png");
-        ImageIcon contactIcon = new ImageIcon("appoinment/src/image/callPic.png");
+        ImageIcon contactIcon = new ImageIcon("appoinment/src/image/Untitled design (3)-1.png");
 
         // Create a JLabel to display the Icon image for Contact Us.
         JLabel fbLabel = new JLabel(fbIcon);
         fbLabel.setBounds(215, 392, 140, 125); // Adjust the position and size as needed
         add(fbLabel);
 
-
         JLabel emailLabel = new JLabel(emailIcon);
         emailLabel.setBounds(830, 392, 140, 125); // Adjust the position and size as needed
         add(emailLabel);
-
 
         JLabel cellNum = new JLabel(contactIcon);
         cellNum.setBounds(520, 392, 140, 125); // Adjust the position and size as needed
@@ -54,6 +62,7 @@ public class ContactUs extends homepage {
         Remarks.setFont(new Font("Rockwell", Font.BOLD, 20));
         Remarks.setHorizontalAlignment(SwingConstants.CENTER);
         add(Remarks);
+
 
         JLabel FB = new JLabel("www.facebook.com/MedCareCEBU");
         FB.setBounds(33, 485, 520, 100);
@@ -104,8 +113,10 @@ public class ContactUs extends homepage {
         menulabel.setFont(new Font("Dialog", Font.BOLD, 20));
 
         menulabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(menulabel);
 
 
+      
         JLabel menulabel2 = new JLabel("Appointment");
 
         menulabel2.setBounds(91, 53, 400, 100);
@@ -132,9 +143,11 @@ public class ContactUs extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 ContactUs.this.dispose();
-                new home().setVisible(true);
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address).setVisible(true);
             }
         });
+
+        //reserved space for database
 
 
         JLabel about= new JLabel("About Us");
@@ -152,7 +165,7 @@ public class ContactUs extends homepage {
 
         });
 
-        about.setBounds(755, 91, 100,25);
+        about.setBounds(755, 91, 160,25);
 
         JLabel ContactUs= new JLabel("Contact Us");
         ContactUs.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -170,7 +183,7 @@ public class ContactUs extends homepage {
             }
         });
 
-        ContactUs.setBounds(860, 91, 110,25);
+        ContactUs.setBounds(860, 91, 200,25);
 
 
         JButton signin= new JButton("Logout");
@@ -197,13 +210,13 @@ public class ContactUs extends homepage {
         panel1.add(panelLabel, BorderLayout.CENTER);
         panel1.setBounds(0, 0, 1300, 150);
 
+        add(panel1);
         add(menulabel);
         add(menulabel2);
         add(signin);
-        add(ContactUs);
         add(about);
         add(home);
-        add(panel1);
+        add(ContactUs);
 
 
         JPanel BGlightblue = new JPanel(null);
@@ -212,7 +225,47 @@ public class ContactUs extends homepage {
 
         ImageIcon bgBlue = new ImageIcon ("appoinment/src/image/BGlikodIMG.jpg");
         JLabel bgBluePic = new JLabel(bgBlue);
-        bgBluePic.setBounds(0, 150, 1300, 650);
+        bgBluePic.setBounds(0, 165, 1300, 650);
+
+
+        ImageIcon telephonePic = new ImageIcon("appoinment/src/image/telephoneImgSmall.png");
+        JLabel telImgSmall = new JLabel(telephonePic);
+        telImgSmall.setBounds(5,55, 30, 25);
+
+
+
+        JLabel txttelNum = new JLabel("TEL. NO.");
+        txttelNum.setForeground(commonconstant.SECONDARY_COLOR);
+        txttelNum.setFont(new Font("Dialog", Font.BOLD, 23));
+        txttelNum.setBounds(40,45, 200, 50);
+
+        JLabel telNum = new JLabel("<html><u> 0234-567-890</u></html>");
+        telNum.setForeground(commonconstant.TEXT_COLOR);
+        telNum.setFont(new Font("Dialog", Font.BOLD, 17));
+        telNum.setBounds(15,75, 300, 50);
+
+
+        ImageIcon gmailPicSmall  = new ImageIcon("appoinment/src/image/gmaiLogoSmall.png");
+        JLabel gmailImg = new JLabel(gmailPicSmall);
+        gmailImg.setBounds(170,55, 30, 25);
+
+        JLabel txtEmail = new JLabel("E-MAIL:");
+        txtEmail.setForeground(commonconstant.SECONDARY_COLOR);
+        txtEmail.setFont(new Font("Dialog", Font.BOLD, 23));
+        txtEmail.setBounds(205,45, 300, 50);
+
+        JLabel email = new JLabel("<html><u> MedCare.cebu.ph@gmail.com</u></html>");
+        email.setFont(new Font("Dialog", Font.BOLD, 17));
+        email.setForeground(commonconstant.TEXT_COLOR);
+        email.setBounds(180,75, 300, 50);
+
+        // JPanel BGlightblue = new JPanel(null);
+        // BGlightblue.setBounds(100,190,1000,550);
+        // BGlightblue.setBackground(commonconstant.HOME_BG1_GRAY);
+
+        // ImageIcon bgBlue = new ImageIcon ("appoinment/src/image/BGlikodIMG.jpg");
+        // JLabel bgBluePic = new JLabel(bgBlue);
+        // bgBluePic.setBounds(0, 150, 1300, 650);
 
 //        JLabel txttelNum = new JLabel("TEL. NO.");
 //        txttelNum.setForeground(commonconstant.SECONDARY_COLOR);
@@ -230,7 +283,9 @@ public class ContactUs extends homepage {
 
 
 
+
         add(BGlightblue);
         add(bgBluePic);
     }
+
 }

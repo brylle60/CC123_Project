@@ -3,6 +3,7 @@ package gui;
 import adminpage.AdminHome;
 import adminpage.AdminPageController;
 import adminpage.ScheduleTable;
+import adminpage.User;
 import constant.commonconstant;
 import db.MyJDBC;
 
@@ -12,8 +13,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.*;
+import java.time.LocalDate;
+
 
 public class loginpage extends form {
+    private String email;
+    private String password;
+    private User loggeduser;
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
+    private String sex;
+    private int age;
+    private long number;
+    private String address;
+    private int id;
     public loginpage(){
         super("MedCare Login");
         addGuiComponents();
@@ -47,18 +62,15 @@ public class loginpage extends form {
         add(loginlabel);
 
         //username label for the users that have registered account
-        JLabel usernamelabel = new JLabel("Username:");
-
+        JLabel usernamelabel = new JLabel("Email:");
         usernamelabel.setBounds(270, 283, 400, 25);
         usernamelabel.setForeground(commonconstant.TEXT_COLOR);
-        usernamelabel.setFont(new Font("Dialog",Font.PLAIN, 17));
+        usernamelabel.setFont(new Font("Dialog", Font.PLAIN, 17));
 
         JTextField usernameField = new JTextField();
-
         usernameField.setBounds(270, 313, 300, 30);
         usernameField.setBackground(commonconstant.SECONDARY_COLOR);
         usernameField.setForeground(commonconstant.TEXT_COLOR);
-
         usernameField.setFont(new Font("Dialog", Font.PLAIN, 15));
 
         add(usernamelabel);
@@ -84,54 +96,33 @@ public class loginpage extends form {
 
         //for the login button
         JButton loginButton = new JButton("Login");
-
         loginButton.setForeground(commonconstant.BLUE_COLOR);
         loginButton.setFont(new Font("Dialog", Font.BOLD, 17));
-
         loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
         loginButton.setBackground(commonconstant.HOME_BG1_BLUE);
-        loginButton.setBounds(465, 470, 100,35);
+        loginButton.setBounds(465, 470, 100, 35);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //users database validation
-                String username = usernameField.getText();
-
+                String email = usernameField.getText();
                 String password = new String(passwordField.getPassword());
+                typeAppointment appointment = new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number, address);
 
 
-
-                    if (MyJDBC.validatelogin(username, password)) {
-                        loginpage.this.dispose();
-                        new home().setVisible(true);
-
-
-                        JOptionPane.showMessageDialog(loginpage.this, "Login Successful!");
-
-                    }
-                else if(admin(username, password)) {
-
-
-                    new AdminHome().setVisible(true);
+                if (MyJDBC.validateLogin(email, password)) {
+                      appointment.handleSuccessfulLogin(email, password);
 
                     loginpage.this.dispose();
-                        JOptionPane.showMessageDialog(loginpage.this,"WELCOME ADMIN");
-
+                    //new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
+                    JOptionPane.showMessageDialog(loginpage.this, "Login Successful!");
+                } else if (admin(email, password)) {
+                    new AdminHome().setVisible(true);
+                    loginpage.this.dispose();
+                    JOptionPane.showMessageDialog(loginpage.this, "WELCOME ADMIN");
+                } else {
+                    JOptionPane.showMessageDialog(loginpage.this, "Login Failed...");
                 }
-                    else if(!admin(username, password)) {
-                       AdminHome admin = new AdminHome();
-                        admin.dispose();
-                        JOptionPane.showMessageDialog(loginpage.this,"Login Failed");
-                    }
-
-                    else {
-
-                        JOptionPane.showMessageDialog(loginpage.this, "Login Failed...");
-                    }
-
-
-
             }
         });
         add(loginButton);
@@ -180,10 +171,12 @@ public class loginpage extends form {
         add(image2);
     }
 
-    public boolean admin(String username, String password){
-        if(username.matches("brylle") && password.matches("password")) return true;
-        if (!username.matches("brylle"))    return false;
+    public boolean admin(String email, String password){
+        if(email.matches("brylle@example.com") && password.matches("password")) return true;
+
+        if (!email.matches("brylle@emaple.com"))    return false;
         if(!password.matches("password"))   return false;
         return true;
     }
+
 }

@@ -19,12 +19,29 @@ import java.awt.event.MouseEvent;
 
 public class home extends homepage {
     private ButtonGroup appointmentTypeGroup;
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
+    private int age;
+    private long number;
+    private String address;
+    private String sex;
+    private int id;
 
-    public home(){
+
+    public home(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String address) {
         super("HealthAppointment");
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+        this.sex = sex;
+        this.age = age;
+        this.number = number;
+        this.address = address;
+        this.id = id;
         addGuiComponents();
-
     }
+
 
     private void addGuiComponents() {
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
@@ -70,7 +87,7 @@ public class home extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 home.this.dispose();
-                new UserProfile().setVisible(true);
+                new UserProfile(id).setVisible(true);
             }
         });
 //new edit change x loc
@@ -263,12 +280,12 @@ public class home extends homepage {
         book.setBounds(710, 265, 150, 30); //gi-edit ang y ani
         book.setForeground(commonconstant.TEXT_COLOR);
         //set mouse listener
+        // In the home class
         book.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 home.this.dispose();
-
-                new typeAppointment().setVisible(true);
+                new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, address).setVisible(true);
             }
         });
 
@@ -314,14 +331,14 @@ public class home extends homepage {
         time.setForeground(commonconstant.TEXT_COLOR);
         time.setBounds(675, 438, 159,30);
 
-        time.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                home.this.dispose();
-
-                new Appoinment().setVisible(true);
-            }
-        });
+//        time.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                home.this.dispose();
+//
+//                new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
+//            }
+//        });
 
 
         JLabel to = new JLabel("TO");
@@ -337,14 +354,14 @@ public class home extends homepage {
         time2.setForeground(commonconstant.TEXT_COLOR);
         time2.setBounds(877, 438, 159,30);
 
-        time2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                home.this.dispose();
-
-                new Appoinment().setVisible(true);
-            }
-        });
+//        time2.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                home.this.dispose();
+//
+//                new Appoinment().setVisible(true);
+//            }
+//        });
 
         ImageIcon hoursHomeImg= new ImageIcon("appoinment/src/image/FINALHOURSBGREMOVED.png");
         JLabel HomeClockImg = new JLabel(hoursHomeImg);
@@ -490,7 +507,6 @@ public class home extends homepage {
 
 
     }
-    
 
 
 

@@ -1,6 +1,7 @@
 package db;
 
 
+import adminpage.User;
 import adminpage.schedules;
 import constant.TimeSlotManager;
 import constant.commonconstant;
@@ -13,24 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class userDb {
-        public static boolean book(int id, String last_name, String first_name, String midlle_name, LocalTime time, String Gender, String Address, int number, String appointment, boolean cacel) {
+        public static boolean book(int id, String last_name, String first_name, String midlle_name,int age, LocalTime time, String Gender, String Address, long number, String appointment, boolean cacel) {
             try {
                 if (TimeSlotManager.isTimeSlotAvailable(time)) {
                     if (!checkuser(id)) {
                         if (!isTimeSlotBooked(time)) {
 
                             Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-                            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, time, gender, adress, number, Appointment, canceled )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, age, time, gender, adress, number, Appointment, canceled )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                             insertUser.setInt(1, id);
                             insertUser.setString(2, last_name);
                             insertUser.setString(3, first_name);
                             insertUser.setString(4, midlle_name);
-                            insertUser.setTime(5, Time.valueOf(time));
-                            insertUser.setString(6, Gender);
-                            insertUser.setString(7, Address);
-                            insertUser.setInt(8, number);
-                            insertUser.setString(9, appointment);
-                            insertUser.setBoolean(10, cacel);
+                            insertUser.setInt(5, age);
+                            insertUser.setTime(6, Time.valueOf(time));
+                            insertUser.setString(7, Gender);
+                            insertUser.setString(8, Address);
+                            insertUser.setLong(9, number);
+                            insertUser.setString(10, appointment);
+                            insertUser.setBoolean(11, cacel);
+
 
                             int rowsInserted = insertUser.executeUpdate();
                             if (rowsInserted > 0) {
@@ -69,24 +72,25 @@ public class userDb {
     }
 
 
-    public static boolean validateuser(int id, String last_name, String first_name, String midlle_name, LocalTime time, String Gender, String address, int number, String Appoinment, boolean cancel) {
+    public static boolean validateuser(int id, String last_name, String first_name, String midlle_name, LocalTime time, String Gender, String address, long number, String Appoinment, boolean cancel, int age) {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, time, gander, adress, number, Appointment, canceled)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, age, time, gender, adress, number, Appointment, canceled)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             PreparedStatement validate = connection.prepareStatement(
-                    "SELECT * FROM " + commonconstant.DB_USER_INFO + " WHERE user_id = ? AND last_name = ? AND first_name = ? AND m_i = ? AND time = ? AND gender = ? AND adress = ? And  number = ? AND Appointment = ? AND canceled = ?"
+                    "SELECT * FROM " + commonconstant.DB_USER_INFO + " WHERE user_id = ? AND last_name = ? AND first_name = ? AND m_i = ? AND age = ? AND time = ? AND gender = ? AND adress = ? And  number = ? AND Appointment = ? AND canceled = ?"
             );
             validate.setInt(1, id);
             validate.setString(2, last_name);
             validate.setString(3, first_name);
             validate.setString(4, midlle_name);
-            validate.setTime(5, Time.valueOf(time));
-            validate.setString(6, Gender);
-            validate.setString(7, address);
-            validate.setInt(8, number);
-            validate.setString(9, Appoinment);
-            validate.setBoolean(10, cancel);
+            validate.setInt(5, age);
+            validate.setTime(6, Time.valueOf(time));
+            validate.setString(7, Gender);
+            validate.setString(8, address);
+            validate.setLong(9, number);
+            validate.setString(10, Appoinment);
+            validate.setBoolean(11, cancel);
             ResultSet result = validate.executeQuery();
 
             if (!result.isBeforeFirst()) {
@@ -128,6 +132,37 @@ public class userDb {
             e.printStackTrace();
         }
         return false;
+    }
+    public static schedules getUserById(int userId) {
+        schedules schedule = null;
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + commonconstant.DB_USER_INFO + " WHERE user_id = ?");
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int id = resultSet.getInt("user_id");
+                String lastName = resultSet.getString("last_name");
+                String firstName = resultSet.getString("first_name");
+                String middleName = resultSet.getString("m_i");
+                LocalTime time = resultSet.getTime("time").toLocalTime();
+                LocalDate date = resultSet.getDate("date").toLocalDate();
+
+                String gender = resultSet.getString("gender");
+                String address = resultSet.getString("adress");
+                int number = resultSet.getInt("number");
+                String Appoinment = resultSet.getString("Appointment");
+                boolean cancel = resultSet.getBoolean("canceled");
+
+                // Add more fields as needed from the database
+
+                schedule = new schedules(id, firstName, lastName, middleName, time, date, gender, address, number, Appoinment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return schedule;
     }
     public static List<schedules> getAppointment() {
         List<schedules> appointments = new ArrayList<>();
