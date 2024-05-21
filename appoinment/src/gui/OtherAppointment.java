@@ -253,7 +253,7 @@ public class OtherAppointment extends homepage {
         numberfield.setForeground(commonconstant.TEXT_COLOR);
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
-        JLabel dashBoard = new JLabel("Dash Board");
+        JLabel dashBoard = new JLabel("To days Dash Board");
         dashBoard.setBounds(750, 270,300, 25);
         dashBoard.setForeground(commonconstant.TEXT_COLOR);
         dashBoard.setFont(new Font("Dialog",Font.BOLD, 18));
