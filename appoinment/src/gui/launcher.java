@@ -10,17 +10,24 @@ import db.userDb;
 import javax.swing.*;
 
 public class launcher {
+    private static String loggedInLastName;
+    private static String loggedInFirstName;
+    private static String loggedInMiddleName;
+    private static int id;
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-
+//                Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
+//                appoinment.setVisible(true);
+                //new UserProfile(id).setVisible(true);
 
 
 //new typeAppointment().setVisible(true);
                 new loginpage().setVisible(true);
 //new AdminHome().setVisible(true);
-              //new Appoinment().setVisible(true);
+
               //new AppointmentList().setVisible(true);
          //       new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
