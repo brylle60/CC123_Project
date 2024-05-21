@@ -1,5 +1,6 @@
 package gui;
 
+
 import adminpage.*;
 import db.userDb;
 
@@ -7,11 +8,13 @@ import java.time.LocalTime;
 import java.util.List;
 import adminpage.User;
 import adminpage.schedules;
+
 import constant.commonconstant;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 
 public class UserProfile extends homepage  {
     private String loggedInLastName;
@@ -35,78 +38,72 @@ public class UserProfile extends homepage  {
     private void addUserProfileGUI() {
         JPanel userProfilePanel = new JPanel();
         userProfilePanel.setLayout(null);
-        userProfilePanel.setBounds(0,0, 1300, 900);
+
+        userProfilePanel.setBounds(0, 0, 1300, 900);
 
         //for image
-        ImageIcon losIcon = new ImageIcon("appoinment/src/image/img.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
-        ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
+        ImageIcon losIcon = new ImageIcon("appoinment/src/image/img.png"); // Replace with the actual path to your image file
+        ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png"); // Replace with the actual path to your image file
+        ImageIcon avatarIcon = new ImageIcon("appoinment/src/image/usernoprofile.png"); // Replace with the actual path to your image file
+
 
         // Create a JLabel to display the logo image
         JLabel logsLabel = new JLabel(losIcon);
         JLabel logoLabel = new JLabel(logoIcon);
+        JLabel avatarLabel = new JLabel(avatarIcon);
+        add(avatarLabel);
+        avatarLabel.setBounds(170, 175, 150, 150);
 
-
-        //nothing button
-        JButton nothing= new JButton("");
+        // Nothing button
+        JButton nothing = new JButton("");
         nothing.setBounds(0, 0, 0, 0);
-        nothing.setForeground(new Color(0,0,0,0));
-        nothing.setBackground(new Color(0,0,0,0));
+        nothing.setForeground(new Color(0, 0, 0, 0));
+        nothing.setBackground(new Color(0, 0, 0, 0));
         nothing.setFont(new Font("Dialog", Font.BOLD, 0));
-
         nothing.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        //set mouse listener
         nothing.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                // No action needed
             }
         });
         add(nothing);
 
-        //new time menu for the time selection mode
-
+        // Home button
         JButton home = new JButton("Home");
         home.setFont(new Font("Dialog", Font.BOLD, 18));
         home.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         home.setForeground(commonconstant.TEXT_COLOR);
-
-
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
-
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address).setVisible(true);
+                new home().setVisible(true);
             }
         });
 
-        //for about us direct
-        JButton about1 = new JButton("About us");
+        // About Us button
+        JButton about1 = new JButton("About Us");
         about1.setFont(new Font("Dialog", Font.BOLD, 18));
         about1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         about1.setForeground(commonconstant.TEXT_COLOR);
 
 
-        //for contact us direct
-        JButton ContactUs= new JButton("Contact Us");
-        ContactUs.setFont(new Font("Dialog", Font.BOLD, 18));
-        ContactUs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        ContactUs.setForeground(commonconstant.TEXT_COLOR);
-
-        //set mouse listener
-        ContactUs.addMouseListener(new MouseAdapter() {
+        // Contact Us button
+        JButton contactUs = new JButton("Contact Us");
+        contactUs.setFont(new Font("Dialog", Font.BOLD, 18));
+        contactUs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        contactUs.setForeground(commonconstant.TEXT_COLOR);
+        contactUs.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
-
                 UserProfile.this.dispose();
                 new ContactUs().setVisible(true);
-
             }
         });
 
+        // Logout button
 
-        // for log out and direct to log out
         JButton logout = new JButton("Logout");
         logout.setFont(new Font("Dialog", Font.BOLD, 18));
         logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -116,23 +113,74 @@ public class UserProfile extends homepage  {
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
 
+
                 new loginpage().setVisible(true);
             }
         });
 
-        //reserved space for database
 
-
-        //para sa text title
+        // User information section
         JLabel patientProfile = new JLabel("Patient's Profile");
-        patientProfile.setBounds(180, 145, 550, 150);
+        patientProfile.setBounds(180, 245, 550, 150);
         patientProfile.setForeground(commonconstant.SECONDARY_COLOR);
-        patientProfile.setFont(new Font("Serif", Font.BOLD,18));
-
+        patientProfile.setFont(new Font("Serif", Font.BOLD, 18));
         add(patientProfile);
 
+        // User information below sa Patient's Profile
+        JLabel fnameLabel = new JLabel("First Name:");
+        fnameLabel.setBounds(115, 350, 280, 25);
+        fnameLabel.setFont(new Font("Dialog", Font.BOLD, 17));
+        fnameLabel.setForeground(commonconstant.BLUE_COLOR);
+        add(fnameLabel);
 
-        //color
+        JLabel lnameLabel = new JLabel("Last Name:");
+        lnameLabel.setBounds(115, 385, 280, 25);
+        lnameLabel.setFont(new Font("Dialog", Font.BOLD, 17));
+        lnameLabel.setForeground(commonconstant.BLUE_COLOR);
+        add(lnameLabel);
+
+
+        JLabel emailLabel = new JLabel("Gender:");
+        emailLabel.setBounds(115, 415, 150, 25);
+        emailLabel.setFont(new Font("Dialog", Font.BOLD, 17));
+        emailLabel.setForeground(commonconstant.BLUE_COLOR);
+        add(emailLabel);
+
+        JLabel addressLabel = new JLabel("Email:");
+        addressLabel.setBounds(115, 445, 150, 25);
+        addressLabel.setFont(new Font("Dialog", Font.BOLD, 17));
+        addressLabel.setForeground(commonconstant.BLUE_COLOR);
+        add(addressLabel);
+
+
+        JLabel genderLabel = new JLabel("Address:");
+        genderLabel.setBounds(115, 480, 150, 25);
+        genderLabel.setFont(new Font("Dialog", Font.BOLD, 17));
+        genderLabel.setForeground(commonconstant.BLUE_COLOR);
+        add(genderLabel);
+
+        JLabel contactNumberLabel = new JLabel("Contact Number:");
+        contactNumberLabel.setBounds(115, 510, 150, 25);
+        contactNumberLabel.setFont(new Font("Dialog", Font.BOLD, 17));
+        contactNumberLabel.setForeground(commonconstant.BLUE_COLOR);
+        add(contactNumberLabel);
+
+        // for Medical History
+        JLabel medicalHistoryLabel = new JLabel("Medical History");
+        medicalHistoryLabel.setBounds(668, 188, 180, 25);
+        medicalHistoryLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+        medicalHistoryLabel.setForeground(commonconstant.DARK_BLUE);
+        add(medicalHistoryLabel);
+
+        // for Appointment History
+        JLabel appointmentHistoryLabel = new JLabel("Appointment History");
+        appointmentHistoryLabel.setBounds(655, 382, 180, 25);
+        appointmentHistoryLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+        appointmentHistoryLabel.setForeground(commonconstant.DARK_BLUE);
+        add(appointmentHistoryLabel);
+
+
+        // Background panels
         JPanel BGdarkblue = new JPanel(null);
         BGdarkblue.setBackground(commonconstant.DARK_BLUE);
 
@@ -142,38 +190,30 @@ public class UserProfile extends homepage  {
         JPanel BGlightblo = new JPanel(null);
         BGlightblo.setBackground(commonconstant.PRIMARY_COLOR);
 
-        //for menu
+        // Adding components to the frame
         add(home);
         add(about1);
-        add(ContactUs);
+        add(contactUs);
         add(logout);
 
-        //size and position sa menu
+        // Set bounds for menu buttons
         home.setBounds(480, 130, 150, 25);
         about1.setBounds(780, 130, 150, 25);
-        ContactUs.setBounds(630, 130, 150,25);
+        contactUs.setBounds(630, 130, 150, 25);
         logout.setBounds(927, 130, 150, 25);
 
-        //for color and bg
+        // Set bounds for background panels
         add(BGlightblo);
         add(BGdarkblue);
         add(BGlightblue);
-        //size and position sa color bg
-        BGdarkblue.setBounds(100,190,300,450);
-        BGlightblue.setBounds(430,190,650,150);
-        BGlightblo.setBounds(430,380,650,258);
+        BGdarkblue.setBounds(100, 190, 300, 450);
+        BGlightblue.setBounds(430, 190, 650, 150);
+        BGlightblo.setBounds(430, 380, 650, 258);
 
-        //for image background and logo
+        // Set bounds for images
         add(logoLabel);
         add(logsLabel);
-        //image position and size
-        logsLabel.setBounds(0, 0, 1300,900 );//background sa userprofile
-        logoLabel.setBounds(100, 45, 180, 100);//logo sa medical
-
-
- }
-
-// Add the appointmentsPanel to the main panel or layout
-
-
+        logsLabel.setBounds(0, 0, 1300, 900);
+        logoLabel.setBounds(100, 45, 180, 100);
+    }
 }
