@@ -7,6 +7,7 @@ public class User {
     private String last_name;
     private String first_name;
     private String middle_name;
+    private String sex;
     private  int age;
     private long number;
     private String email;
@@ -24,12 +25,13 @@ public class User {
 
     }
 
-    public User(int id, String last_name, String first_name, String middle_name, int age, long number, String email, String password, String address, LocalDate birthdate, boolean isLoggedIn) {
+    public User(int id, String last_name, String first_name, String middle_name, String sex, int age, long number, String email, String password, String address, LocalDate birthdate, boolean isLoggedIn) {
        this.id = id;
         this.last_name = last_name;
         this.first_name = first_name;
         this.middle_name = middle_name;
         this.age = age;
+        this.sex = sex;
         this.number = number;
         this.email = email;
         this.password = password;
@@ -122,5 +124,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

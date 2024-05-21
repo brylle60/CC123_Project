@@ -22,13 +22,23 @@ public class home extends homepage {
     private String loggedInLastName;
     private String loggedInFirstName;
     private String loggedInMiddleName;
+    private int age;
+    private long number;
+    private String address;
+    private String sex;
+    private int id;
 
 
-    public home(String loggedInLastName, String loggedInFirstName, String loggedInMiddleName) {
+    public home(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String address) {
         super("HealthAppointment");
         this.loggedInLastName = loggedInLastName;
         this.loggedInFirstName = loggedInFirstName;
         this.loggedInMiddleName = loggedInMiddleName;
+        this.sex = sex;
+        this.age = age;
+        this.number = number;
+        this.address = address;
+        this.id = id;
         addGuiComponents();
     }
 
@@ -77,7 +87,7 @@ public class home extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 home.this.dispose();
-                new UserProfile().setVisible(true);
+                new UserProfile(id).setVisible(true);
             }
         });
 //new edit change x loc
@@ -275,7 +285,7 @@ public class home extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 home.this.dispose();
-                new typeAppointment(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
+                new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, address).setVisible(true);
             }
         });
 

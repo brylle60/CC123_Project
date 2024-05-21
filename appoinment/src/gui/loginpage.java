@@ -24,6 +24,11 @@ public class loginpage extends form {
     private String loggedInLastName;
     private String loggedInFirstName;
     private String loggedInMiddleName;
+    private String sex;
+    private int age;
+    private long number;
+    private String address;
+    private int id;
     public loginpage(){
         super("MedCare Login");
         addGuiComponents();
@@ -102,11 +107,14 @@ public class loginpage extends form {
                 //users database validation
                 String email = usernameField.getText();
                 String password = new String(passwordField.getPassword());
+                typeAppointment appointment = new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number, address);
+
 
                 if (MyJDBC.validateLogin(email, password)) {
-                   // handleSuccessfulLogin(email, password);
+                      appointment.handleSuccessfulLogin(email, password);
+
                     loginpage.this.dispose();
-                    new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
+                    //new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
                     JOptionPane.showMessageDialog(loginpage.this, "Login Successful!");
                 } else if (admin(email, password)) {
                     new AdminHome().setVisible(true);
@@ -170,52 +178,5 @@ public class loginpage extends form {
         if(!password.matches("password"))   return false;
         return true;
     }
-    public void handleSuccessfulLogin() {
-        // Retrieve user information from the database
-        User loggedInUser = getUserFromDatabase(email, password);
 
-        if (loggedInUser != null) {
-            // Create an instance of the Appoinment class with the logged-in user's information
-
-           new Appoinment(loggedInUser.getLast_name(), loggedInUser.getFirst_name(), loggedInUser.getMiddle_name()).setVisible(true);
-//            // Dispose of the login page
-//            this.dispose();
-        } else {
-            // Handle the case where the user is not found in the database
-            JOptionPane.showMessageDialog(this, "Invalid email or password.");
-        }
-    }
-
-    private User getUserFromDatabase(String email, String password) {
-        try {
-            // Check if the user exists and is logged in
-            if (MyJDBC.validateLogin(email, password)) {
-                Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-                PreparedStatement statement = connection.prepareStatement("SELECT idUser_Id, last_name, first_name, middle_name, age, mobile_number, address, birthdate FROM " + commonconstant.DB_TABLE_NAME + " WHERE User_email = ? AND user_password = ?");
-                statement.setString(1, email);
-                statement.setString(2, password);
-                ResultSet resultSet = statement.executeQuery();
-
-                if (resultSet.next()) {
-                    int Id = resultSet.getInt("idUser_Id");
-                    String lastName = resultSet.getString("last_name");
-                    String firstName = resultSet.getString("first_name");
-                    String middleName = resultSet.getString("middle_name");
-                    int age = resultSet.getInt("age");
-                    long mobileNumber = resultSet.getLong("mobile_number");
-                    String address = resultSet.getString("address");
-                    LocalDate birthdate = resultSet.getDate("birthdate").toLocalDate();
-                    boolean logged = true;
-
-                    // Create and return a User object with the retrieved information
-                    return new User(Id, lastName, firstName, middleName, age, mobileNumber, email, password, address, birthdate, logged);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        // If the user is not found or an error occurs, return null
-        return null;
-    }
 }

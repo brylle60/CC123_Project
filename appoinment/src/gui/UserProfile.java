@@ -1,6 +1,12 @@
 package gui;
 
+import adminpage.*;
+import db.userDb;
 
+import java.time.LocalTime;
+import java.util.List;
+import adminpage.User;
+import adminpage.schedules;
 import constant.commonconstant;
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +17,18 @@ public class UserProfile extends homepage  {
     private String loggedInLastName;
     private String loggedInFirstName;
     private String loggedInMiddleName;
+    private int age;
+    private int number;
+    private String address;
+    private int id;
+    private String sex;
+    private schedules loggedInUser;
+    private List<schedules> userAppointments;
 
-    public UserProfile() {
+    public UserProfile(int userId) {
         super("User Profile");
+        loggedInUser =userDb.getUserById(userId);
+        userAppointments = AppoinmentManager.getAppointmentsByUserId(userId);
         addUserProfileGUI();
     }
 
@@ -61,7 +76,7 @@ public class UserProfile extends homepage  {
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
 
-                new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address).setVisible(true);
             }
         });
 
@@ -155,5 +170,10 @@ public class UserProfile extends homepage  {
         logsLabel.setBounds(0, 0, 1300,900 );//background sa userprofile
         logoLabel.setBounds(100, 45, 180, 100);//logo sa medical
 
-    }
+
+ }
+
+// Add the appointmentsPanel to the main panel or layout
+
+
 }

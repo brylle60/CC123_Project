@@ -8,9 +8,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class About extends homepage{
+ private int userId;
  private String loggedInLastName;
  private String loggedInFirstName;
  private String loggedInMiddleName;
+ private int age;
+ private int number;
+ private String address;
+ private int id;
+ private String sex;
+
     public About(){
         super("HealthAppointment");
         addGuiComponents();
@@ -57,7 +64,7 @@ public class About extends homepage{
             public void mouseClicked(MouseEvent e) {
                 About.this.dispose();
 
-                new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address).setVisible(true);
             }
         });
         home.setBounds(620, 130, 150, 25);
@@ -121,7 +128,7 @@ public class About extends homepage{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 About.this.dispose();
-                new UserProfile().setVisible(true);
+                new UserProfile(userId).setVisible(true);
             }
         });
 

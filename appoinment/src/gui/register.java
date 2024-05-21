@@ -287,6 +287,7 @@ public class register extends form {
                 String LastName = nameField1.getText();
                 String FirstName = nameField2.getText();
                 String MiddleName = nameField3.getText();
+                String sex = "";
                 String passsword = new String(passwordField.getPassword());
                 String rePassword = new String(repasswordField.getPassword());
                 int number = 0;//Integer.parseInt(numberfield.getText());
@@ -298,7 +299,7 @@ public class register extends form {
                 Boolean logg = true;
 
                 if(validateuserinput(LastName , FirstName , MiddleName , passsword, rePassword, email)){
-                    if(MyJDBC.register(LastName, FirstName, MiddleName, age, number, email , passsword, address, birthdate, logg)){
+                    if(MyJDBC.register(LastName, FirstName, MiddleName, sex, age, number, email , passsword, address, birthdate, logg)){
                         register.this.dispose();
                         loginpage login = new loginpage();
                         login.setVisible(true);
