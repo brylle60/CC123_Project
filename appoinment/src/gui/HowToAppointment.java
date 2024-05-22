@@ -16,6 +16,7 @@ public class HowToAppointment extends homepage {
     private String address;
     private int id;
     private String sex;
+    private String email;
 
     public HowToAppointment() {
         super("AppointmentTutorial");
@@ -72,7 +73,7 @@ public class HowToAppointment extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 HowToAppointment.this.dispose();
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address).setVisible(true);
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
 

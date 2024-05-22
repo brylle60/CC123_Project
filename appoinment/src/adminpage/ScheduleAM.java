@@ -233,7 +233,7 @@ public class ScheduleAM extends adminform{
             LocalDate date = schedules.getDate();
             String gender = schedules.getGender();
             String address = schedules.getAdress();
-            int number = schedules.getNumber();
+            long number = schedules.getNumber();
             String appointment = schedules.getAppointmet();
             //debugger
             //  System.out.println("Logged-in Users:");

@@ -12,7 +12,7 @@ public class schedules {
     LocalDate date;
     private String gender;
     private String adress;
-    private int number;
+    private long number;
     private String Appointmet;
 
 
@@ -25,7 +25,7 @@ public class schedules {
 
     }
 
-    public schedules(int id, String last_name, String first_name, String midlle_name, LocalTime time, LocalDate date, String gender, String adress, int number, String appointment) {
+    public schedules(int id, String last_name, String first_name, String midlle_name, LocalTime time, LocalDate date, String gender, String adress, long number, String appointment) {
         this.id = id;
         this.last_name = last_name;
         this.first_name = first_name;
@@ -104,7 +104,7 @@ public class schedules {
         this.adress = adress;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 

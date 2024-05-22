@@ -27,9 +27,9 @@ public class home extends homepage {
     private String address;
     private String sex;
     private int id;
+    private String email;
 
-
-    public home(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String address) {
+    public home(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String email, String address) {
         super("HealthAppointment");
         this.loggedInLastName = loggedInLastName;
         this.loggedInFirstName = loggedInFirstName;
@@ -38,6 +38,7 @@ public class home extends homepage {
         this.age = age;
         this.number = number;
         this.address = address;
+        this.email = email;
         this.id = id;
         addGuiComponents();
     }
@@ -87,7 +88,7 @@ public class home extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 home.this.dispose();
-                new UserProfile(id).setVisible(true);
+                new UserProfile(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address, email).setVisible(true);
             }
         });
 //new edit change x loc
