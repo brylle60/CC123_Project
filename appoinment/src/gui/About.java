@@ -16,6 +16,7 @@ public class About extends homepage{
  private int number;
  private String address;
  private int id;
+ private String email;
  private String sex;
 
     public About(){
@@ -64,7 +65,7 @@ public class About extends homepage{
             public void mouseClicked(MouseEvent e) {
                 About.this.dispose();
 
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address).setVisible(true);
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
         home.setBounds(620, 130, 150, 25);
@@ -123,15 +124,14 @@ public class About extends homepage{
         userProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         userProfile.setForeground(commonconstant.TEXT_COLOR);
 
-        userProfile.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                About.this.dispose();
-                new UserProfile(userId).setVisible(true);
-            }
-        });
-
+     userProfile.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+       super.mouseClicked(e);
+       About.this.dispose();
+       new UserProfile(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address, email).setVisible(true);
+      }
+     });
         userProfile.setBounds(770, 130, 140,25);
 
         add(userProfile);

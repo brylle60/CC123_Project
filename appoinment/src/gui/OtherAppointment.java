@@ -40,6 +40,7 @@ public class OtherAppointment extends homepage {
     private String loggedInMiddleName;
     private int age1;
     private long number1;
+    private String email;
     private String address;
     private int id1;
     private String appointmentType;
@@ -91,7 +92,7 @@ public class OtherAppointment extends homepage {
             public void mouseClicked(MouseEvent e) {
                 OtherAppointment.this.dispose();
 
-                new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age1, number1, address).setVisible(true);
+                new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age1, number1, email, address).setVisible(true);
             }
         });
         home.setBounds(1055, 50, 140, 30);
@@ -110,7 +111,7 @@ public class OtherAppointment extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 OtherAppointment.this.dispose();
-                new UserProfile(id2).setVisible(true);
+                new UserProfile(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age1, number1, address, email).setVisible(true);
             }
         });
 //new edit change x loc
@@ -390,6 +391,7 @@ public class OtherAppointment extends homepage {
                     return;
                 }
                 Boolean cancel = false;
+                Boolean finish = false;
                 selectedTime = (LocalTime) timeComboBox1.getSelectedItem();
                 String selectedService = appointmentType;
                 int dailogbox =    JOptionPane.showConfirmDialog(OtherAppointment.this, "Is the info above is correct?");
@@ -397,9 +399,9 @@ public class OtherAppointment extends homepage {
                     if (dailogbox == JOptionPane.YES_OPTION) {
                         if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, selectedService)) {
 
-                            if (book(Id, LastName, firstname, MI, age, selectedTime, gender, Address, number, selectedService, cancel)) {
+                            if (book(Id, LastName, firstname, MI, age, selectedTime, gender, Address, number, selectedService, cancel, finish)) {
 
-                                home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, address);
+                                home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, email, address);
                                 OtherAppointment.this.dispose();
                                 home.setVisible(true);
                                 // new AppointmentList().setVisible(true);

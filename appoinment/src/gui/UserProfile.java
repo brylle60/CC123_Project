@@ -2,8 +2,11 @@ package gui;
 
 
 import adminpage.*;
+import constant.TimeSlotManager;
 import db.userDb;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.List;
 import adminpage.User;
@@ -14,6 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 
 
 public class UserProfile extends homepage  {
@@ -25,13 +29,28 @@ public class UserProfile extends homepage  {
     private String address;
     private int id;
     private String sex;
+    private String email;
     private schedules loggedInUser;
     private List<schedules> userAppointments;
+    private JList<String> appointmentList;
+    private DefaultListModel<String> listModel;
+    private  DefaultListModel<String> medicalHistoryModel;
+    private  JList<String> medicalHistoryList;
+    private int userId;
 
-    public UserProfile(int userId) {
+
+
+    public UserProfile(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String address, String email) {
         super("User Profile");
-        loggedInUser =userDb.getUserById(userId);
-        userAppointments = AppoinmentManager.getAppointmentsByUserId(userId);
+        this.userId = id;
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+        this.sex = sex;
+        this.age = age;
+        this.number = (int) number;
+        this.address = address;
+        this.email = email; // Assign the email to the instance variable
         addUserProfileGUI();
     }
 
@@ -78,7 +97,8 @@ public class UserProfile extends homepage  {
             @Override
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
-//                new home().setVisible(true);
+
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
 
@@ -127,40 +147,40 @@ public class UserProfile extends homepage  {
         add(patientProfile);
 
         // User information below sa Patient's Profile
-        JLabel fnameLabel = new JLabel("First Name:");
-        fnameLabel.setBounds(115, 350, 280, 25);
+        JLabel fnameLabel = new JLabel("First Name: "+loggedInFirstName);
+        fnameLabel.setBounds(115, 350, 300, 25);
         fnameLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         fnameLabel.setForeground(commonconstant.BLUE_COLOR);
         add(fnameLabel);
 
-        JLabel lnameLabel = new JLabel("Last Name:");
-        lnameLabel.setBounds(115, 385, 280, 25);
+        JLabel lnameLabel = new JLabel("Last Name: "+loggedInLastName);
+        lnameLabel.setBounds(115, 385, 300, 25);
         lnameLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         lnameLabel.setForeground(commonconstant.BLUE_COLOR);
         add(lnameLabel);
 
 
-        JLabel emailLabel = new JLabel("Gender:");
-        emailLabel.setBounds(115, 415, 150, 25);
+        JLabel emailLabel = new JLabel("Gender: "+sex);
+        emailLabel.setBounds(115, 415, 300, 25);
         emailLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         emailLabel.setForeground(commonconstant.BLUE_COLOR);
         add(emailLabel);
 
-        JLabel addressLabel = new JLabel("Email:");
-        addressLabel.setBounds(115, 445, 150, 25);
+        JLabel addressLabel = new JLabel("Email: "+email);
+        addressLabel.setBounds(115, 445, 300, 25);
         addressLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         addressLabel.setForeground(commonconstant.BLUE_COLOR);
         add(addressLabel);
 
 
-        JLabel genderLabel = new JLabel("Address:");
-        genderLabel.setBounds(115, 480, 150, 25);
+        JLabel genderLabel = new JLabel("Address: "+address);
+        genderLabel.setBounds(115, 480, 300, 25);
         genderLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         genderLabel.setForeground(commonconstant.BLUE_COLOR);
         add(genderLabel);
 
-        JLabel contactNumberLabel = new JLabel("Contact Number:");
-        contactNumberLabel.setBounds(115, 510, 150, 25);
+        JLabel contactNumberLabel = new JLabel("Contact Number: "+number);
+        contactNumberLabel.setBounds(115, 510, 300, 25);
         contactNumberLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         contactNumberLabel.setForeground(commonconstant.BLUE_COLOR);
         add(contactNumberLabel);
@@ -172,12 +192,44 @@ public class UserProfile extends homepage  {
         medicalHistoryLabel.setForeground(commonconstant.DARK_BLUE);
         add(medicalHistoryLabel);
 
+        // Create a JList or any other suitable UI component for medical history
+
+        medicalHistoryModel = new DefaultListModel<>();
+        medicalHistoryList = new JList<>(medicalHistoryModel);
+        medicalHistoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        JScrollPane medicalHistoryScrollPane = new JScrollPane(medicalHistoryList);
+        medicalHistoryScrollPane.setBounds(500, 220, 500, 100);
+        add(medicalHistoryScrollPane);
+        pastappointment();
+
         // for Appointment History
+        JButton cancelButton = new JButton("Cancel Appointment");
+        cancelButton.setBounds(655, 565, 200, 40);
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelAppointment();
+            }
+        });
+        add(cancelButton);
+
         JLabel appointmentHistoryLabel = new JLabel("Appointment History");
         appointmentHistoryLabel.setBounds(655, 382, 180, 25);
         appointmentHistoryLabel.setFont(new Font("Dialog", Font.BOLD, 16));
         appointmentHistoryLabel.setForeground(commonconstant.DARK_BLUE);
         add(appointmentHistoryLabel);
+
+        listModel = new DefaultListModel<>();
+        appointmentList = new JList<>(listModel);
+        appointmentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        JScrollPane scrollPane = new JScrollPane(appointmentList);
+        scrollPane.setBounds(500, 410, 500, 200);
+        add(scrollPane);
+
+        loadAppointments();
+
 
 
         // Background panels
@@ -216,4 +268,56 @@ public class UserProfile extends homepage  {
         logsLabel.setBounds(0, 0, 1300, 900);
         logoLabel.setBounds(100, 45, 180, 100);
     }
-}
+    private void pastappointment(){
+        List<schedules> pastAppointments = userDb.getPastAppointments();
+        for (schedules appointment : pastAppointments) {
+            String appointmentString = String.format("%s %s (%s) - %s at %s", appointment.getFirst_name(), appointment.getlast_name(), appointment.getid(), appointment.getAppointmet(), appointment.getTime());
+            medicalHistoryModel.addElement(appointmentString);
+        }
+    }
+    private void loadAppointments() {
+        // Replace with the actual user ID
+        List<schedules> appointments = userDb.getAppointment();
+        for (schedules appointment : appointments) {
+            String appointmentString = String.format("%s %s (%s) - %s at %s", appointment.getFirst_name(), appointment.getlast_name(), appointment.getid(), appointment.getAppointmet(), appointment.getTime());
+            listModel.addElement(appointmentString);
+        }
+    }
+        private void cancelAppointment() {
+            int selectedIndex = appointmentList.getSelectedIndex();
+            if (selectedIndex != -1) {
+                String selectedAppointment = appointmentList.getSelectedValue();
+
+                if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
+                    String[] parts = selectedAppointment.split(" ");
+                    if (parts.length >= 4) {
+                        try {
+                            int userId = Integer.parseInt(parts[2].replace("(", "").replace(")", ""));
+                            String[] timeParts = parts[parts.length - 1].split(":");
+                            if (timeParts.length == 2) {
+                                LocalTime appointmentTime = LocalTime.of(Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
+
+                                boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
+                                if (cancelled) {
+                                    listModel.removeElementAt(selectedIndex);
+                                    TimeSlotManager.cancelTimeSlot(appointmentTime);
+                                    JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
+                                } else {
+                                    JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Invalid time format in the selected appointment.");
+                            }
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(this, "Invalid user ID or time format in the selected appointment.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No appointment selected.");
+                }
+            }
+        }
+    }
+

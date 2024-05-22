@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class userDb {
-        public static boolean book(int id, String last_name, String first_name, String midlle_name,int age, LocalTime time, String Gender, String Address, long number, String appointment, boolean cacel) {
+        public static boolean book(int id, String last_name, String first_name, String midlle_name,int age, LocalTime time, String Gender, String Address, long number, String appointment, boolean cacel, boolean finished) {
             try {
                 if (TimeSlotManager.isTimeSlotAvailable(time)) {
                     if (!checkuser(id)) {
                         if (!isTimeSlotBooked(time)) {
 
                             Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-                            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, age, time, gender, adress, number, Appointment, canceled )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, age, time, gender, adress, number, Appointment, canceled, finished )" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                             insertUser.setInt(1, id);
                             insertUser.setString(2, last_name);
                             insertUser.setString(3, first_name);
@@ -33,6 +33,7 @@ public class userDb {
                             insertUser.setLong(9, number);
                             insertUser.setString(10, appointment);
                             insertUser.setBoolean(11, cacel);
+                            insertUser.setBoolean(12, finished);
 
 
                             int rowsInserted = insertUser.executeUpdate();
@@ -72,13 +73,13 @@ public class userDb {
     }
 
 
-    public static boolean validateuser(int id, String last_name, String first_name, String midlle_name, LocalTime time, String Gender, String address, long number, String Appoinment, boolean cancel, int age) {
+    public static boolean validateuser(int id, String last_name, String first_name, String midlle_name, LocalTime time, String Gender, String address, long number, String Appoinment, boolean cancel, int age, boolean finish) {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, age, time, gender, adress, number, Appointment, canceled)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            connection.prepareStatement("INSERT INTO " + commonconstant.DB_USER_INFO + "(user_id, last_name,first_name, m_i, age, time, gender, adress, number, Appointment, canceled, finished)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             PreparedStatement validate = connection.prepareStatement(
-                    "SELECT * FROM " + commonconstant.DB_USER_INFO + " WHERE user_id = ? AND last_name = ? AND first_name = ? AND m_i = ? AND age = ? AND time = ? AND gender = ? AND adress = ? And  number = ? AND Appointment = ? AND canceled = ?"
+                    "SELECT * FROM " + commonconstant.DB_USER_INFO + " WHERE user_id = ? AND last_name = ? AND first_name = ? AND m_i = ? AND age = ? AND time = ? AND gender = ? AND adress = ? And  number = ? AND Appointment = ? AND canceled = ? AND finished = ?"
             );
             validate.setInt(1, id);
             validate.setString(2, last_name);
@@ -91,6 +92,7 @@ public class userDb {
             validate.setLong(9, number);
             validate.setString(10, Appoinment);
             validate.setBoolean(11, cancel);
+            validate.setBoolean(12, finish);
             ResultSet result = validate.executeQuery();
 
             if (!result.isBeforeFirst()) {
@@ -133,6 +135,40 @@ public class userDb {
         }
         return false;
     }
+
+    public static List<schedules> getAppointments(String lastname) {
+        List<schedules> appointments = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM appointments WHERE last_name = ?");
+            statement.setString(1, lastname);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String last_name = resultSet.getString("last_name");
+                String first_name = resultSet.getString("first_name");
+                String middle_name = resultSet.getString("middle_name");
+                LocalTime time = resultSet.getTime("time").toLocalTime();
+                LocalDate date = resultSet.getDate("date").toLocalDate();
+                String gender = resultSet.getString("gender");
+                String adress = resultSet.getString("adress");
+                long number = resultSet.getLong("number");
+                String Appointments = resultSet.getString("Appointment");
+                boolean canceled = resultSet.getBoolean("canceled");
+
+                // Only add appointments that belong to the user
+                if ( MyJDBC.checkuser(last_name)) {
+                    schedules appointment = new schedules(id, last_name, first_name, middle_name, time, date, gender, adress, number, Appointments);
+                    appointments.add(appointment);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
     public static schedules getUserById(int userId) {
         schedules schedule = null;
         try {
@@ -200,5 +236,42 @@ public class userDb {
             e.printStackTrace();
         }
         return appointments;
+    }
+
+    public static List<schedules> getPastAppointments() {
+        List<schedules> pastAppointments = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT user_id, last_name, first_name, m_i, time, date, gender, adress, number, Appointment, canceled, finished FROM " + commonconstant.DB_USER_INFO +
+                            " WHERE finished = true"
+            );
+           // statement.setInt(1, userId);
+            //statement.setDate(1, new java.sql.Date(System.currentTimeMillis())); // Current date
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                // Retrieve appointment details and create a schedules object
+                int user_id = resultSet.getInt("user_id");
+                String last_name = resultSet.getString("last_name");
+                String first_name = resultSet.getString("first_name");
+                String middle_name = resultSet.getString("m_i");
+                LocalTime time = resultSet.getTime("time").toLocalTime();
+                LocalDate date = resultSet.getDate("date").toLocalDate();
+                String gender = resultSet.getString("Gender");
+                String adress = resultSet.getString("adress");
+                int number = resultSet.getInt("number");
+                String Appointments = resultSet.getString("Appointment");
+                boolean canceled = resultSet.getBoolean("canceled");
+                schedules appointment = new schedules(user_id, last_name, first_name, middle_name, time, date, gender, adress, number, Appointments);
+                pastAppointments.add(appointment);
+                //System.out.println("Retrieved past appointment: " + appointment);
+            }
+           // System.out.println("Total past appointments retrieved: " + pastAppointments.size());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pastAppointments;
     }
 }
