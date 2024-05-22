@@ -252,17 +252,34 @@ public class register extends form2Register {
         add(email);
         add(emailField);
 
+        JLabel number = new JLabel("Mobile Number: ");
+        number.setBounds(580, 475, 400, 25);
+        number.setForeground(commonconstant.SECONDARY_COLOR);
+        number.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        JTextField numberField = new JTextField();
+
+        numberField.setBounds(720, 475, 350, 35);
+        numberField.setBackground(commonconstant.SECONDARY_COLOR);
+        numberField.setForeground(commonconstant.TEXT_COLOR);
+
+        add(number);
+        add(numberField);
+
+
+
+
 
         //password label
         JLabel passwordlabel = new JLabel("Password:");
 
-        passwordlabel.setBounds(620, 475, 400, 25);
+        passwordlabel.setBounds(620, 525, 400, 25);
         passwordlabel.setFont(new Font("Dialog",Font.PLAIN, 18));
         passwordlabel.setForeground(commonconstant.SECONDARY_COLOR);
 
         JPasswordField passwordField = new JPasswordField();
 
-        passwordField.setBounds(720, 475, 350, 35);
+        passwordField.setBounds(720, 525, 350, 35);
         passwordField.setBackground(commonconstant.SECONDARY_COLOR);
         passwordField.setForeground(commonconstant.TEXT_COLOR);
 
@@ -273,14 +290,14 @@ public class register extends form2Register {
 
         //confirm password
         JLabel rePassword = new JLabel("Confirm Password:");
-        rePassword.setBounds(555, 525, 400, 25);
+        rePassword.setBounds(555, 575, 400, 25);
         rePassword.setFont(new Font("Dialog",Font.PLAIN, 18));
         rePassword.setForeground(commonconstant.SECONDARY_COLOR);
 
         JPasswordField repasswordField = new JPasswordField();
 
         //confirm password
-        repasswordField.setBounds(720, 525, 350, 35);
+        repasswordField.setBounds(720, 575, 350, 35);
         repasswordField.setBackground(commonconstant.SECONDARY_COLOR);
         repasswordField.setForeground(commonconstant.TEXT_COLOR);
         repasswordField.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -298,7 +315,7 @@ public class register extends form2Register {
         regiserButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         regiserButton.setBackground(commonconstant.BUTTON_COLOR);
 
-        regiserButton.setBounds(770, 620, 250,50);
+        regiserButton.setBounds(770, 655, 250,50);
         regiserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -334,7 +351,7 @@ public class register extends form2Register {
 
         JLabel loginLabel2 = new JLabel("Already have an account?");
         loginLabel2.setForeground(commonconstant.SECONDARY_COLOR);
-        loginLabel2.setBounds(780, 670, 250, 30);
+        loginLabel2.setBounds(780, 700, 250, 30);
 
         add(loginLabel2);
 
@@ -353,7 +370,7 @@ public class register extends form2Register {
             }
         });
 
-        loginLabel.setBounds(930, 670, 250, 30);
+        loginLabel.setBounds(930, 700, 250, 30);
         add(loginLabel);
 
         //Panel Transparent brown
