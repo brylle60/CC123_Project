@@ -133,6 +133,7 @@ public class UserProfile extends homepage  {
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
 
+                userDb.removeBookedTimeSlotsForUser(id);
 
                 new loginpage().setVisible(true);
             }
@@ -282,18 +283,21 @@ public class UserProfile extends homepage  {
             String appointmentString = String.format("%s %s (%s) - %s at %s", appointment.getFirst_name(), appointment.getlast_name(), appointment.getid(), appointment.getAppointmet(), appointment.getTime());
             listModel.addElement(appointmentString);
         }
-    }
-        private void cancelAppointment() {
-            int selectedIndex = appointmentList.getSelectedIndex();
-            if (selectedIndex != -1) {
-                String selectedAppointment = appointmentList.getSelectedValue();
 
-                if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
-                    String[] parts = selectedAppointment.split(" ");
-                    if (parts.length >= 4) {
+    }
+    private void cancelAppointment() {
+        int selectedIndex = appointmentList.getSelectedIndex();
+        if (selectedIndex != -1) {
+            String selectedAppointment = appointmentList.getSelectedValue();
+
+            if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
+                String[] parts = selectedAppointment.split(" - ");
+                if (parts.length == 2) {
+                    String[] nameParts = parts[0].split(" ");
+                    if (nameParts.length >= 3) {
                         try {
-                            int userId = Integer.parseInt(parts[2].replace("(", "").replace(")", ""));
-                            String[] timeParts = parts[parts.length - 1].split(":");
+                            int userId = Integer.parseInt(nameParts[nameParts.length - 1].replace("(", "").replace(")", ""));
+                            String[] timeParts = parts[1].split(" at ")[1].split(":");
                             if (timeParts.length == 2) {
                                 LocalTime appointmentTime = LocalTime.of(Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
 
@@ -301,6 +305,7 @@ public class UserProfile extends homepage  {
                                 if (cancelled) {
                                     listModel.removeElementAt(selectedIndex);
                                     TimeSlotManager.cancelTimeSlot(appointmentTime);
+                                    TimeSlotManager.addTimeSlot(appointmentTime); // Add the freed time slot back
                                     JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
                                 } else {
                                     JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
@@ -315,9 +320,12 @@ public class UserProfile extends homepage  {
                         JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "No appointment selected.");
+                    JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "No appointment selected.");
             }
         }
+    }
     }
 

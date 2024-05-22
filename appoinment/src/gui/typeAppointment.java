@@ -40,7 +40,7 @@ public class typeAppointment extends homepage {
     public static String appointment;
     private JComboBox<String> comboBox;
 
-    public typeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String address) {
+    public typeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number,String email, String address) {
         super("Types of Appointment");
         this.loggedInLastName = loggedInLastName;
         this.loggedInFirstName = loggedInFirstName;
@@ -50,6 +50,7 @@ public class typeAppointment extends homepage {
         this.number = number;
         this.address = address;
         this.id = id;
+        this.email = email;
         addGuiComponents();
     }
     private void addGuiComponents() {
@@ -242,7 +243,7 @@ public class typeAppointment extends homepage {
         }
         if (comboBox.getSelectedItem().equals("For myself")) {
             typeAppointment.this.dispose();
-            Appoinment appoinment = new Appoinment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address);
+            Appoinment appoinment = new Appoinment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address);
             appoinment.setAppointmentType(selectedService);
             appoinment.setVisible(true);
 
@@ -260,7 +261,7 @@ public class typeAppointment extends homepage {
 
         }else {
             typeAppointment.this.dispose();
-            new OtherAppointment().setVisible(true);
+            new OtherAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age,number, email, address).setVisible(true);
         }
      }
     public void handleSuccessfulLogin(String email, String password) {

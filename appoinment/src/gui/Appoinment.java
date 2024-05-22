@@ -56,7 +56,7 @@ public class Appoinment extends homepage {
 
     // Add other user information fields as needed
 
-    public Appoinment( int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String address) {
+    public Appoinment( int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String email, String address) {
         super("Appointment Booking");
 
         this.loggedInLastName = loggedInLastName;
@@ -67,6 +67,7 @@ public class Appoinment extends homepage {
         this.number1 = number;
         this.address = address;
         this.id1 = id;
+        this.email = email;
         addGuiComponents();
     }
 
@@ -379,6 +380,20 @@ public class Appoinment extends homepage {
                 long number = 0;
 
 
+                String numberString = numberfield.getText().trim(); // Trim any leading/trailing whitespace
+
+                if (numberString.isEmpty()) {
+                    // Handle the case where the numberField is empty
+                    number = 0; // or any other default value you want to assign
+                } else {
+                    try {
+                        number = Long.parseLong(numberString);
+                    } catch (NumberFormatException ex) {
+                        // Handle the case where the numberField contains an invalid value
+                        JOptionPane.showMessageDialog(Appoinment.this, "Invalid mobile number. Please enter a valid number.");
+                        return; // Exit the method without proceeding further
+                    }
+                }
                 LocalTime selectedTime;
                 try {
                     Id = Integer.parseInt(IdField.getText());
@@ -388,7 +403,6 @@ public class Appoinment extends homepage {
                     age = Integer.parseInt(agefield.getText());
                     gender = genderflield.getText();
                     Address = Addressfield.getText();
-                    number = Integer.parseInt(numberfield.getText());
                     //appointmentTypePanel.setVisible(true);
 
 
@@ -408,7 +422,7 @@ public class Appoinment extends homepage {
                         if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, selectedService)) {
 
                             if (book(Id, LastName, firstname, MI, age, selectedTime, gender, Address, number, selectedService, cancel, finish)) {
-
+                                TimeSlotManager.removeTimeSlot(selectedTime); // Remove the booked time slot
                                 home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, email, address);
                                 Appoinment.this.dispose();
                                 home.setVisible(true);

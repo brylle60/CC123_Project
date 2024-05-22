@@ -274,4 +274,20 @@ public class userDb {
         }
         return pastAppointments;
     }
+
+    public static void removeBookedTimeSlotsForUser(int userId) {
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("SELECT time FROM " + commonconstant.DB_USER_INFO + " WHERE user_id = ? AND canceled = false AND finished = false");
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                LocalTime bookedTime = resultSet.getTime("time").toLocalTime();
+                TimeSlotManager.freeTimeSlot(bookedTime);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

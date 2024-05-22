@@ -331,6 +331,20 @@ public class register extends form2Register {
                 int age = 0;
                 String email = null;
                 String address = null;
+                String numberString = numberField.getText().trim(); // Trim any leading/trailing whitespace
+
+                if (numberString.isEmpty()) {
+                    // Handle the case where the numberField is empty
+                    number = 0; // or any other default value you want to assign
+                } else {
+                    try {
+                        number = Long.parseLong(numberString);
+                    } catch (NumberFormatException ex) {
+                        // Handle the case where the numberField contains an invalid value
+                        JOptionPane.showMessageDialog(register.this, "Invalid mobile number. Please enter a valid number.");
+                        return; // Exit the method without proceeding further
+                    }
+                }
 
                 try {
                     //database validation for users
@@ -340,7 +354,6 @@ public class register extends form2Register {
                     sex = comboBox.getSelectedItem().toString();
                     passsword = new String(passwordField.getPassword());
                     rePassword = new String(repasswordField.getPassword());
-                    number = 0; //Integer.parseInt(numberfield.getText());
                     age = Integer.parseInt(age1.getText());
                     email = emailField.getText();
                     address = address2.getText();

@@ -2,9 +2,7 @@
 package gui;
 
 
-import adminpage.User;
 import adminpage.schedules;
-import com.sun.tools.attach.AgentInitializationException;
 import constant.commonconstant;
 import constant.TimeSlotManager;
 import db.userDb;
@@ -15,17 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.print.Book;
 import java.time.LocalTime;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static db.userDb.book;
-import static db.userDb.validateuser;
-import static gui.typeAppointment.appointment;
-import static gui.typeAppointment.service;
 
 
 public class OtherAppointment extends homepage {
@@ -56,9 +48,18 @@ public class OtherAppointment extends homepage {
 
     // Add other user information fields as needed
 
-    public OtherAppointment( ){
-
+    public OtherAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address) {
         super("Appointment Booking");
+
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+        this.sex = sex;
+        this.age1 = age;
+        this.number1 = number;
+        this.address = address;
+        this.id1 = id;
+        this.email = email;
         addGuiComponents();
     }
 
@@ -401,6 +402,7 @@ public class OtherAppointment extends homepage {
 
                             if (book(Id, LastName, firstname, MI, age, selectedTime, gender, Address, number, selectedService, cancel, finish)) {
 
+                                TimeSlotManager.removeTimeSlot(selectedTime); // Remove the booked time slot
                                 home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, email, address);
                                 OtherAppointment.this.dispose();
                                 home.setVisible(true);
