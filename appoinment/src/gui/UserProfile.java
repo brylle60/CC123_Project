@@ -97,6 +97,7 @@ public class UserProfile extends homepage  {
             @Override
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
+
                 new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });

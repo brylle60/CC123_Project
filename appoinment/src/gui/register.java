@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import javax.swing.JComboBox;
 
-public class register extends form {
+public class register extends form2Register {
     public register() {
         super("MedCare Appointment System");
         addGuiComponents();
@@ -24,21 +24,21 @@ public class register extends form {
         // Create a JLabel to display the logo image
         JLabel logoLabel = new JLabel(logoIcon);
 
-        logoLabel.setBounds(42, -10, 300, 300); // Adjust the position and size as needed
+        logoLabel.setBounds(90, -10, 300, 300); // Adjust the position and size as needed
         add(logoLabel);
 
 
 
 
         JLabel registerlabel = new JLabel("MEDCare");
-        registerlabel .setBounds(470, 5, 520, 100);
+        registerlabel .setBounds(725, 5, 520, 100);
         registerlabel.setForeground(commonconstant.BUTTON_COLOR);
         registerlabel.setFont(new Font("Dialog", Font.BOLD, 30));
 
         add(registerlabel);
 //
         JLabel registerlabel2 = new JLabel("Registration");
-        registerlabel2 .setBounds(610, 5, 520, 100);
+        registerlabel2 .setBounds(870, 5, 520, 100);
         registerlabel2.setForeground(commonconstant.HOME_BG1_GRAY);
         registerlabel2.setFont(new Font("Dialog", Font.BOLD, 30));
         add(registerlabel2);
@@ -46,51 +46,51 @@ public class register extends form {
 
         //MEDCARE Medical Appointment!
         JLabel description1label = new JLabel("Welcome to ");
-        description1label.setBounds(45, 295, 400, 25);
+        description1label.setBounds(95, 295, 400, 25);
         description1label.setForeground(commonconstant.DARKERBLUE_REG);
         description1label.setFont(new Font("Georgia",Font.PLAIN, 16));
 
         add(description1label);
         //
         JLabel description1Alabel = new JLabel("MEDCARE");
-        description1Alabel.setBounds(135, 295, 400, 25);
+        description1Alabel.setBounds(185, 295, 400, 25);
         description1Alabel.setForeground(commonconstant.DARKTEAL_REGISTER);
         description1Alabel.setFont(new Font("Georgia",Font.BOLD, 20));
         add(description1Alabel);
 //
         JLabel description1Blabel = new JLabel("Medical Appointment!");
-        description1Blabel.setBounds(135, 325, 400, 25);
+        description1Blabel.setBounds(185, 325, 400, 25);
         description1Blabel.setForeground(commonconstant.TEAL_REGISTER);
         description1Blabel.setFont(new Font("Times New Roman",Font.BOLD, 21));
         add(description1Blabel);
 
 //add description
         JLabel description2label = new JLabel("We are dedicated to revolutionizing ");
-        description2label.setBounds(85, 400, 500, 25);
+        description2label.setBounds(135, 400, 500, 25);
         description2label.setForeground(commonconstant.HOME_BG1_BLUE);
         description2label.setFont(new Font("Dialog",Font.PLAIN, 14));
         add(description2label);
 
         JLabel description2Alabel = new JLabel("the way you manage your healthcare appointments. ");
-        description2Alabel.setBounds(33, 425, 500, 25);
+        description2Alabel.setBounds(88, 425, 500, 25);
         description2Alabel.setForeground(commonconstant.HOME_BG1_BLUE);
         description2Alabel.setFont(new Font("Dialog",Font.PLAIN, 14));
         add(description2Alabel);
 
         JLabel description2Blabel = new JLabel("Our platform is designed to provide seamless ");
-        description2Blabel.setBounds(51, 450, 500, 25);
+        description2Blabel.setBounds(101, 450, 500, 25);
         description2Blabel.setForeground(commonconstant.HOME_BG1_BLUE);
         description2Blabel.setFont(new Font("Dialog",Font.PLAIN, 14));
         add(description2Blabel);
 
         JLabel description2Clabel = new JLabel("scheduling, ensuring you can access ");
-        description2Clabel.setBounds(77, 475, 500, 25);
+        description2Clabel.setBounds(127, 475, 500, 25);
         description2Clabel.setForeground(commonconstant.HOME_BG1_BLUE);
         description2Clabel.setFont(new Font("Dialog",Font.PLAIN, 14));
         add(description2Clabel);
 
         JLabel description2Dlabel = new JLabel("medical care conveniently and efficiently.");
-        description2Dlabel.setBounds(62, 500, 500, 25);
+        description2Dlabel.setBounds(112, 500, 500, 25);
         description2Dlabel.setForeground(commonconstant.HOME_BG1_BLUE);
         description2Dlabel.setFont(new Font("Dialog",Font.PLAIN, 14));
         add(description2Dlabel);
@@ -98,40 +98,42 @@ public class register extends form {
 
         //last name
         JLabel namelabel1 = new JLabel("Last Name:");
-        namelabel1.setBounds(450, 125, 400, 25);
+        namelabel1.setBounds(620, 125, 400, 25);
         namelabel1.setForeground(commonconstant.SECONDARY_COLOR);
         namelabel1.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField nameField1 = new JTextField();
-        nameField1.setBounds(450, 150, 350, 30);
+        nameField1.setBounds(720, 125, 350, 30);
         nameField1.setBackground(commonconstant.SECONDARY_COLOR);
         nameField1.setForeground(commonconstant.TEXT_COLOR);
         nameField1.setFont(new Font("Dialog", Font.PLAIN, 15));
-        add(namelabel1);
-        add(nameField1);
+
+        add(namelabel1); //lastname
+        add(nameField1); //LN txtfield
 
         //first name
         JLabel namelabel2 = new JLabel("First Name:");
-        namelabel2.setBounds(450, 170, 400, 25);
+        namelabel2.setBounds(620, 175, 400, 25);
         namelabel2.setForeground(commonconstant.SECONDARY_COLOR);
         namelabel2.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField nameField2 = new JTextField();
-        nameField2.setBounds(450, 190, 350, 30);
+        nameField2.setBounds(720, 175, 350, 30);
         nameField2.setBackground(commonconstant.SECONDARY_COLOR);
         nameField2.setForeground(commonconstant.TEXT_COLOR);
         nameField2.setFont(new Font("Dialog", Font.PLAIN, 15));
+
         add(namelabel2);
         add(nameField2);
 
         //middle name
         JLabel namelabel3 = new JLabel("Middle Name:");
-        namelabel3.setBounds(450, 225, 400, 25);
+        namelabel3.setBounds(605, 225, 400, 25);
         namelabel3.setForeground(commonconstant.SECONDARY_COLOR);
         namelabel3.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField nameField3 = new JTextField();
-        nameField3.setBounds(450, 190, 350, 35);
+        nameField3.setBounds(720, 225, 350, 35);
         nameField3.setBackground(commonconstant.SECONDARY_COLOR);
         nameField3.setForeground(commonconstant.TEXT_COLOR);
         nameField3.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -139,14 +141,29 @@ public class register extends form {
         add(nameField3);
 
         //Sex
+
+        JLabel sex = new JLabel("Sex:");
+        sex.setBounds(860, 278, 400, 25);
+        sex.setForeground(commonconstant.SECONDARY_COLOR);
+        sex.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        add(sex);
+
         String[] appointmentType = {
                 "Male", "Female"
         };
         JComboBox<String> comboBox = new JComboBox<>(appointmentType);
         comboBox.setFont(new Font("Dialog", Font.PLAIN,18));
         comboBox.setForeground(commonconstant.TEXT_COLOR);
-        comboBox.setBounds(230, 300, 100, 30);
+        comboBox.setBounds(900, 275, 100, 30);
         add(comboBox);
+
+        JLabel birthdatetxt = new JLabel("Birth Date:");
+        birthdatetxt.setBounds(620, 325, 400, 25);
+        birthdatetxt.setForeground(commonconstant.SECONDARY_COLOR);
+        birthdatetxt.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        add(birthdatetxt);
 
         //birthdate
         String[] birthdate = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
@@ -155,7 +172,7 @@ public class register extends form {
         JComboBox<String> Birthdate = new JComboBox<>(birthdate);
         Birthdate.setFont(new Font("Dialog", Font.PLAIN,18));
         Birthdate.setForeground(commonconstant.TEXT_COLOR);
-        Birthdate.setBounds(230, 400, 100, 30);
+        Birthdate.setBounds(720, 325, 100, 30);
         add(Birthdate);
 
         //birthdate
@@ -163,7 +180,7 @@ public class register extends form {
         JComboBox<String> Birthdate1 = new JComboBox<>(birthdate1);
         Birthdate1.setFont(new Font("Dialog", Font.PLAIN,18));
         Birthdate1.setForeground(commonconstant.TEXT_COLOR);
-        Birthdate1.setBounds(350, 400, 100, 30);
+        Birthdate1.setBounds(835, 325, 100, 30);
         add(Birthdate1);
 
         //birthdate
@@ -187,30 +204,32 @@ public class register extends form {
         JComboBox<String> Birthdate2 = new JComboBox<>(birthdate2);
         Birthdate2.setFont(new Font("Dialog", Font.PLAIN,18));
         Birthdate2.setForeground(commonconstant.TEXT_COLOR);
-        Birthdate2.setBounds(350, 500, 100, 30);
+        Birthdate2.setBounds(950, 325, 100, 30);
         add(Birthdate2);
 
         //Age
         JLabel age = new JLabel("Age:");
-        age.setBounds(450, 155, 400, 25);
+        age.setBounds(620, 275, 400, 25);
         age.setForeground(commonconstant.SECONDARY_COLOR);
         age.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField age1 = new JTextField();
-        age1.setBounds(450, 190, 350, 35);
+        age1.setBounds(720, 275, 80, 35);
         age1.setBackground(commonconstant.SECONDARY_COLOR);
         age1.setForeground(commonconstant.TEXT_COLOR);
         age1.setFont(new Font("Dialog", Font.PLAIN, 18));
+
         add(age);
         add(age1);
+
         //Address
         JLabel address1 = new JLabel("Address:");
-        address1.setBounds(450, 155, 400, 25);
+        address1.setBounds(620, 375, 400, 25);
         address1.setForeground(commonconstant.SECONDARY_COLOR);
         address1.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField address2 = new JTextField();
-        address2.setBounds(450, 190, 350, 35);
+        address2.setBounds(720, 375, 350, 35);
         address2.setBackground(commonconstant.SECONDARY_COLOR);
         address2.setForeground(commonconstant.TEXT_COLOR);
         address2.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -220,13 +239,13 @@ public class register extends form {
 
         // add email label
         JLabel email = new JLabel("E-mail Address:");
-        email.setBounds(450, 240, 400, 25);
+        email.setBounds(580, 425, 400, 25);
         email.setForeground(commonconstant.SECONDARY_COLOR);
         email.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField emailField = new JTextField();
 
-        emailField.setBounds(450, 270, 350, 35);
+        emailField.setBounds(720, 425, 350, 35);
         emailField.setBackground(commonconstant.SECONDARY_COLOR);
         emailField.setForeground(commonconstant.TEXT_COLOR);
 
@@ -237,13 +256,13 @@ public class register extends form {
         //password label
         JLabel passwordlabel = new JLabel("Password:");
 
-        passwordlabel.setBounds(450, 315, 400, 25);
+        passwordlabel.setBounds(620, 475, 400, 25);
         passwordlabel.setFont(new Font("Dialog",Font.PLAIN, 18));
         passwordlabel.setForeground(commonconstant.SECONDARY_COLOR);
 
         JPasswordField passwordField = new JPasswordField();
 
-        passwordField.setBounds(450, 340, 350, 35);
+        passwordField.setBounds(720, 475, 350, 35);
         passwordField.setBackground(commonconstant.SECONDARY_COLOR);
         passwordField.setForeground(commonconstant.TEXT_COLOR);
 
@@ -254,14 +273,14 @@ public class register extends form {
 
         //confirm password
         JLabel rePassword = new JLabel("Confirm Password:");
-        rePassword.setBounds(450, 390, 400, 25);
+        rePassword.setBounds(555, 525, 400, 25);
         rePassword.setFont(new Font("Dialog",Font.PLAIN, 18));
         rePassword.setForeground(commonconstant.SECONDARY_COLOR);
 
         JPasswordField repasswordField = new JPasswordField();
 
         //confirm password
-        repasswordField.setBounds(450, 415, 350, 35);
+        repasswordField.setBounds(720, 525, 350, 35);
         repasswordField.setBackground(commonconstant.SECONDARY_COLOR);
         repasswordField.setForeground(commonconstant.TEXT_COLOR);
         repasswordField.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -279,7 +298,7 @@ public class register extends form {
         regiserButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         regiserButton.setBackground(commonconstant.BUTTON_COLOR);
 
-        regiserButton.setBounds(500, 500, 250,50);
+        regiserButton.setBounds(770, 620, 250,50);
         regiserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -313,9 +332,10 @@ public class register extends form {
         });
         add(regiserButton);
 
-        JLabel loginLabel2 = new JLabel("Have already an account?");
+        JLabel loginLabel2 = new JLabel("Already have an account?");
         loginLabel2.setForeground(commonconstant.SECONDARY_COLOR);
-        loginLabel2.setBounds(513, 575, 250, 30);
+        loginLabel2.setBounds(780, 670, 250, 30);
+
         add(loginLabel2);
 
         JLabel loginLabel = new JLabel("<html><u>LOGIN HERE!</u></html>");
@@ -333,10 +353,10 @@ public class register extends form {
             }
         });
 
-        loginLabel.setBounds(663, 575, 250, 30);
+        loginLabel.setBounds(930, 670, 250, 30);
         add(loginLabel);
 
-        //Panel Transparent
+        //Panel Transparent brown
         JPanel panel1 = new JPanel();
 
         panel1.setLayout(new BorderLayout());
@@ -345,7 +365,7 @@ public class register extends form {
         panel1.add(panelLabel1, BorderLayout.CENTER);
         panel1.setBackground(new Color (0, 0, 0, 80));
         // Set the size and location of the panel
-        panel1.setBounds( 400, 0, 700, 700);
+        panel1.setBounds( 550, 0, 850, 780);
 
 
 
@@ -354,17 +374,17 @@ public class register extends form {
 
 
         //stethoscope background picture
-        ImageIcon image = new ImageIcon("appoinment/src/image/scope1.png");
+        ImageIcon image = new ImageIcon("appoinment/src/image/scope1reg .png");
         JLabel image2 = new JLabel(image);
-        image2.setBounds(400, 0, 450, 700); // Adjust the position and size as needed
-        add(image2);
+        image2.setBounds(550, 0, 725, 1000); // Adjust the position and size as needed
+        add(image2); // right bg picture
 
 
         //abstract background picture
-        ImageIcon imageA = new ImageIcon("appoinment/src/image/abstract(2.png");
+        ImageIcon imageA = new ImageIcon("appoinment/src/image/abstractreg.png");
         JLabel image3 = new JLabel(imageA);
-        image3.setBounds(-50, 0, 450, 700); // Adjust the position and size as needed
-        add(image3);
+        image3.setBounds(-50, 0, 725, 1000); // Adjust the position and size as needed
+        add(image3); // left bg picture
 
     }
     private boolean validateuserinput(String username, String password, String rePassword, String email, String s, String string){
@@ -381,5 +401,7 @@ public class register extends form {
 
     }
     }
+
+
 
 
