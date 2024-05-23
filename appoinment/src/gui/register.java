@@ -165,8 +165,14 @@ public class register extends form2Register {
         birthdatetxt.setForeground(commonconstant.SECONDARY_COLOR);
         birthdatetxt.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        add(birthdatetxt);
+        JLabel birthdatetxtformat = new JLabel("(mm-dd-yyyy)");
+        birthdatetxtformat.setBounds(610, 345, 400, 25);
+        birthdatetxtformat.setForeground(commonconstant.SECONDARY_COLOR);
+        birthdatetxtformat.setFont(new Font("Dialog",Font.ITALIC, 15));
 
+
+        add(birthdatetxt);
+        add(birthdatetxtformat);
         //birthdate
         String[] birthdate = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
 
@@ -395,7 +401,6 @@ public class register extends form2Register {
         loginLabel2.setBounds(780, 700, 250, 30);
 
         add(loginLabel2);
-
         JLabel loginLabel = new JLabel("<html><u>LOGIN HERE!</u></html>");
         loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
