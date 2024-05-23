@@ -79,7 +79,7 @@ public class MyJDBC {
 
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("SELECT last_name, first_name, middle_name, sex, age, mobile_number,User_email, user_password, address, birthdate, logged_in_users FROM " + commonconstant.DB_TABLE_NAME + " WHERE logged_in_users = 1");
+            PreparedStatement statement = connection.prepareStatement("SELECT idUser_id, last_name, first_name, middle_name, sex, age, mobile_number,User_email, user_password, address, birthdate, logged_in_users FROM " + commonconstant.DB_TABLE_NAME + " WHERE logged_in_users = 1");
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

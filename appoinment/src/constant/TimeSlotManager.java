@@ -9,7 +9,7 @@ public class TimeSlotManager {
     private static final int MAX_APPOINTMENTS_PER_SLOT = 1;
     public static final Map<LocalTime, Integer> timeSlots = new HashMap<>();
 
-    private static final Map<LocalTime, Integer> bookedTimeSlots = new HashMap<>();
+    public static final Map<LocalTime, Integer> bookedTimeSlots = new HashMap<>();
 
 
     static {
@@ -34,9 +34,11 @@ public class TimeSlotManager {
 
         public static boolean isTimeSlotAvailable(LocalTime time) {
             if (!bookedTimeSlots.containsKey(time)) {
+                System.out.println("Time slot " + time + " is not in the bookedTimeSlots map.");
                 return true; // Time slot is available
             }
             int currentAppointments = bookedTimeSlots.get(time);
+            System.out.println("Time slot " + time + " has " + currentAppointments + " appointments booked.");
             return currentAppointments < MAX_APPOINTMENTS_PER_SLOT;
         }
     public static boolean bookTimeSlot(LocalTime time) {

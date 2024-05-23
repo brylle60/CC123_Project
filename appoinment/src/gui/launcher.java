@@ -17,15 +17,20 @@ public class launcher {
     private static int id;
     public static void main(String[] args) {
 
+
         SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
+                //TimeSlotManager.loadBookedTimeSlots();
+
 
 
 
 //                Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
 //                appoinment.setVisible(true);
                 //new UserProfile(id).setVisible(true);
+               // new AdminHome().setVisible(true);
 
 
 //new typeAppointment().setVisible(true);

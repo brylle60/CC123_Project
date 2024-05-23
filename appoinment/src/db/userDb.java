@@ -40,8 +40,11 @@ public class userDb {
                             if (rowsInserted > 0) {
                                 // Book the time slot
                                 TimeSlotManager.bookTimeSlot(time);
+                                TimeSlotManager.removeTimeSlot(time);
+                                //TimeSlotManager.saveBookedTimeSlots(); // Save the updated booked time slots
                                 return true;
-                            } else {
+                            }
+                             else {
                                 return false;
                             }
                         } else {
@@ -112,6 +115,7 @@ public class userDb {
             ResultSet resultSet = checkTimeSlot.executeQuery();
             resultSet.next();
             int count = resultSet.getInt(1);
+            TimeSlotManager.removeTimeSlot(time);
             return count > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,6 +132,8 @@ public class userDb {
             int rowsAffected = cancelStatement.executeUpdate();
             if (rowsAffected > 0) {
                 TimeSlotManager.freeTimeSlot(appointmentTime); // Update the available time slots
+                TimeSlotManager.addTimeSlot(appointmentTime);
+            //    TimeSlotManager.saveBookedTimeSlots(); // Save the updated booked time slots
                 return true;
             }
         } catch (SQLException e) {

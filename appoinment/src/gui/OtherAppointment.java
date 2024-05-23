@@ -371,6 +371,20 @@ public class OtherAppointment extends homepage {
                 String Address = null;
                 long number = 0;
 
+                String numberString = numberfield.getText().trim(); // Trim any leading/trailing whitespace
+
+                if (numberString.isEmpty()) {
+                    // Handle the case where the numberField is empty
+                    number = 0; // or any other default value you want to assign
+                } else {
+                    try {
+                        number = Long.parseLong(numberString);
+                    } catch (NumberFormatException ex) {
+                        // Handle the case where the numberField contains an invalid value
+                        JOptionPane.showMessageDialog(OtherAppointment.this, "Invalid mobile number. Please enter a valid number.");
+                        return; // Exit the method without proceeding further
+                    }
+                }
 
                 LocalTime selectedTime;
                 try {
@@ -381,7 +395,6 @@ public class OtherAppointment extends homepage {
                     age = Integer.parseInt(agefield.getText());
                     gender = genderflield.getText();
                     Address = Addressfield.getText();
-                    number = Integer.parseInt(numberfield.getText());
                     //appointmentTypePanel.setVisible(true);
 
 

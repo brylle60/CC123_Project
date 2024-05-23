@@ -509,6 +509,8 @@ public class Appoinment extends homepage {
 
     // Add this method
     private void loadAppointments() {
+        //TimeSlotManager.loadBookedTimeSlots(); // Load booked time slots from the file
+
         List<schedules> appointments = userDb.getAppointment();
         for (schedules appointment : appointments) {
             String appointmentString = String.format("%s %s (%s) - %s at %s", appointment.getFirst_name(), appointment.getlast_name(), appointment.getid(), appointment.getAppointmet(), appointment.getTime());
