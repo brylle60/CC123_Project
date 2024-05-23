@@ -84,7 +84,7 @@ public class AppointmentFinishedList extends adminform{
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SchedulePM.this.dispose();
+                AppointmentFinishedList.this.dispose();
                 new AdminHome().setVisible(true);
 
             }
@@ -104,7 +104,7 @@ public class AppointmentFinishedList extends adminform{
         ScheduleTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SchedulePM.this.dispose();
+                AppointmentFinishedList.this.dispose();
 
                 new ScheduleTable().setVisible(true);
 
@@ -125,7 +125,7 @@ public class AppointmentFinishedList extends adminform{
         accountButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SchedulePM.this.dispose();
+               AppointmentFinishedList.this.dispose();
                 new AdminPageController().setVisible(true);
             }
         });
@@ -144,7 +144,7 @@ public class AppointmentFinishedList extends adminform{
         ScheduleAM.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SchedulePM.this.dispose();
+                AppointmentFinishedList.this.dispose();
                 new ScheduleAM().setVisible(true);
             }
         });

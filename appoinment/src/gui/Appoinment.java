@@ -328,26 +328,6 @@ public class Appoinment extends homepage {
         appointmentTypePanel.setBounds(500, 200, 300, 200); // Set the position and size of the panel
         appointmentTypePanel.setVisible(false); // Initially make it invisible
 
-//        // Create radio buttons for different appointment types
-//        JRadioButton generalCheckup = new JRadioButton("General Checkup");
-//        JRadioButton dentalCheckup = new JRadioButton("Dental Checkup");
-//        JRadioButton eyeCheckup = new JRadioButton("Eye Checkup");
-//// Add more radio buttons as needed
-//
-//// Add radio buttons to a ButtonGroup to ensure only one selection
-//        appointmentTypeGroup = new ButtonGroup();
-//        appointmentTypeGroup.add(generalCheckup);
-//        appointmentTypeGroup.add(dentalCheckup);
-//        appointmentTypeGroup.add(eyeCheckup);
-//
-//// Add radio buttons to the panel
-//        appointmentTypePanel.add(generalCheckup);
-//        appointmentTypePanel.add(dentalCheckup);
-//        appointmentTypePanel.add(eyeCheckup);
-//
-//        add(appointmentTypePanel); // Add the panel to the main container
-//        //reserved space for database
-
         JButton submitButton = new JButton("Book Appointment");
 
 //
@@ -518,40 +498,4 @@ public class Appoinment extends homepage {
         }
     }
 
-    private void cancelAppointment() {
-        int selectedIndex = appointmentList.getSelectedIndex();
-        if (selectedIndex != -1) {
-            String selectedAppointment = appointmentList.getSelectedValue();
-
-            if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
-                String[] parts = selectedAppointment.split(" ");
-                if (parts.length >= 4) {
-                    try {
-                        int userId = Integer.parseInt(parts[2].replace("(", "").replace(")", ""));
-                        String[] timeParts = parts[parts.length - 1].split(":");
-                        if (timeParts.length == 2) {
-                            LocalTime appointmentTime = LocalTime.of(Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
-
-                            boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
-                            if (cancelled) {
-                                listModel.removeElementAt(selectedIndex);
-                                TimeSlotManager.cancelTimeSlot(appointmentTime);
-                                JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Invalid time format in the selected appointment.");
-                        }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(this, "Invalid user ID or time format in the selected appointment.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "No appointment selected.");
-            }
-        }
-    }
 }

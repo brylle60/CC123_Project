@@ -151,6 +151,8 @@ public class OtherAppointment extends homepage {
         timeLabel.setForeground(commonconstant.TEXT_COLOR);
         timeLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
+
+
 //
         JComboBox<LocalTime> timeComboBox1 = new JComboBox<>();
         timeComboBox1.setBounds(460, 220, 150, 25);
@@ -229,10 +231,13 @@ public class OtherAppointment extends homepage {
         gender.setForeground(commonconstant.TEXT_COLOR);
         gender.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField genderflield = new JTextField();
-        genderflield.setBounds(150, 470, 150, 25);
-        genderflield.setForeground(commonconstant.TEXT_COLOR);
-        genderflield.setFont(new Font("Dialog",Font.PLAIN, 24));
+        String[] gender1 = {
+                "Male", "Female"
+        };
+        JComboBox<String> comboBox = new JComboBox<>(gender1);
+        comboBox.setFont(new Font("Dialog", Font.PLAIN,18));
+        comboBox.setForeground(commonconstant.TEXT_COLOR);
+        comboBox.setBounds(150, 470, 150, 25);
 
 
         JLabel Address = new JLabel("Address");
@@ -277,6 +282,8 @@ public class OtherAppointment extends homepage {
 
         loadAppointments();
 
+
+        add(comboBox);
         add(dashBoard);
         add(lastName);
         add(lastNamefield);
@@ -289,7 +296,7 @@ public class OtherAppointment extends homepage {
         add(id);
         add(IdField);
         add(gender);
-        add(genderflield);
+
         add(Address);
         add(Addressfield);
         add(number);
@@ -320,25 +327,6 @@ public class OtherAppointment extends homepage {
         appointmentTypePanel.setBounds(500, 200, 300, 200); // Set the position and size of the panel
         appointmentTypePanel.setVisible(false); // Initially make it invisible
 
-//        // Create radio buttons for different appointment types
-//        JRadioButton generalCheckup = new JRadioButton("General Checkup");
-//        JRadioButton dentalCheckup = new JRadioButton("Dental Checkup");
-//        JRadioButton eyeCheckup = new JRadioButton("Eye Checkup");
-//// Add more radio buttons as needed
-//
-//// Add radio buttons to a ButtonGroup to ensure only one selection
-//        appointmentTypeGroup = new ButtonGroup();
-//        appointmentTypeGroup.add(generalCheckup);
-//        appointmentTypeGroup.add(dentalCheckup);
-//        appointmentTypeGroup.add(eyeCheckup);
-//
-//// Add radio buttons to the panel
-//        appointmentTypePanel.add(generalCheckup);
-//        appointmentTypePanel.add(dentalCheckup);
-//        appointmentTypePanel.add(eyeCheckup);
-//
-//        add(appointmentTypePanel); // Add the panel to the main container
-//        //reserved space for database
 
         JButton submitButton = new JButton("Book Appointment");
 
@@ -393,7 +381,7 @@ public class OtherAppointment extends homepage {
                     firstname = firstnamefield.getText();
                     MI = Mifield.getText();
                     age = Integer.parseInt(agefield.getText());
-                    gender = genderflield.getText();
+                    gender = (String) comboBox.getSelectedItem();
                     Address = Addressfield.getText();
                     //appointmentTypePanel.setVisible(true);
 
@@ -407,7 +395,7 @@ public class OtherAppointment extends homepage {
                 Boolean cancel = false;
                 Boolean finish = false;
                 selectedTime = (LocalTime) timeComboBox1.getSelectedItem();
-                String selectedService = appointmentType;
+               String selectedService = appointmentType;
                 int dailogbox =    JOptionPane.showConfirmDialog(OtherAppointment.this, "Is the info above is correct?");
                 if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
                     if (dailogbox == JOptionPane.YES_OPTION) {
@@ -509,40 +497,4 @@ public class OtherAppointment extends homepage {
         }
     }
 
-    private void cancelAppointment() {
-        int selectedIndex = appointmentList.getSelectedIndex();
-        if (selectedIndex != -1) {
-            String selectedAppointment = appointmentList.getSelectedValue();
-
-            if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
-                String[] parts = selectedAppointment.split(" ");
-                if (parts.length >= 4) {
-                    try {
-                        int userId = Integer.parseInt(parts[2].replace("(", "").replace(")", ""));
-                        String[] timeParts = parts[parts.length - 1].split(":");
-                        if (timeParts.length == 2) {
-                            LocalTime appointmentTime = LocalTime.of(Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
-
-                            boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
-                            if (cancelled) {
-                                listModel.removeElementAt(selectedIndex);
-                                TimeSlotManager.cancelTimeSlot(appointmentTime);
-                                JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Invalid time format in the selected appointment.");
-                        }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(this, "Invalid user ID or time format in the selected appointment.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "No appointment selected.");
-            }
-        }
-    }
 }

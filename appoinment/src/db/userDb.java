@@ -142,70 +142,7 @@ public class userDb {
         return false;
     }
 
-    public static List<schedules> getAppointments(String lastname) {
-        List<schedules> appointments = new ArrayList<>();
-        try {
-            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM appointments WHERE last_name = ?");
-            statement.setString(1, lastname);
-            ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String last_name = resultSet.getString("last_name");
-                String first_name = resultSet.getString("first_name");
-                String middle_name = resultSet.getString("middle_name");
-                LocalTime time = resultSet.getTime("time").toLocalTime();
-                LocalDate date = resultSet.getDate("date").toLocalDate();
-                String gender = resultSet.getString("gender");
-                String adress = resultSet.getString("adress");
-                long number = resultSet.getLong("number");
-                String Appointments = resultSet.getString("Appointment");
-                boolean canceled = resultSet.getBoolean("canceled");
-
-                // Only add appointments that belong to the user
-                if ( MyJDBC.checkuser(last_name)) {
-                    schedules appointment = new schedules(id, last_name, first_name, middle_name, time, date, gender, adress, number, Appointments);
-                    appointments.add(appointment);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return appointments;
-    }
-
-    public static schedules getUserById(int userId) {
-        schedules schedule = null;
-        try {
-            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + commonconstant.DB_USER_INFO + " WHERE user_id = ?");
-            statement.setInt(1, userId);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                int id = resultSet.getInt("user_id");
-                String lastName = resultSet.getString("last_name");
-                String firstName = resultSet.getString("first_name");
-                String middleName = resultSet.getString("m_i");
-                LocalTime time = resultSet.getTime("time").toLocalTime();
-                LocalDate date = resultSet.getDate("date").toLocalDate();
-
-                String gender = resultSet.getString("gender");
-                String address = resultSet.getString("adress");
-                int number = resultSet.getInt("number");
-                String Appoinment = resultSet.getString("Appointment");
-                boolean cancel = resultSet.getBoolean("canceled");
-
-                // Add more fields as needed from the database
-
-                schedule = new schedules(id, firstName, lastName, middleName, time, date, gender, address, number, Appoinment);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return schedule;
-    }
     public static List<schedules> getAppointment() {
         List<schedules> appointments = new ArrayList<>();
         try {
@@ -250,7 +187,7 @@ public class userDb {
             Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT user_id, last_name, first_name, m_i, time, date, gender, adress, number, Appointment, canceled, finished FROM " + commonconstant.DB_USER_INFO +
-                            " WHERE finished = true"
+                            " WHERE canceled = true AND finished = false"
             );
            // statement.setInt(1, userId);
             //statement.setDate(1, new java.sql.Date(System.currentTimeMillis())); // Current date

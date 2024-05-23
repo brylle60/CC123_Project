@@ -30,11 +30,11 @@ public class launcher {
 //                Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
 //                appoinment.setVisible(true);
                 //new UserProfile(id).setVisible(true);
-               // new AdminHome().setVisible(true);
+                new AdminHome().setVisible(true);
 
 
 //new typeAppointment().setVisible(true);
-                new loginpage().setVisible(true);
+                //new loginpage().setVisible(true);
 //new AdminHome().setVisible(true);
 
               //new AppointmentList().setVisible(true);

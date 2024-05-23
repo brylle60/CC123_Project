@@ -237,7 +237,7 @@ public class ScheduleAM extends adminform{
             long number = schedules.getNumber();
             String appointment = schedules.getAppointmet();
 
-            String [] = {"13:00", "14:00","15:00", "16:00"};
+           // String  [] = {"13:00", "14:00","15:00", "16:00"};
 
 
 
