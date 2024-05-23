@@ -18,9 +18,9 @@ import java.awt.event.MouseEvent;
 
 
 
-public class SchedulePM extends adminform{
+public class AppointmentFinishedList extends adminform{
     private JTable SchedulePM1;
-    public SchedulePM() {
+    public AppointmentFinishedList () {
         super("MedCare Appointment System (Schedule PM)");
 
 
@@ -35,6 +35,7 @@ public class SchedulePM extends adminform{
         // Create a table model
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Name of the Patient");
+        tableModel.addColumn("Type of Service");
         tableModel.addColumn("Time Schedule");
 
         //arrow
@@ -225,7 +226,7 @@ public class SchedulePM extends adminform{
         List<schedules> appointments = userDb.getAppointment();
         for (schedules schedules : appointments) {
             LocalTime time = schedules.getTime();
-            if (time.isAfter(LocalTime.of(7, 59)) && time.isBefore(LocalTime.of(17, 0))) {
+            if (time.isAfter(LocalTime.of(12, 59)) && time.isBefore(LocalTime.of(17, 0))) {
                 String patientName = schedules.getFirst_name() + " " + schedules.getMidlle_name() + " " + schedules.getlast_name();
                 tableModel.addRow(new Object[]{patientName, time});
             }
