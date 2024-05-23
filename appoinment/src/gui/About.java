@@ -1,6 +1,7 @@
 package gui;
 
 import constant.commonconstant;
+import db.userDb;
 
 import javax.swing.*;
 import java.awt.*;
@@ -89,6 +90,7 @@ public class About extends homepage{
       @Override
       public void mouseClicked(MouseEvent e) {
        About.this.dispose();
+          userDb.removeBookedTimeSlotsForUser(id);
 
        new loginpage().setVisible(true);
       }

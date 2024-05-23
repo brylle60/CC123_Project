@@ -11,11 +11,15 @@ import java.util.List;
 public class MyJDBC {
     private static String password;
 
-    public static boolean register(String last_name, String first_name, String middle_name,String sex, int age, long number, String email, String password, String address, LocalDate birthdate, Boolean loggin){
-        try{
-            if (!checkuser(last_name)) {
-                Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME,commonconstant.DB_PASSWORD);
-                PreparedStatement insertUser = connection.prepareStatement("INSERT INTO "+ commonconstant.DB_TABLE_NAME+"(last_name, first_name, middle_name, sex, age, mobile_number,User_email, user_password, address, birthdate, logged_in_users)"+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    public static boolean register(String last_name, String first_name, String middle_name, String sex, int age, long number, String email, String password, String address, LocalDate birthdate, Boolean loggin) {
+        try {
+            if (checkuser(email)) {
+                // Email already exists, handle accordingly
+                System.out.println("Error: Email already exists");
+                return false;
+            } else {
+                Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+                PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.DB_TABLE_NAME + "(last_name, first_name, middle_name, sex, age, mobile_number,User_email, user_password, address, birthdate, logged_in_users)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 insertUser.setString(1, last_name);
                 insertUser.setString(2, first_name);
                 insertUser.setString(3, middle_name);
@@ -30,25 +34,24 @@ public class MyJDBC {
                 insertUser.executeUpdate();
                 return true;
             }
-
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
-    public static boolean checkuser(String last_name){
+    public static boolean checkuser(String email){
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement checkuserExist = connection.prepareStatement("SELECT * FROM "+ commonconstant.DB_TABLE_NAME+" WHERE last_name = ?");
-            checkuserExist.setString(1, last_name);
+            PreparedStatement checkuserExist = connection.prepareStatement("SELECT * FROM "+ commonconstant.DB_TABLE_NAME+" WHERE User_email = ?");
+            checkuserExist.setString(1, email);
             ResultSet resultSet = checkuserExist.executeQuery();
-            if (!resultSet.isBeforeFirst()){
-                return false;
+            if (resultSet.isBeforeFirst()){
+                return true; // Email exists
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return true;
+        return false; // Email does not exist
     }
 
     public static boolean validateLogin(String email, String password) {
@@ -76,7 +79,7 @@ public class MyJDBC {
 
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("SELECT last_name, first_name, middle_name, sex, age, mobile_number,User_email, user_password, address, birthdate, logged_in_users FROM " + commonconstant.DB_TABLE_NAME + " WHERE logged_in_users = 1");
+            PreparedStatement statement = connection.prepareStatement("SELECT idUser_id, last_name, first_name, middle_name, sex, age, mobile_number,User_email, user_password, address, birthdate, logged_in_users FROM " + commonconstant.DB_TABLE_NAME + " WHERE logged_in_users = 1");
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

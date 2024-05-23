@@ -11,6 +11,7 @@ public class form2Register extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 //
+
         setLayout(null);
 
         setResizable(false);

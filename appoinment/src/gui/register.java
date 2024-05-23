@@ -10,9 +10,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.util.Arrays;
 import javax.swing.JComboBox;
 
 public class register extends form2Register {
+    private JComboBox<String> combox;
     public register() {
         super("MedCare Appointment System");
         addGuiComponents();
@@ -325,31 +327,70 @@ public class register extends form2Register {
         regiserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //database validation for users
-                String LastName = nameField1.getText();
-                String FirstName = nameField2.getText();
-                String MiddleName = nameField3.getText();
-                String sex = "";
-                String passsword = new String(passwordField.getPassword());
-                String rePassword = new String(repasswordField.getPassword());
-                int number = 0;//Integer.parseInt(numberfield.getText());
-                int age = Integer.parseInt(age1.getText());
-                String email = new String(emailField.getText());
-                String address = new String(address2.getText());
+                String LastName = null;
+                String FirstName = null;
+                String MiddleName = null;
+                String sex = null;
+                String passsword = null;
+                String rePassword = null;
+                long number = 0;
+                int age = 0;
+                String email = null;
+                String address = null;
+                String numberString = numberField.getText().trim(); // Trim any leading/trailing whitespace
 
-                LocalDate birthdate = null;
+                if (numberString.isEmpty()) {
+                    // Handle the case where the numberField is empty
+                    number = 0; // or any other default value you want to assign
+                } else {
+                    try {
+                        number = Long.parseLong(numberString);
+                    } catch (NumberFormatException ex) {
+                        // Handle the case where the numberField contains an invalid value
+                        JOptionPane.showMessageDialog(register.this, "Invalid mobile number. Please enter a valid number.");
+                        return; // Exit the method without proceeding further
+                    }
+                }
+
+                try {
+                    //database validation for users
+                    LastName = nameField1.getText();
+                    FirstName = nameField2.getText();
+                    MiddleName = nameField3.getText();
+                    sex = comboBox.getSelectedItem().toString();
+                    passsword = new String(passwordField.getPassword());
+                    rePassword = new String(repasswordField.getPassword());
+                    age = Integer.parseInt(age1.getText());
+                    email = emailField.getText();
+                    address = address2.getText();
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(register.this, "Error: Invalid input. Please enter valid values.");
+                    return;
+                }
+/// Get the selected value from the combo box
+                String selectedMonth = (String) Birthdate.getSelectedItem();
+                String selectedDay = (String) Birthdate1.getSelectedItem();
+                String selectedYear = (String) Birthdate2.getSelectedItem();
+
+// Convert the selected values to integers
+                int month = Integer.parseInt(selectedMonth);
+                int day = Integer.parseInt(selectedDay);
+                int year = Integer.parseInt(selectedYear);
+// Create a LocalDate object from the selected values
+                LocalDate birthdate = LocalDate.of(year, month, day);
                 Boolean logg = true;
 
-                if(validateuserinput(LastName , FirstName , MiddleName , passsword, rePassword, email)){
-                    if(MyJDBC.register(LastName, FirstName, MiddleName, sex, age, number, email , passsword, address, birthdate, logg)){
+                if (validateuserinput(LastName, FirstName,MiddleName, sex, age, number ,passsword, rePassword, email, address)) {
+                    if (MyJDBC.register(LastName, FirstName, MiddleName, sex, age, number, email, passsword, address, birthdate, logg)) {
                         register.this.dispose();
                         loginpage login = new loginpage();
                         login.setVisible(true);
                         JOptionPane.showMessageDialog(login, "Registered Account Successfully");
-
-                    }else {  JOptionPane.showMessageDialog(register.this, "Error: Username is already taken");
+                    } else {
+                        JOptionPane.showMessageDialog(register.this, "Error: Email already exists");
                     }
-                }else{JOptionPane.showMessageDialog(register.this, "Error. Username must contain 6 characters\n"+"and/or password must match in confirm password\n"+"and/or email is missing");
+                } else {
+                    JOptionPane.showMessageDialog(register.this, "Error. Username must contain 6 characters\n" + "and/or password must match in confirm password\n" + "and/or email is missing");
                 }
             }
         });
@@ -409,14 +450,19 @@ public class register extends form2Register {
         add(image3); // left bg picture
 
     }
-    private boolean validateuserinput(String username, String password, String rePassword, String email, String s, String string){
+    private boolean validateuserinput(String LastName, String FirstName, String MiddleName, String sex, int age, long number,String password, String rePassword, String email, String address){
         //database
-        if (username.length()==0 || password.length()==0||rePassword.length()==0 || email.length() ==0) return false;
-
-        if (username.length()<6)return  false;
+        if ( password.length()==0||rePassword.length()==0 || email.length() == 0|| LastName.isBlank() || FirstName.isBlank() || MiddleName.isBlank() || sex.isBlank() || age == 0 || number == 0 || address.isBlank()) return false;
 
         if (!password.equals(rePassword)) return false;
         if(email.isBlank())   return false;
+        if(LastName.isEmpty()) return false;
+        if (FirstName.isEmpty()) return false;
+        if(MiddleName.isEmpty()) return false;
+        if(sex.isEmpty()) return false;
+        if (age < 0) return false;
+        if (number < 0) return false;
+        if (address.isEmpty()) return false;
 
         return true;
 

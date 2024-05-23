@@ -221,7 +221,9 @@ public class ScheduleAM extends adminform{
 
     private void populateAMScheduleTable() {
         DefaultTableModel tableModel = (DefaultTableModel) ScheduleAM.getModel();
+
         tableModel.setRowCount(0);
+
 
         List<schedules> appointments = userDb.getAppointment();
         for (schedules schedules : appointments) {

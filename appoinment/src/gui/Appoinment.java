@@ -56,7 +56,7 @@ public class Appoinment extends homepage {
 
     // Add other user information fields as needed
 
-    public Appoinment( int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String address) {
+    public Appoinment( int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String email, String address) {
         super("Appointment Booking");
 
         this.loggedInLastName = loggedInLastName;
@@ -67,6 +67,7 @@ public class Appoinment extends homepage {
         this.number1 = number;
         this.address = address;
         this.id1 = id;
+        this.email = email;
         addGuiComponents();
     }
 
@@ -327,26 +328,6 @@ public class Appoinment extends homepage {
         appointmentTypePanel.setBounds(500, 200, 300, 200); // Set the position and size of the panel
         appointmentTypePanel.setVisible(false); // Initially make it invisible
 
-//        // Create radio buttons for different appointment types
-//        JRadioButton generalCheckup = new JRadioButton("General Checkup");
-//        JRadioButton dentalCheckup = new JRadioButton("Dental Checkup");
-//        JRadioButton eyeCheckup = new JRadioButton("Eye Checkup");
-//// Add more radio buttons as needed
-//
-//// Add radio buttons to a ButtonGroup to ensure only one selection
-//        appointmentTypeGroup = new ButtonGroup();
-//        appointmentTypeGroup.add(generalCheckup);
-//        appointmentTypeGroup.add(dentalCheckup);
-//        appointmentTypeGroup.add(eyeCheckup);
-//
-//// Add radio buttons to the panel
-//        appointmentTypePanel.add(generalCheckup);
-//        appointmentTypePanel.add(dentalCheckup);
-//        appointmentTypePanel.add(eyeCheckup);
-//
-//        add(appointmentTypePanel); // Add the panel to the main container
-//        //reserved space for database
-
         JButton submitButton = new JButton("Book Appointment");
 
 //
@@ -379,6 +360,20 @@ public class Appoinment extends homepage {
                 long number = 0;
 
 
+                String numberString = numberfield.getText().trim(); // Trim any leading/trailing whitespace
+
+                if (numberString.isEmpty()) {
+                    // Handle the case where the numberField is empty
+                    number = 0; // or any other default value you want to assign
+                } else {
+                    try {
+                        number = Long.parseLong(numberString);
+                    } catch (NumberFormatException ex) {
+                        // Handle the case where the numberField contains an invalid value
+                        JOptionPane.showMessageDialog(Appoinment.this, "Invalid mobile number. Please enter a valid number.");
+                        return; // Exit the method without proceeding further
+                    }
+                }
                 LocalTime selectedTime;
                 try {
                     Id = Integer.parseInt(IdField.getText());
@@ -388,7 +383,6 @@ public class Appoinment extends homepage {
                     age = Integer.parseInt(agefield.getText());
                     gender = genderflield.getText();
                     Address = Addressfield.getText();
-                    number = Integer.parseInt(numberfield.getText());
                     //appointmentTypePanel.setVisible(true);
 
 
@@ -408,7 +402,7 @@ public class Appoinment extends homepage {
                         if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, selectedService)) {
 
                             if (book(Id, LastName, firstname, MI, age, selectedTime, gender, Address, number, selectedService, cancel, finish)) {
-
+                                TimeSlotManager.removeTimeSlot(selectedTime); // Remove the booked time slot
                                 home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, email, address);
                                 Appoinment.this.dispose();
                                 home.setVisible(true);
@@ -495,6 +489,8 @@ public class Appoinment extends homepage {
 
     // Add this method
     private void loadAppointments() {
+        //TimeSlotManager.loadBookedTimeSlots(); // Load booked time slots from the file
+
         List<schedules> appointments = userDb.getAppointment();
         for (schedules appointment : appointments) {
             String appointmentString = String.format("%s %s (%s) - %s at %s", appointment.getFirst_name(), appointment.getlast_name(), appointment.getid(), appointment.getAppointmet(), appointment.getTime());
@@ -502,40 +498,4 @@ public class Appoinment extends homepage {
         }
     }
 
-    private void cancelAppointment() {
-        int selectedIndex = appointmentList.getSelectedIndex();
-        if (selectedIndex != -1) {
-            String selectedAppointment = appointmentList.getSelectedValue();
-
-            if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
-                String[] parts = selectedAppointment.split(" ");
-                if (parts.length >= 4) {
-                    try {
-                        int userId = Integer.parseInt(parts[2].replace("(", "").replace(")", ""));
-                        String[] timeParts = parts[parts.length - 1].split(":");
-                        if (timeParts.length == 2) {
-                            LocalTime appointmentTime = LocalTime.of(Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
-
-                            boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
-                            if (cancelled) {
-                                listModel.removeElementAt(selectedIndex);
-                                TimeSlotManager.cancelTimeSlot(appointmentTime);
-                                JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Invalid time format in the selected appointment.");
-                        }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(this, "Invalid user ID or time format in the selected appointment.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "No appointment selected.");
-            }
-        }
-    }
 }

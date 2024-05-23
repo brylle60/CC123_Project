@@ -169,6 +169,7 @@ public class home extends homepage {
         signin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                userDb.removeBookedTimeSlotsForUser(id);
                 super.mouseClicked(e);
                 home.this.dispose();
                 new loginpage().setVisible(true);
@@ -286,7 +287,7 @@ public class home extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 home.this.dispose();
-                new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, address).setVisible(true);
+                new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, email, address).setVisible(true);
             }
         });
 

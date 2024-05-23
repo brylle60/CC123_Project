@@ -1,6 +1,8 @@
 package gui;
 
 import constant.commonconstant;
+import db.userDb;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -197,6 +199,7 @@ public class ContactUs extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                userDb.removeBookedTimeSlotsForUser(id);
                 ContactUs.this.dispose();
                 new loginpage().setVisible(true);
             }
