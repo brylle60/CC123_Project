@@ -225,7 +225,7 @@ public class SchedulePM extends adminform{
         List<schedules> appointments = userDb.getAppointment();
         for (schedules schedules : appointments) {
             LocalTime time = schedules.getTime();
-            if (time.isAfter(LocalTime.of(7, 59)) && time.isBefore(LocalTime.of(17, 0))) {
+            if (time.isAfter(LocalTime.of(12, 59)) && time.isBefore(LocalTime.of(17, 0))) {
                 String patientName = schedules.getFirst_name() + " " + schedules.getMidlle_name() + " " + schedules.getlast_name();
                 tableModel.addRow(new Object[]{patientName, time});
             }
