@@ -11,10 +11,15 @@ import db.userDb;
 import javax.swing.*;
 
 public class launcher {
+    private static int age;
+    private static long number;
+    private static  String address;
+    private static  String sex;
+    private static int id;
+    private static String email;
     private static String loggedInLastName;
     private static String loggedInFirstName;
     private static String loggedInMiddleName;
-    private static int id;
     public static void main(String[] args) {
 
 
@@ -24,23 +29,25 @@ public class launcher {
             public void run() {
                 //TimeSlotManager.loadBookedTimeSlots();
 
+                new FamilyMed().setVisible(true);
 
 
 
 //                Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
 //                appoinment.setVisible(true);
                 //new UserProfile(id).setVisible(true);
-                new AdminHome().setVisible(true);
+//                new AdminHome().setVisible(true);
 
 
 //new typeAppointment().setVisible(true);
-                //new loginpage().setVisible(true);
+//                new loginpage().setVisible(true);
 //new AdminHome().setVisible(true);
 
               //new AppointmentList().setVisible(true);
-         //       new loginpage().setVisible(true);
+//                new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
- //   new home().setVisible(true);
+
+//    new home(id,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number, email,address).setVisible(true);
 //new HowToAppointment().setVisible(true);
 
               //  new ContactUs().setVisible(true);
