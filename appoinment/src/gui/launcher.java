@@ -19,19 +19,18 @@ public class launcher {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-//                Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
-//                appoinment.setVisible(true);
+//             new   Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
+            // new Appoinment().setVisible(true);
                 //new UserProfile(id).setVisible(true);
-
-
+  new guest().setVisible(true);
 //new typeAppointment().setVisible(true);
-                new loginpage().setVisible(true);
+               // new loginpage().setVisible(true);
 //new AdminHome().setVisible(true);
-
+//new About().setVisible(true);
               //new AppointmentList().setVisible(true);
-         //       new loginpage().setVisible(true);
+         //  new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
- //   new home().setVisible(true);
+   //new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
 
               //  new ContactUs().setVisible(true);
