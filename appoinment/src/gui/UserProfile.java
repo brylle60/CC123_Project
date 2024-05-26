@@ -78,7 +78,7 @@ public class UserProfile extends homepage  {
             @Override
             public void mouseClicked(MouseEvent e) {
                 UserProfile.this.dispose();
-                new home().setVisible(true);
+                //new home().setVisible(true);
             }
         });
 
