@@ -40,7 +40,7 @@ public class typeAppointment extends homepage {
     public static String appointment;
     private JComboBox<String> comboBox;
 
-    public typeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number, String address) {
+    public typeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName,String sex, int age, long number,String email, String address) {
         super("Types of Appointment");
         this.loggedInLastName = loggedInLastName;
         this.loggedInFirstName = loggedInFirstName;
@@ -50,6 +50,7 @@ public class typeAppointment extends homepage {
         this.number = number;
         this.address = address;
         this.id = id;
+        this.email = email;
         addGuiComponents();
     }
     private void addGuiComponents() {
@@ -240,28 +241,35 @@ public class typeAppointment extends homepage {
                 break;
             }
         }
-        if (comboBox.getSelectedItem().equals("For myself")) {
-            typeAppointment.this.dispose();
-            Appoinment appoinment = new Appoinment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address);
-            appoinment.setAppointmentType(selectedService);
-            appoinment.setVisible(true);
 
         if (selectedService != null) {
+            if (comboBox.getSelectedItem().equals("For myself")) {
             typeAppointment.this.dispose();
+            typeAppointment.this.dispose();
+            Appoinment appoinment = new Appoinment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address);
+            appoinment.setAppointmentType(selectedService);
+            appoinment.setVisible(true);
 
             loginpage login = new loginpage();
             handleSuccessfulLogin(email, password);
             appoinment.setAppointmentType(selectedService);
             appoinment.setVisible(true);
+
+        }else {
+            typeAppointment.this.dispose();
+
+         OtherAppointment other =  new OtherAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age,number, email, address);
+         other.setAppointmentType(selectedService);
+         other.setVisible(true);
+
+        }
+
         } else {
             logger.warning("No appointment type selected");
             JOptionPane.showMessageDialog(typeAppointment.this, "Please select an appointment type");
         }
 
-        }else {
-            typeAppointment.this.dispose();
-            new OtherAppointment().setVisible(true);
-        }
+
      }
     public void handleSuccessfulLogin(String email, String password) {
         // Retrieve user information from the database
@@ -271,7 +279,7 @@ public class typeAppointment extends homepage {
         if (loggedInUser != null) {
             // Create an instance of the Appoinment class with the logged-in user's information
 
-            new home(loggedInUser.getid(),loggedInUser.getLast_name(), loggedInUser.getFirst_name(),loggedInUser.getMiddle_name(),loggedInUser.getSex(), loggedInUser.getAge(), loggedInUser.getNumber(), loggedInUser.getAddress()).setVisible(true);
+            new home(loggedInUser.getid(),loggedInUser.getLast_name(), loggedInUser.getFirst_name(),loggedInUser.getMiddle_name(),loggedInUser.getSex(), loggedInUser.getAge(), loggedInUser.getNumber(),loggedInUser.getEmail(), loggedInUser.getAddress()).setVisible(true);
 
           //  new Appoinment(loggedInUser.getLast_name(), loggedInUser.getFirst_name(), loggedInUser.getMiddle_name()).setVisible(true);
 
@@ -288,7 +296,7 @@ public class typeAppointment extends homepage {
             // Check if the user exists and is logged in
             if (MyJDBC.validateLogin(email, password)) {
                 Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-                PreparedStatement statement = connection.prepareStatement("SELECT idUser_Id, last_name, middle_name, first_name, sex, age, mobile_number, address, birthdate FROM " + commonconstant.DB_TABLE_NAME + " WHERE User_email = ? AND user_password = ?");
+                PreparedStatement statement = connection.prepareStatement("SELECT idUser_Id, last_name, middle_name, User_email, first_name, sex, age, mobile_number, address, birthdate FROM " + commonconstant.DB_TABLE_NAME + " WHERE User_email = ? AND user_password = ?");
                 statement.setString(1, email);
                 statement.setString(2, password);
                 ResultSet resultSet = statement.executeQuery();
@@ -298,6 +306,7 @@ public class typeAppointment extends homepage {
                     String lastName = resultSet.getString("last_name");
                     String firstName = resultSet.getString("first_name");
                     String middleName = resultSet.getString("middle_name");
+                    String email1 = resultSet.getString("User_email");
                     String sex = resultSet.getString("sex");
                     int age = resultSet.getInt("age");
                     long mobileNumber = resultSet.getLong("mobile_number");
@@ -306,7 +315,7 @@ public class typeAppointment extends homepage {
                     boolean logged = true;
 
                     // Create and return a User object with the retrieved information
-                    return new User(Id, lastName, firstName, middleName, sex, age, mobileNumber, email, password, address, birthdate, logged);
+                    return new User(Id, lastName, firstName, middleName, sex, age, mobileNumber, email1, password, address, birthdate, logged);
                 }
             }
         } catch (SQLException e) {

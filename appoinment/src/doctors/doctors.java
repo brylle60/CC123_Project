@@ -1,24 +1,24 @@
-package gui;
+package doctors;
 
 import constant.TimeSlotManager;
 import constant.commonconstant;
-
 import javax.swing.*;
-public class form extends JFrame {
-    public  form (String title){
+
+public class doctors extends JFrame {
+    public doctors (String title) {
         //The main gui panel
         super(title);
-        setSize(850, 686);
+        setSize(1250, 800);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        TimeSlotManager.saveBookedTimeSlots();
 
-//
+
         setLayout(null);
 
         setResizable(false);
 
-        getContentPane().setBackground(commonconstant.BLUE_COLOR);
+        getContentPane().setBackground(commonconstant.BUTTON_COLOR);
 
     }
-
 }

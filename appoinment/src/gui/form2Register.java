@@ -1,18 +1,17 @@
 package gui;
 
-import constant.TimeSlotManager;
 import constant.commonconstant;
 
 import javax.swing.*;
-public class form extends JFrame {
-    public  form (String title){
+public class form2Register extends JFrame {
+    public  form2Register (String title){
         //The main gui panel
         super(title);
-        setSize(850, 686);
+        setSize(1250, 800);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 //
+
         setLayout(null);
 
         setResizable(false);

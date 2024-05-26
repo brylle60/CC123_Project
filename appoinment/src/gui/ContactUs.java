@@ -1,6 +1,8 @@
 package gui;
 
 import constant.commonconstant;
+import db.userDb;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,6 +19,7 @@ public class ContactUs extends homepage {
     private int number;
     private String address;
     private int id;
+    private String email;
     private String sex;
 
     public ContactUs(){
@@ -143,7 +146,7 @@ public class ContactUs extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 ContactUs.this.dispose();
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address).setVisible(true);
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
 
@@ -196,6 +199,7 @@ public class ContactUs extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                userDb.removeBookedTimeSlotsForUser(id);
                 ContactUs.this.dispose();
                 new loginpage().setVisible(true);
             }

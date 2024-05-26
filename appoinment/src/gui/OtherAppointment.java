@@ -2,9 +2,7 @@
 package gui;
 
 
-import adminpage.User;
 import adminpage.schedules;
-import com.sun.tools.attach.AgentInitializationException;
 import constant.commonconstant;
 import constant.TimeSlotManager;
 import db.userDb;
@@ -15,17 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.print.Book;
 import java.time.LocalTime;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static db.userDb.book;
-import static db.userDb.validateuser;
-import static gui.typeAppointment.appointment;
-import static gui.typeAppointment.service;
 
 
 public class OtherAppointment extends homepage {
@@ -40,6 +32,7 @@ public class OtherAppointment extends homepage {
     private String loggedInMiddleName;
     private int age1;
     private long number1;
+    private String email;
     private String address;
     private int id1;
     private String appointmentType;
@@ -55,9 +48,18 @@ public class OtherAppointment extends homepage {
 
     // Add other user information fields as needed
 
-    public OtherAppointment( ){
-
+    public OtherAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address) {
         super("Appointment Booking");
+
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+        this.sex = sex;
+        this.age1 = age;
+        this.number1 = number;
+        this.address = address;
+        this.id1 = id;
+        this.email = email;
         addGuiComponents();
     }
 
@@ -91,7 +93,7 @@ public class OtherAppointment extends homepage {
             public void mouseClicked(MouseEvent e) {
                 OtherAppointment.this.dispose();
 
-                new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age1, number1, address).setVisible(true);
+                new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age1, number1, email, address).setVisible(true);
             }
         });
         home.setBounds(1055, 50, 140, 30);
@@ -110,7 +112,7 @@ public class OtherAppointment extends homepage {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 OtherAppointment.this.dispose();
-                new UserProfile(id2).setVisible(true);
+                new UserProfile(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age1, number1, address, email).setVisible(true);
             }
         });
 //new edit change x loc
@@ -148,6 +150,8 @@ public class OtherAppointment extends homepage {
         timeLabel.setBounds(460, 190, 200, 25);
         timeLabel.setForeground(commonconstant.TEXT_COLOR);
         timeLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+
+
 
 //
         JComboBox<LocalTime> timeComboBox1 = new JComboBox<>();
@@ -227,10 +231,13 @@ public class OtherAppointment extends homepage {
         gender.setForeground(commonconstant.TEXT_COLOR);
         gender.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField genderflield = new JTextField();
-        genderflield.setBounds(150, 470, 150, 25);
-        genderflield.setForeground(commonconstant.TEXT_COLOR);
-        genderflield.setFont(new Font("Dialog",Font.PLAIN, 24));
+        String[] gender1 = {
+                "Male", "Female"
+        };
+        JComboBox<String> comboBox = new JComboBox<>(gender1);
+        comboBox.setFont(new Font("Dialog", Font.PLAIN,18));
+        comboBox.setForeground(commonconstant.TEXT_COLOR);
+        comboBox.setBounds(150, 470, 150, 25);
 
 
         JLabel Address = new JLabel("Address");
@@ -275,6 +282,8 @@ public class OtherAppointment extends homepage {
 
         loadAppointments();
 
+
+        add(comboBox);
         add(dashBoard);
         add(lastName);
         add(lastNamefield);
@@ -287,7 +296,7 @@ public class OtherAppointment extends homepage {
         add(id);
         add(IdField);
         add(gender);
-        add(genderflield);
+
         add(Address);
         add(Addressfield);
         add(number);
@@ -318,25 +327,6 @@ public class OtherAppointment extends homepage {
         appointmentTypePanel.setBounds(500, 200, 300, 200); // Set the position and size of the panel
         appointmentTypePanel.setVisible(false); // Initially make it invisible
 
-//        // Create radio buttons for different appointment types
-//        JRadioButton generalCheckup = new JRadioButton("General Checkup");
-//        JRadioButton dentalCheckup = new JRadioButton("Dental Checkup");
-//        JRadioButton eyeCheckup = new JRadioButton("Eye Checkup");
-//// Add more radio buttons as needed
-//
-//// Add radio buttons to a ButtonGroup to ensure only one selection
-//        appointmentTypeGroup = new ButtonGroup();
-//        appointmentTypeGroup.add(generalCheckup);
-//        appointmentTypeGroup.add(dentalCheckup);
-//        appointmentTypeGroup.add(eyeCheckup);
-//
-//// Add radio buttons to the panel
-//        appointmentTypePanel.add(generalCheckup);
-//        appointmentTypePanel.add(dentalCheckup);
-//        appointmentTypePanel.add(eyeCheckup);
-//
-//        add(appointmentTypePanel); // Add the panel to the main container
-//        //reserved space for database
 
         JButton submitButton = new JButton("Book Appointment");
 
@@ -369,6 +359,20 @@ public class OtherAppointment extends homepage {
                 String Address = null;
                 long number = 0;
 
+                String numberString = numberfield.getText().trim(); // Trim any leading/trailing whitespace
+
+                if (numberString.isEmpty()) {
+                    // Handle the case where the numberField is empty
+                    number = 0; // or any other default value you want to assign
+                } else {
+                    try {
+                        number = Long.parseLong(numberString);
+                    } catch (NumberFormatException ex) {
+                        // Handle the case where the numberField contains an invalid value
+                        JOptionPane.showMessageDialog(OtherAppointment.this, "Invalid mobile number. Please enter a valid number.");
+                        return; // Exit the method without proceeding further
+                    }
+                }
 
                 LocalTime selectedTime;
                 try {
@@ -377,10 +381,8 @@ public class OtherAppointment extends homepage {
                     firstname = firstnamefield.getText();
                     MI = Mifield.getText();
                     age = Integer.parseInt(agefield.getText());
-                    gender = genderflield.getText();
+                    gender = (String) comboBox.getSelectedItem();
                     Address = Addressfield.getText();
-                    number = Integer.parseInt(numberfield.getText());
-                    //appointmentTypePanel.setVisible(true);
 
 
 
@@ -390,16 +392,18 @@ public class OtherAppointment extends homepage {
                     return;
                 }
                 Boolean cancel = false;
+                Boolean finish = false;
                 selectedTime = (LocalTime) timeComboBox1.getSelectedItem();
-                String selectedService = appointmentType;
+               String selectedService = appointmentType;
                 int dailogbox =    JOptionPane.showConfirmDialog(OtherAppointment.this, "Is the info above is correct?");
                 if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
                     if (dailogbox == JOptionPane.YES_OPTION) {
                         if (validateuserinput(Id, LastName, firstname, MI, gender, Address, number, selectedService)) {
 
-                            if (book(Id, LastName, firstname, MI, age, selectedTime, gender, Address, number, selectedService, cancel)) {
+                            if (book(Id, LastName, firstname, MI, age, selectedTime, gender, Address, number, selectedService, cancel, finish)) {
 
-                                home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, address);
+                                TimeSlotManager.removeTimeSlot(selectedTime); // Remove the booked time slot
+                                home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, email, address);
                                 OtherAppointment.this.dispose();
                                 home.setVisible(true);
                                 // new AppointmentList().setVisible(true);
@@ -444,8 +448,7 @@ public class OtherAppointment extends homepage {
 
     private boolean validateuserinput(int id, String lastName, String firstname, String middle_name, String Gender, String Address, long number, String appointment) {
         // Database
-        if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0 || appointment.length() == 0 ) {
-            //logger.warning("Invalid user input: One or more fields are empty or zero");
+        if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0  ) {
             return false;
         }
 
@@ -492,40 +495,4 @@ public class OtherAppointment extends homepage {
         }
     }
 
-    private void cancelAppointment() {
-        int selectedIndex = appointmentList.getSelectedIndex();
-        if (selectedIndex != -1) {
-            String selectedAppointment = appointmentList.getSelectedValue();
-
-            if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
-                String[] parts = selectedAppointment.split(" ");
-                if (parts.length >= 4) {
-                    try {
-                        int userId = Integer.parseInt(parts[2].replace("(", "").replace(")", ""));
-                        String[] timeParts = parts[parts.length - 1].split(":");
-                        if (timeParts.length == 2) {
-                            LocalTime appointmentTime = LocalTime.of(Integer.parseInt(timeParts[0]), Integer.parseInt(timeParts[1]));
-
-                            boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
-                            if (cancelled) {
-                                listModel.removeElementAt(selectedIndex);
-                                TimeSlotManager.cancelTimeSlot(appointmentTime);
-                                JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Invalid time format in the selected appointment.");
-                        }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(this, "Invalid user ID or time format in the selected appointment.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "No appointment selected.");
-            }
-        }
-    }
 }

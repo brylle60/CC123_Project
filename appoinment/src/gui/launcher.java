@@ -4,6 +4,7 @@ package gui;
 import adminpage.AdminHome;
 import adminpage.ScheduleTable;
 import adminpage.User;
+import constant.TimeSlotManager;
 import db.userDb;
 
 
@@ -16,15 +17,12 @@ public class launcher {
     private static int id;
     public static void main(String[] args) {
 
+
         SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
-//             new   Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
-            // new Appoinment().setVisible(true);
-                //new UserProfile(id).setVisible(true);
-  new guest().setVisible(true);
-//new typeAppointment().setVisible(true);
-               // new loginpage().setVisible(true);
+
 //new AdminHome().setVisible(true);
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);

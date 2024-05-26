@@ -107,7 +107,7 @@ public class loginpage extends form {
                 //users database validation
                 String email = usernameField.getText();
                 String password = new String(passwordField.getPassword());
-                typeAppointment appointment = new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number, address);
+                typeAppointment appointment = new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number, email, address);
 
 
                 if (MyJDBC.validateLogin(email, password)) {

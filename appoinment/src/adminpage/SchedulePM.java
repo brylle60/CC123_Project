@@ -166,7 +166,7 @@ public class SchedulePM extends adminform{
 
         // Add the main panel to the form
         add(mainPanel);
-        populateLoggedInUsersTable();
+        populatePMScheduleTable();
 
 
 
@@ -218,33 +218,19 @@ public class SchedulePM extends adminform{
         add(wave);
     }
 
-    private void populateLoggedInUsersTable() {
+    private void populatePMScheduleTable() {
         DefaultTableModel tableModel = (DefaultTableModel) SchedulePM1.getModel();
-        tableModel.setRowCount(0); // Clear the existing data
+        tableModel.setRowCount(0);
 
-        List<schedules> Appointment = userDb.getAppointment();
-        for (schedules schedules : Appointment) {
-            int id = schedules.getid();
-            String last_name = schedules.getlast_name();
-            String first_name = schedules.getFirst_name();
-            String middle_name = schedules.getMidlle_name();
+        List<schedules> appointments = userDb.getAppointment();
+        for (schedules schedules : appointments) {
             LocalTime time = schedules.getTime();
-            LocalDate date = schedules.getDate();
-            String gender = schedules.getGender();
-            String address = schedules.getAdress();
-            int number = schedules.getNumber();
-            String appointment = schedules.getAppointmet();
-            //debugger
-            //  System.out.println("Logged-in Users:");
-
-            // System.out.println( " Username: " + user.getUsername() + ", Password: " + user.getPassword()+", logged in:"+user.isLoggedIn());
-
-            tableModel.addRow(new Object[]{id, last_name, first_name, middle_name, time, date, gender, address, number, appointment});
-
-
+            if (time.isAfter(LocalTime.of(12, 59)) && time.isBefore(LocalTime.of(17, 0))) {
+                String patientName = schedules.getFirst_name() + " " + schedules.getMidlle_name() + " " + schedules.getlast_name();
+                tableModel.addRow(new Object[]{patientName, time});
+            }
         }
 
         SchedulePM1.revalidate();
     }
-
 }
