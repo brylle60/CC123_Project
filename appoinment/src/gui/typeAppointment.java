@@ -136,7 +136,7 @@ public class typeAppointment extends homepage {
         checkBox2.setOpaque(false);
 
         add(checkBox2);
-        service.add(checkBox2);
+
 
         JCheckBox checkBox3 = new JCheckBox("Online Consultation Services");
         checkBox3.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -166,7 +166,7 @@ public class typeAppointment extends homepage {
         };
 
 
-         comboBox = new JComboBox<>(appointmentType);
+        comboBox = new JComboBox<>(appointmentType);
         comboBox.setFont(new Font("Dialog", Font.PLAIN,25));
         comboBox.setForeground(commonconstant.TEXT_COLOR);
         comboBox.setBounds(325, 420, 250, 30);
@@ -185,9 +185,7 @@ public class typeAppointment extends homepage {
             public void mouseClicked(MouseEvent e) {
                     if (selectedService != null) {
                         typeAppointment.this.dispose();
-                        // Appoinment appoinment = new Appoinment(loggedInLastName, loggedInFirstName, loggedInMiddleName);
-                        //appoinment.setAppointmentType(selectedService);
-                        //appoinment.setVisible(true);
+
                     } else {
                         logger.warning("No appointment type selected");
                         JOptionPane.showMessageDialog(typeAppointment.this, "Please select an appointment type");
@@ -280,15 +278,7 @@ public class typeAppointment extends homepage {
             // Create an instance of the Appoinment class with the logged-in user's information
 
             new home(loggedInUser.getid(),loggedInUser.getLast_name(), loggedInUser.getFirst_name(),loggedInUser.getMiddle_name(),loggedInUser.getSex(), loggedInUser.getAge(), loggedInUser.getNumber(),loggedInUser.getEmail(), loggedInUser.getAddress()).setVisible(true);
-
-          //  new Appoinment(loggedInUser.getLast_name(), loggedInUser.getFirst_name(), loggedInUser.getMiddle_name()).setVisible(true);
-
-//            // Dispose of the login page
-//  this.dispose();
-      } //else {
-////            // Handle the case where the user is not found in the database
-//            JOptionPane.showMessageDialog(this, "Invalid email or password.");
-//        }
+      }
     }
 
     private User getUserFromDatabase(String email, String password) {
@@ -298,7 +288,6 @@ public class typeAppointment extends homepage {
                 Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
                 PreparedStatement statement = connection.prepareStatement("SELECT idUser_Id, last_name, middle_name, User_email, first_name, sex, age, mobile_number, address, birthdate FROM " + commonconstant.DB_TABLE_NAME + " WHERE User_email = ? AND user_password = ?");
                 statement.setString(1, email);
-                statement.setString(2, password);
                 ResultSet resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {

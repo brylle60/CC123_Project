@@ -162,7 +162,6 @@ public class home extends homepage {
 
         JButton signin= new JButton("Logout");
         signin.setFont(new Font("Dialog", Font.BOLD, 18));
-
         signin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         signin.setForeground(commonconstant.SECONDARY_COLOR);
         signin.setBackground(commonconstant.HOME_BG1_BLUE);
@@ -188,8 +187,6 @@ public class home extends homepage {
         JLabel text = new JLabel("Consult your health");
         text.setBounds(16, 80, 600, 400);
         text.setForeground(commonconstant.TEXT_COLOR.brighter());
-
-
         text.setFont(new Font("Dialog", Font.BOLD, 60));
         text.setHorizontalAlignment(SwingConstants.CENTER);
 
