@@ -6,6 +6,9 @@ import adminpage.ScheduleTable;
 import adminpage.User;
 import constant.TimeSlotManager;
 import db.userDb;
+import doctors.PatientProfile3;
+import doctors.PatientProfile4;
+import doctors.doctorhomepage;
 
 
 import javax.swing.*;
@@ -30,7 +33,8 @@ public class launcher {
 //new typeAppointment().setVisible(true);
    //new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
-
+new PatientProfile3().setVisible(true);
+               // new PatientProfile4().setVisible(true);
               //  new ContactUs().setVisible(true);
 
               // System.out.println(MyJDBC.checkuser("username1234"));

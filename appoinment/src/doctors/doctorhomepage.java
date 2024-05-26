@@ -11,7 +11,9 @@ public class doctorhomepage extends doctors{
         addDoctorComponents();
 
     }
-    private void DoctorComponents{
+
+    private void addDoctorComponents() {
+
 
         JLabel text = new JLabel("We're bridging the gap between Doctors and Patients");
         text.setBounds(16, 80, 600, 400);
