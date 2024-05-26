@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class homepage extends JFrame {
     public homepage (String title) {
-        //The main gui panel
+        //The main doctors panel
         super(title);
         setSize(1250, 800);
 
