@@ -111,7 +111,6 @@ public class Appoinment extends homepage {
 
         JButton userProfile= new JButton("User Profile");
         userProfile.setFont(new Font("Dialog", Font.BOLD, 18));
-
         userProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         userProfile.setForeground(commonconstant.SECONDARY_COLOR);
         userProfile.setBackground(commonconstant.HOME_BG1_BLUE);
@@ -263,7 +262,7 @@ public class Appoinment extends homepage {
         numberfield.setForeground(commonconstant.TEXT_COLOR);
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
-        JLabel dashBoard = new JLabel("To days Dash Board");
+        JLabel dashBoard = new JLabel("Today's Dash Board");
         dashBoard.setBounds(750, 270,300, 25);
         dashBoard.setForeground(commonconstant.TEXT_COLOR);
         dashBoard.setFont(new Font("Dialog",Font.BOLD, 18));
@@ -273,7 +272,6 @@ public class Appoinment extends homepage {
         list.setLayout(new BorderLayout()); // Set the layout to null to allow positioning components manually
         list.setBounds(600, 300, 400, 170); // Set the bounds of the panel
         list.setBackground(commonconstant.HOME_BG1_GRAY);
-
         listModel = new DefaultListModel<>();
         appointmentList = new JList<>(listModel);
         appointmentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

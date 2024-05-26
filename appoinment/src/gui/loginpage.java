@@ -5,7 +5,7 @@ import adminpage.AdminPageController;
 import adminpage.ScheduleTable;
 import adminpage.User;
 import constant.commonconstant;
-import db.MyJDBC;
+import db.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -172,6 +172,9 @@ public class loginpage extends form {
     }
 
     public boolean admin(String email, String password){
+
+//        boolean result = loginDb.loginUser(email, password);
+//        return result;
         if(email.matches("brylle@example.com") && password.matches("password")) return true;
 
         if (!email.matches("brylle@emaple.com"))    return false;
