@@ -1,9 +1,12 @@
 package doctors;
 
+import constant.TimeSlotManager;
 import constant.commonconstant;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.MalformedParametersException;
+import java.time.LocalTime;
 
 public class PatientProfile3 extends doctors{
     public PatientProfile3(){
@@ -20,9 +23,14 @@ public class PatientProfile3 extends doctors{
 
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png");
         JLabel logoLabel = new JLabel(logoIcon);
-        logoLabel.setBounds(-18, -10, 180, 100); // Adjust the position and size as needed
+        logoLabel.setBounds(0, 0, 180, 100); // Adjust the position and size as needed
+
+        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/d11.png");
+        JLabel patientLabel = new JLabel(patientIcon);
+        patientLabel.setBounds(25, 150, 170, 170); // Adjust the position and size as needed
 
         add(logoLabel);
+        add(patientLabel);
 
 
         JLabel text1 = new JLabel("Patient Details");
@@ -83,10 +91,23 @@ public class PatientProfile3 extends doctors{
         agefield.setForeground(commonconstant.TEXT_COLOR);
         agefield.setFont(new Font("Dialog", Font.PLAIN, 24));
 
-        JLabel gender = new JLabel("Gender");
-        gender.setBounds(450, 445, 200, 25);
-        gender.setForeground(commonconstant.TEXT_COLOR);
-        gender.setFont(new Font("Dialog",Font.PLAIN, 18));
+        JLabel genderLabel = new JLabel("Gender");
+        genderLabel.setBounds(650, 345, 200, 25);
+        genderLabel.setForeground(commonconstant.TEXT_COLOR);
+        genderLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+        
+        
+        String[] genderType={
+                "Male",
+                "Female",
+        };
+
+        JComboBox<String> comboBox = new JComboBox<>(genderType);
+        comboBox.setFont(new Font("Dialog", Font.PLAIN,20));
+        comboBox.setForeground(commonconstant.TEXT_COLOR);
+        comboBox.setBounds(650, 372, 100, 25);
+        
+
 
         JTextField genderflield = new JTextField();
         genderflield.setBounds(450, 470, 150, 25);
@@ -95,22 +116,22 @@ public class PatientProfile3 extends doctors{
 
 
         JLabel Address = new JLabel("Address");
-        Address.setBounds(450, 495,300, 25);
+        Address.setBounds(450, 395,300, 25);
         Address.setForeground(commonconstant.TEXT_COLOR);
         Address.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField Addressfield = new JTextField();
-        Addressfield.setBounds(450, 520, 350, 25);
+        Addressfield.setBounds(450, 420, 350, 25);
         Addressfield.setForeground(commonconstant.TEXT_COLOR);
         Addressfield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
         JLabel number = new JLabel("Mobile Number");
-        number.setBounds(450, 545,300, 25);
+        number.setBounds(450, 445,300, 25);
         number.setForeground(commonconstant.TEXT_COLOR);
         number.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField numberfield = new JTextField();
-        numberfield.setBounds(450, 572, 350, 25);
+        numberfield.setBounds(450, 472, 350, 25);
         numberfield.setForeground(commonconstant.TEXT_COLOR);
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
@@ -123,8 +144,8 @@ public class PatientProfile3 extends doctors{
         add(Mifield);
         add(age);
         add(agefield);
-        add(gender);
-        add(genderflield);
+        add(genderLabel);
+        add(comboBox);
         add(Address);
         add(Addressfield);
         add(number);
