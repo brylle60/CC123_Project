@@ -1,6 +1,7 @@
 package doctors;
 
 import constant.commonconstant;
+import db.NotificationQueue;
 import gui.*;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class DoctorTypeAppointment extends doctors{
     public DoctorTypeAppointment() {
         super("Health Apoointment");
         addDoctorComponents();
+        handleNotifications();
         retrieveUnconfirmedNotifications();
 
     }
@@ -325,4 +327,16 @@ public class DoctorTypeAppointment extends doctors{
             e.printStackTrace();
         }
     }
+    private void handleNotifications() {
+        while (NotificationQueue.hasNotifications()) {
+            String notification = NotificationQueue.pollNotification();
+            int response = JOptionPane.showConfirmDialog(this, notification, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                confirmAppointment(response);
+            } else {
+                declineAppointment(response);
+            }
+        }
+    }
+
 }
