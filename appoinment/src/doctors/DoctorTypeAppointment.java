@@ -33,6 +33,7 @@ public class DoctorTypeAppointment extends doctors{
 
     private void addDoctorComponents() {
 
+
         JButton profile = new JButton("Profile");
         profile.setFont(new Font("DIALOG", Font.BOLD,20));
         profile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -118,6 +119,7 @@ public class DoctorTypeAppointment extends doctors{
         add(logolabel1);
         add(logolabel2);
         add(logolabel3);
+
 
 
         JLabel text = new JLabel("We're bridging the gap between Doctors and Patients");
