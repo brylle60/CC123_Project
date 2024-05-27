@@ -27,8 +27,8 @@ public class GuestPage extends GuestPageExtends {
 
 
         //Our Service
-        JLabel Ours = new JLabel("O U R  S E R V I C E S ");
-        Ours.setBounds(613, 30, 700, 80);
+        JLabel Ours = new JLabel("M E D C A R E  S E R V I C E S ");
+        Ours.setBounds(500, 30, 830, 80);
         Ours.setForeground(new Color(255,255,255));
         Ours.setFont(new Font("Georgia",Font.BOLD, 50));
         add(Ours);
@@ -198,7 +198,7 @@ public class GuestPage extends GuestPageExtends {
         add(nothing);
 
         //Consult BUTTON
-        JButton Consult = new JButton("Consult Now");
+        JButton Consult = new JButton("LOG-IN");
         Consult.setFont(new Font("Dialog", Font.BOLD, 20));
         Consult.setBounds(1000, 620, 280, 60);
         Consult.setBackground(commonconstant.TEAL_REGISTER);
@@ -269,7 +269,7 @@ public class GuestPage extends GuestPageExtends {
             public void mouseClicked(MouseEvent e) {
                 GuestPage.this.dispose();
 
-                new loginpage().setVisible(true);
+                new OphthalmologyDescription().setVisible(true);
             }
         });
         add(Ophthalmology1);

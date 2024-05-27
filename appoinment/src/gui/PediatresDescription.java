@@ -85,17 +85,7 @@ public class PediatresDescription extends DescriptionPage {
         nothing.setForeground(new Color(0,0,0,0));
         nothing.setBackground(new Color(0,0,0,0));
         nothing.setFont(new Font("Dialog", Font.BOLD, 0));
-
         nothing.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        //set mouse listener
-        nothing.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                new AdminHome().setVisible(true);
-
-            }
-        });
         add(nothing);
 
         //account table button
