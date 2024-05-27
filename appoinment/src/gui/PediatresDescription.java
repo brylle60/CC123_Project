@@ -139,6 +139,28 @@ public class PediatresDescription extends DescriptionPage {
         Logo.setBounds(-25, -70, 250, 250); // Adjust the position and size as needed
         add(Logo);
 
+        JLabel menulabel = new JLabel("Health");
+
+        menulabel.setBounds(8, 9, 400, 100);
+        menulabel.setForeground(commonconstant.HOME_BG1_BLUE);
+
+        menulabel.setFont(new Font("Dialog", Font.BOLD, 20));
+
+        menulabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        add(menulabel);
+
+        JLabel menulabel2 = new JLabel("Appointment");
+
+        menulabel2.setBounds(98, 9, 400, 100);
+        menulabel2.setForeground(commonconstant.TEXT_COLOR);
+
+        menulabel2.setFont(new Font("Dialog", Font.BOLD, 20));
+
+        menulabel2.setHorizontalAlignment(SwingConstants.CENTER);
+
+        add(menulabel2);
+
 
         //Panel Transparent
         JPanel panel1 = new JPanel();
