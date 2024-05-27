@@ -239,28 +239,35 @@ public class typeAppointment extends homepage {
                 break;
             }
         }
-        if (comboBox.getSelectedItem().equals("For myself")) {
+
+        if (selectedService != null) {
+            if (comboBox.getSelectedItem().equals("For myself")) {
+            typeAppointment.this.dispose();
             typeAppointment.this.dispose();
             Appoinment appoinment = new Appoinment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address);
             appoinment.setAppointmentType(selectedService);
             appoinment.setVisible(true);
 
-        if (selectedService != null) {
-            typeAppointment.this.dispose();
-
             loginpage login = new loginpage();
             handleSuccessfulLogin(email, password);
             appoinment.setAppointmentType(selectedService);
             appoinment.setVisible(true);
+
+        }else {
+            typeAppointment.this.dispose();
+
+         OtherAppointment other =  new OtherAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age,number, email, address);
+         other.setAppointmentType(selectedService);
+         other.setVisible(true);
+
+        }
+
         } else {
             logger.warning("No appointment type selected");
             JOptionPane.showMessageDialog(typeAppointment.this, "Please select an appointment type");
         }
 
-        }else {
-            typeAppointment.this.dispose();
-            new OtherAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age,number, email, address).setVisible(true);
-        }
+
      }
     public void handleSuccessfulLogin(String email, String password) {
         // Retrieve user information from the database

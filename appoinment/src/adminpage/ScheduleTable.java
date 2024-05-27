@@ -1,5 +1,6 @@
 package adminpage;
 
+import constant.TimeSlotManager;
 import constant.commonconstant;
 import db.userDb;
 import gui.home;
@@ -19,6 +20,8 @@ import java.awt.event.MouseEvent;
 
 
 public class ScheduleTable extends adminform{
+    private JTable appointmentList;
+
     private JTable BookedAppointment;
     public ScheduleTable() {
         super("MedCare Appointment System (Schedule Table)");
@@ -159,7 +162,15 @@ public class ScheduleTable extends adminform{
         });
         add(SchedulePM);
 
-
+        JButton finishButton = new JButton("Finished");
+        finishButton.setBounds(655, 565, 200, 40);
+        finishButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                finishAppointment();
+            }
+        });
+        add(finishButton);
 
 
         // Create the table
@@ -260,4 +271,46 @@ public class ScheduleTable extends adminform{
         BookedAppointment.revalidate();
     }
 
+    private void finishAppointment() {
+        int selectedIndex = BookedAppointment.getSelectedRow();
+        if (selectedIndex != -1) {
+            String selectedAppointment = (String) BookedAppointment.getValueAt(selectedIndex, 9);
+
+            if (selectedAppointment != null && !selectedAppointment.isEmpty()) {
+                // Check if the appointment string is in the expected format (e.g., "Rehabilitation")
+                if (isValidAppointmentFormat(selectedAppointment)) {
+                    // Get the user ID from the table
+                    int userId = (int) BookedAppointment.getValueAt(selectedIndex, 0);
+                    LocalTime appointmentTime = (LocalTime) BookedAppointment.getValueAt(selectedIndex, 4);
+
+                    boolean finished = userDb.finishAppointment(userId, appointmentTime);
+                    if (finished) {
+                        DefaultTableModel tableModel = (DefaultTableModel) BookedAppointment.getModel();
+                        tableModel.removeRow(selectedIndex);
+                        TimeSlotManager.cancelTimeSlot(appointmentTime);
+                        TimeSlotManager.addTimeSlot(appointmentTime);
+                        JOptionPane.showMessageDialog(this, "Appointment finished.");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid appointment format in the selected appointment.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No appointment selected.");
+            }
+        }
+    }
+
+    private boolean isValidAppointmentFormat(String appointment) {
+        // Split the appointment string based on spaces
+        String[] parts = appointment.split("\\s+");
+
+        // Check if the first part is a word (appointment type)
+        if (parts.length > 0 && parts[0].matches("\\w+")) {
+            return true;
+        }
+
+        return false;
+    }
 }

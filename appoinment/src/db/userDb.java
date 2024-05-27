@@ -149,7 +149,7 @@ public class userDb {
             Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
 
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT user_id, last_name, first_name, m_i, time, date, gender, adress, number, Appointment, canceled FROM " + commonconstant.DB_USER_INFO
+                    "SELECT user_id, last_name, first_name, m_i, time, date, gender, adress, number, Appointment, canceled, finished FROM " + commonconstant.DB_USER_INFO
             );
             ResultSet resultSet = statement.executeQuery();
 
@@ -162,15 +162,18 @@ public class userDb {
                 LocalDate date = resultSet.getDate("date").toLocalDate();
                 String gender = resultSet.getString("Gender");
                 String adress = resultSet.getString("adress");
-                int number = resultSet.getInt("number");
+                long number = resultSet.getLong("number");
                 String Appointments = resultSet.getString("Appointment");
                 boolean canceled = resultSet.getBoolean("canceled");
+                boolean finished = resultSet.getBoolean("finished");
 
                 //System.out.println("Retrieved appointment: " + user_id + ", " + last_name + ", " + first_name + ", " + middle_name + ", " + time + ", " + date + ", " + gender + ", " + adress + ", " + number + ", " + Appointments + ", " + canceled);
 
 
                 // Skip canceled appointments and appointments with unavailable time slots
                 if (canceled || !TimeSlotManager.isTimeSlotAvailable(time)) continue;
+                if (finished) continue;
+
 
                 schedules appointment = new schedules(user_id, last_name, first_name, middle_name, time, date, gender, adress, number, Appointments);
                 appointments.add(appointment);
@@ -187,7 +190,7 @@ public class userDb {
             Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT user_id, last_name, first_name, m_i, time, date, gender, adress, number, Appointment, canceled, finished FROM " + commonconstant.DB_USER_INFO +
-                            " WHERE canceled = true AND finished = false"
+                            " WHERE canceled = true AND finished = true"
             );
            // statement.setInt(1, userId);
             //statement.setDate(1, new java.sql.Date(System.currentTimeMillis())); // Current date
@@ -233,4 +236,27 @@ public class userDb {
             e.printStackTrace();
         }
     }
+
+    public static boolean finishAppointment(int userId, LocalTime appointmentTime) {
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement finishStatement = connection.prepareStatement("UPDATE " + commonconstant.DB_USER_INFO + " SET canceled = ?, finished = ? WHERE user_id = ? AND time = ?");
+           finishStatement.setBoolean(1, true);
+            finishStatement.setBoolean(1, true); // Set canceled to true
+            finishStatement.setInt(2, userId);
+            finishStatement.setTime(3, Time.valueOf(appointmentTime));
+            int rowsAffected = finishStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                TimeSlotManager.freeTimeSlot(appointmentTime); // Update the available time slots
+                TimeSlotManager.addTimeSlot(appointmentTime);
+                //    TimeSlotManager.saveBookedTimeSlots(); // Save the updated booked time slots
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 }

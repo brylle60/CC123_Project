@@ -383,7 +383,6 @@ public class OtherAppointment extends homepage {
                     age = Integer.parseInt(agefield.getText());
                     gender = (String) comboBox.getSelectedItem();
                     Address = Addressfield.getText();
-                    //appointmentTypePanel.setVisible(true);
 
 
 
@@ -449,8 +448,7 @@ public class OtherAppointment extends homepage {
 
     private boolean validateuserinput(int id, String lastName, String firstname, String middle_name, String Gender, String Address, long number, String appointment) {
         // Database
-        if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0 || appointment.length() == 0 ) {
-            //logger.warning("Invalid user input: One or more fields are empty or zero");
+        if (id == 0 || lastName.length() == 0 || firstname.length() == 0 || middle_name.length() == 0 || Gender.length() == 0 || Address.length() == 0 || number == 0  ) {
             return false;
         }
 
