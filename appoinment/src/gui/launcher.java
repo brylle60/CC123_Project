@@ -6,11 +6,6 @@ import adminpage.ScheduleTable;
 import adminpage.User;
 import constant.TimeSlotManager;
 import db.userDb;
-import doctors.PatientProfile3;
-import doctors.PatientProfile4;
-
-
-import doctors.DoctorTypeAppointment;
 
 
 
@@ -21,12 +16,6 @@ public class launcher {
     private static String loggedInFirstName;
     private static String loggedInMiddleName;
     private static int id;
-    private static int age;
-    private static long number;
-    private static String address;
-    private static String sex;
-    private static String email;
-
     public static void main(String[] args) {
 
 
@@ -34,12 +23,16 @@ public class launcher {
 
             @Override
             public void run() {
+                new doctorhomepage().setVisible(true);
 
+//new AdminHome().setVisible(true);
+//new About().setVisible(true);
+              //new AppointmentList().setVisible(true);
+          // new loginpage().setVisible(true);
+//new typeAppointment().setVisible(true);
+   //new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
 
-new PatientProfile3().setVisible(true);
-               // new PatientProfile4().setVisible(true);
-             new DoctorTypeAppointment().setVisible(true);
 
               //  new ContactUs().setVisible(true);
 

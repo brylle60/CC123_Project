@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DoctorTypeAppointment extends doctors{
 
@@ -23,6 +27,7 @@ public class DoctorTypeAppointment extends doctors{
     public DoctorTypeAppointment() {
         super("Health Apoointment");
         addDoctorComponents();
+        retrieveUnconfirmedNotifications();
 
     }
 
@@ -335,5 +340,50 @@ public class DoctorTypeAppointment extends doctors{
 
 
 
+    }
+    private void retrieveUnconfirmedNotifications() {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("SELECT message FROM "+commonconstant.NOTIFICATION+" WHERE is_confirmed = false");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String notificationMessage = resultSet.getString("message");
+                int response = JOptionPane.showConfirmDialog(this, notificationMessage, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
+                if (response == JOptionPane.YES_OPTION) {
+                    confirmAppointment(resultSet.getInt("id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    private void confirmAppointment(int notificationId) {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("UPDATE appointment_notifications SET is_confirmed = true WHERE id = ?");
+            statement.setInt(1, notificationId);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
