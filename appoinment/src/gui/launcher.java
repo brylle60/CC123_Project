@@ -6,7 +6,7 @@ import adminpage.ScheduleTable;
 import adminpage.User;
 import constant.TimeSlotManager;
 import db.userDb;
-import doctors.doctorhomepage;
+import doctors.DoctorTypeAppointment;
 
 
 import javax.swing.*;
@@ -21,14 +21,16 @@ public class launcher {
 
         SwingUtilities.invokeLater(new Runnable() {
 
+
             @Override
             public void run() {
-                new doctorhomepage().setVisible(true);
+//                new doctorhomepage().setVisible(true);
 
+                //new DoctorTypeAppointment().setVisible(true);
 //new AdminHome().setVisible(true);
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);
-          // new loginpage().setVisible(true);
+           new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
    //new home().setVisible(true);
 //new HowToAppointment().setVisible(true);

@@ -121,7 +121,7 @@ public class loginpage extends form {
                     loginpage.this.dispose();
                     JOptionPane.showMessageDialog(loginpage.this, "WELCOME ADMIN");
                 } else {
-                    JOptionPane.showMessageDialog(loginpage.this, "Login Failed...");
+                    JOptionPane.showMessageDialog(loginpage.this, "Login Failed invalid password and/or \n"+"the email and password is incorrect or missing");
                 }
             }
         });
