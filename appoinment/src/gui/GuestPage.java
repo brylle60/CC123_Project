@@ -288,7 +288,7 @@ public class GuestPage extends GuestPageExtends {
             public void mouseClicked(MouseEvent e) {
                 GuestPage.this.dispose();
 
-                new loginpage().setVisible(true);
+                new MedFamDescription().setVisible(true);
             }
         });
         add(panelfammed);
