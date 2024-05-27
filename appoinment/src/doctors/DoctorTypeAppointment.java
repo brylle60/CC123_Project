@@ -41,38 +41,9 @@ public class DoctorTypeAppointment extends doctors{
             new UserProfile(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
     }
 });
-        profile.setBounds(1070,120,120,30);
+        profile.setBounds(1070,140,120,30);
 
-        JButton aboutUs = new JButton("About us");
-        aboutUs.setFont(new Font("DIALOG", Font.BOLD, 20));
-        aboutUs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        aboutUs.setForeground(commonconstant.SECONDARY_COLOR);
-        aboutUs.setBackground(commonconstant.DARK_BLUE);
-        aboutUs.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e){
-               super.mouseClicked(e);
-               DoctorTypeAppointment.this.dispose();
-                new About().setVisible(true);
-            }
-        });
-        aboutUs.setBounds(1070,170,120,30);
-
-        JButton contactUs = new JButton("Contact Us");
-        contactUs.setFont(new Font("Dialog", Font.BOLD, 18));
-        contactUs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        contactUs.setForeground(commonconstant.SECONDARY_COLOR);
-        contactUs.setBackground(commonconstant.DARK_BLUE);
-        contactUs.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                DoctorTypeAppointment.this.dispose();
-                new ContactUs().setVisible(true);
-            }
-        });
-        contactUs.setBounds(1065,220,130,30);
-
-        JButton logout = new JButton("Logout");
+        JButton logout = new JButton("Home");
         logout.setFont(new Font("DIALOG", Font.BOLD, 18));
         logout.setForeground(commonconstant.SECONDARY_COLOR);
         logout.setBackground(commonconstant.DARK_BLUE);
@@ -82,15 +53,15 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e){
               super.mouseClicked(e);
               DoctorTypeAppointment.this.dispose();
-              new loginpage().setVisible(true);
+              new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
-        logout.setBounds(1065,270,130,30);
+        logout.setBounds(1065,200,130,30);
+
 
         add(profile);
-        add(aboutUs);
-        add(contactUs);
         add(logout);
+
 
         ImageIcon doctor = new ImageIcon("appoinment/src/image/DR KHEN.png");
         JLabel logolabel = new JLabel(doctor);
@@ -127,15 +98,10 @@ public class DoctorTypeAppointment extends doctors{
         text1.setFont(new Font("Dialog", Font.BOLD, 20));
         text1.setHorizontalAlignment(SwingConstants.CENTER);
 
-        /*JLabel text2= new JLabel("Doctor Online Now");
-        text2.setBounds(16, 80, 600, 400);
-        text2.setForeground(commonconstant.DARKERGREEN_REG.brighter());
-        text2.setFont(new Font("Dialog", Font.BOLD, 60));
-        text2.setHorizontalAlignment(SwingConstants.CENTER);*/
 
         add(text);
         add(text1);
-      //  add(text2);
+
 
         JLabel doctorn1= new JLabel("Dr. Khen Lloyed Baylon");
         doctorn1.setBounds(160, 150, 400, 100);
@@ -163,25 +129,25 @@ public class DoctorTypeAppointment extends doctors{
         servicen2.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel doctorn3= new JLabel("Dr. John Brylle Crodua");
-        doctorn3.setBounds(160, 360, 400, 100);
+        doctorn3.setBounds(160, 365, 400, 100);
         doctorn3.setForeground(commonconstant.TEXT_COLOR.brighter());
         doctorn3.setFont(new Font("Dialog", Font.BOLD, 20));
         doctorn3.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel servicen3= new JLabel("FAMILY MEDICINE");
-        servicen3.setBounds(160, 390, 400, 100);
+        servicen3.setBounds(160, 395, 400, 100);
         servicen3.setForeground(commonconstant.TEXT_COLOR.brighter());
         servicen3.setFont(new Font("Arial", Font.BOLD, 15));
         servicen3.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel doctorn4= new JLabel("Dr. Sherilyn Sanchez");
-        doctorn4.setBounds(620, 360, 400, 100);
+        doctorn4.setBounds(620, 365, 400, 100);
         doctorn4.setForeground(commonconstant.TEXT_COLOR.brighter());
         doctorn4.setFont(new Font("Dialog", Font.BOLD, 20));
         doctorn4.setHorizontalAlignment(SwingConstants.CENTER);
 
         JLabel servicen4= new JLabel("OBSTETRICS GYNECOLOGY");
-        servicen4.setBounds(620, 390, 400, 100);
+        servicen4.setBounds(620, 395, 400, 100);
         servicen4.setForeground(commonconstant.TEXT_COLOR.brighter());
         servicen4.setFont(new Font("Arial", Font.BOLD, 15));
         servicen4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -196,27 +162,6 @@ public class DoctorTypeAppointment extends doctors{
         add(doctorn4);
         add(servicen4);
 
-        /*ImageIcon logoIcon1= new ImageIcon("appoinment/src/image/d11.png");
-        JLabel logoLabel1 = new JLabel(logoIcon1);
-        logoLabel1.setBounds(100, 0, 50, 100);
-
-        ImageIcon logoIcon2= new ImageIcon("appoinment/src/image/d1.png");
-        JLabel logoLabel2 = new JLabel(logoIcon2);
-
-        ImageIcon logoIcon3= new ImageIcon("appoinment/src/image/d1.png");
-        JLabel logoLabel3 = new JLabel(logoIcon3);
-        logoLabel3.setBounds(100, 0, 1000, 1000);
-
-        ImageIcon logoIcon4= new ImageIcon("appoinment/src/image/d1.png");
-        JLabel logoLabel4 = new JLabel(logoIcon4);
-        logoLabel4.setBounds(100, 0, 1000, 1000);
-
-
-        add(logoLabel1);
-        add(logoLabel2);
-        add(logoLabel3);
-        add(logoLabel4);
-*/
 
         JButton consult1= new JButton("Consult Now");
         consult1.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -233,7 +178,6 @@ public class DoctorTypeAppointment extends doctors{
         });
 
         consult1.setBounds(275, 295, 220,70);
-        add(consult1);
 
 
         JButton consult2= new JButton("Consult Now");
@@ -251,7 +195,7 @@ public class DoctorTypeAppointment extends doctors{
         });
 
         consult2.setBounds(730, 295, 220,70);
-        add(consult2);
+
 
         JButton consult3= new JButton("Consult Now");
         consult3.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -268,7 +212,6 @@ public class DoctorTypeAppointment extends doctors{
         });
 
         consult3.setBounds(275, 510, 220,70);
-        add(consult3);
 
 
         JButton consult4= new JButton("Consult Now");
@@ -286,33 +229,34 @@ public class DoctorTypeAppointment extends doctors{
         });
 
         consult4.setBounds(730, 510, 220,70);
+
+
+        add(consult1);
+        add(consult2);
+        add(consult3);
         add(consult4);
-
-
 
 
         JPanel doctorpanel1 = new JPanel();
         doctorpanel1.setLayout(null); // Set the layout to null to allow positioning components manually
         doctorpanel1.setBounds(75, 165, 420, 200); // Set the bounds of the panel
         doctorpanel1.setBackground(new Color(255, 255, 255, 100));
-        add(doctorpanel1);
 
         JPanel doctorpanel2 = new JPanel();
         doctorpanel2.setLayout(null); // Set the layout to null to allow positioning components manually
         doctorpanel2.setBounds(75, 380, 420, 200); // Set the bounds of the panel
         doctorpanel2.setBackground(new Color(255, 255, 255, 100));
-        add(doctorpanel2);
 
         JPanel doctorpanel3 = new JPanel();
         doctorpanel3.setLayout(null); // Set the layout to null to allow positioning components manually
         doctorpanel3.setBounds(530, 165, 420, 200); // Set the bounds of the panel
         doctorpanel3.setBackground(new Color(255, 255, 255, 100));
-        add(doctorpanel3);
 
         JPanel doctorpanel4 = new JPanel();
         doctorpanel4.setLayout(null); // Set the layout to null to allow positioning components manually
         doctorpanel4.setBounds(530, 380, 420, 200); // Set the bounds of the panel
         doctorpanel4.setBackground(new Color(255, 255, 255, 100));
+
 
         add(doctorpanel1);
         add(doctorpanel2);
@@ -320,17 +264,12 @@ public class DoctorTypeAppointment extends doctors{
         add(doctorpanel4);
 
 
-
         ImageIcon background = new ImageIcon("appoinment/src/image/medicalbg.png");
         JLabel backgroundlabel = new JLabel(background);
         backgroundlabel.setBounds(0,0,1250,800);
 
+
         add(backgroundlabel);
-
-
-
-
-
 
 
     }
