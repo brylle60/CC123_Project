@@ -42,13 +42,13 @@ public class commonconstant {
 
 
     // mySQL server connector
-    public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/system";
-    public static final String DB_USER = "jdbc:mysql://127.0.0.1:3306/system";
-    public static final String DB_USERNAME = "root";
-    public static final String DB_PASSWORD = "kentmadera04";
-    public static final String DB_TABLE_NAME = "user_info";
+    // public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/system";
+    // public static final String DB_USER = "jdbc:mysql://127.0.0.1:3306/system";
+    // public static final String DB_USERNAME = "root";
+    // public static final String DB_PASSWORD = "kentmadera04";
+    // public static final String DB_TABLE_NAME = "user_info";
 
-    public static final String DB_USER_INFO = "user_data";
+    // public static final String DB_USER_INFO = "user_data";
 
 
     //public static final String DB_URL = "jdbc:mysql://172.17.0.2:3306/logindata";
