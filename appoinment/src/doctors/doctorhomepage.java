@@ -6,12 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class doctorhomepage extends doctors{
-    public doctorhomepage(String title) {
+    public doctorhomepage() {
         super("Health Apoointment");
         addDoctorComponents();
 
     }
-    private void DoctorComponents{
+
+
+
+    private void addDoctorComponents(){
 
         JLabel text = new JLabel("We're bridging the gap between Doctors and Patients");
         text.setBounds(16, 80, 600, 400);
