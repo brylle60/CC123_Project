@@ -21,14 +21,32 @@ public class PatientProfile3 extends doctors{
 
         Patient3Panel.setBounds(0, 0, 400, 700);
 
+        ImageIcon losIcon = new ImageIcon("appoinment/src/image/img.png");
+        JLabel losLabel = new JLabel(losIcon);
+        losLabel.setBounds(400,0,1000,700);
+
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png");
         JLabel logoLabel = new JLabel(logoIcon);
         logoLabel.setBounds(0, 0, 180, 100); // Adjust the position and size as needed
 
-        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/d11.png");
+        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/DR BRYLL.png");
         JLabel patientLabel = new JLabel(patientIcon);
-        patientLabel.setBounds(25, 150, 170, 170); // Adjust the position and size as needed
+        patientLabel.setBounds(105, 154, 170, 170); // Adjust the position and size as needed
 
+        JLabel doctorn3= new JLabel("Dr. John Brylle Crodua");
+        doctorn3.setBounds(-5, 300, 400, 100);
+        doctorn3.setForeground(commonconstant.TEXT_COLOR.brighter());
+        doctorn3.setFont(new Font("Dialog", Font.BOLD, 20));
+        doctorn3.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel servicen3= new JLabel("FAMILY MEDICINE");
+        servicen3.setBounds(-3, 330, 400, 100);
+        servicen3.setForeground(commonconstant.TEXT_COLOR.brighter());
+        servicen3.setFont(new Font("Arial", Font.BOLD, 15));
+        servicen3.setHorizontalAlignment(SwingConstants.CENTER);
+
+        add(servicen3);
+        add(doctorn3);
         add(logoLabel);
         add(patientLabel);
 
@@ -150,6 +168,7 @@ public class PatientProfile3 extends doctors{
         add(Addressfield);
         add(number);
         add(numberfield);
+        add(losLabel);
         add(Patient3Panel);
 
     }
