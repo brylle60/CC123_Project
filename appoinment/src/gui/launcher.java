@@ -1,7 +1,12 @@
 package gui;
 
 
-import doctors.DoctorTypeAppointment;
+import adminpage.AdminHome;
+import adminpage.ScheduleTable;
+import adminpage.User;
+import constant.TimeSlotManager;
+import db.userDb;
+
 
 
 import javax.swing.*;
@@ -11,12 +16,6 @@ public class launcher {
     private static String loggedInFirstName;
     private static String loggedInMiddleName;
     private static int id;
-    private static int age;
-    private static long number;
-    private static String address;
-    private static String sex;
-    private static String email;
-
     public static void main(String[] args) {
 
 
@@ -24,9 +23,17 @@ public class launcher {
 
             @Override
             public void run() {
+                new doctorhomepage().setVisible(true);
 
+//new AdminHome().setVisible(true);
+//new About().setVisible(true);
+              //new AppointmentList().setVisible(true);
+          // new loginpage().setVisible(true);
+//new typeAppointment().setVisible(true);
+   //new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
-             new DoctorTypeAppointment().setVisible(true);
+
+
               //  new ContactUs().setVisible(true);
 
               // System.out.println(MyJDBC.checkuser("username1234"));

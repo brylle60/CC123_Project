@@ -8,8 +8,8 @@ import java.awt.*;
 import java.lang.reflect.MalformedParametersException;
 import java.time.LocalTime;
 
-public class PatientProfile1 extends doctors{
-    public PatientProfile1(){
+public class PatientProfile4 extends doctors{
+    public PatientProfile4(){
         super("Health Appointment");
         addDoctorComponents();
 
@@ -29,17 +29,17 @@ public class PatientProfile1 extends doctors{
         JLabel logoLabel = new JLabel(logoIcon);
         logoLabel.setBounds(0, 0, 180, 100); // Adjust the position and size as needed
 
-        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/DR KHEN.png");
+        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/DR SHER.png");
         JLabel patientLabel = new JLabel(patientIcon);
         patientLabel.setBounds(105, 154, 170, 170); // Adjust the position and size as needed
 
-        JLabel doctorn3= new JLabel("Dr. Khen Lloyd Baylon");
+        JLabel doctorn3= new JLabel("Dr. Sherilyn Sanchez");
         doctorn3.setBounds(-5, 300, 400, 100);
         doctorn3.setForeground(commonconstant.TEXT_COLOR.brighter());
         doctorn3.setFont(new Font("Dialog", Font.BOLD, 20));
         doctorn3.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel servicen3= new JLabel("OPHTHALMOLOGIST");
+        JLabel servicen3= new JLabel("OBSTETRICS GYNECOLOGY");
         servicen3.setBounds(-3, 330, 400, 100);
         servicen3.setForeground(commonconstant.TEXT_COLOR.brighter());
         servicen3.setFont(new Font("Arial", Font.BOLD, 15));
