@@ -28,6 +28,7 @@ public class commonconstant {
     //DARKBLUE
         public static final Color DARK_BLUE = Color.decode("#044cbf");
 
+    public static final Color HOME_BG1_GREEN = Color.decode("#008000");
 
     //teal
     public static final Color TEAL_REGISTER = Color.decode("#2aa2a2");
@@ -36,13 +37,15 @@ public class commonconstant {
     //DARKERBLUE
     public static final Color DARKERBLUE_REG = Color.decode("#00004d");
 
+    public static final Color DARKERGREEN_REG = Color.decode("#00ab41");
+
 
 
     // mySQL server connector
-    public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/user_schema";
-    public static final String DB_USER = "jdbc:mysql://127.0.0.1:3306/user_registration";
+    public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/system";
+    public static final String DB_USER = "jdbc:mysql://127.0.0.1:3306/system";
     public static final String DB_USERNAME = "root";
-    public static final String DB_PASSWORD = "brylle1234";
+    public static final String DB_PASSWORD = "kentmadera04";
     public static final String DB_TABLE_NAME = "user_info";
 
     public static final String DB_USER_INFO = "user_data";
