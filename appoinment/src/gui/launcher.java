@@ -6,7 +6,7 @@ import adminpage.ScheduleTable;
 import adminpage.User;
 import constant.TimeSlotManager;
 import db.userDb;
-import doctors.doctorhomepage;
+
 
 
 import javax.swing.*;
@@ -32,6 +32,7 @@ public class launcher {
 //new typeAppointment().setVisible(true);
    //new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
+
 
               //  new ContactUs().setVisible(true);
 
