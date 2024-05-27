@@ -20,7 +20,7 @@ public class ObygnDescription extends DescriptionPage {
 
         JLabel description = new JLabel("Our Obstetrician-Gynecologist team provides specialized medical care to ");
         description.setBounds(300, 150, 900, 40);
-        description.setForeground(commonconstant.TEXT_COLOR);
+        description.setForeground(commonconstant.SECONDARY_COLOR);
         description.setFont(new Font("Georgia", Font.PLAIN, 15));
         add(description);
 
@@ -42,47 +42,81 @@ public class ObygnDescription extends DescriptionPage {
         description3.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description3);
 
-        JLabel description4 = new JLabel("• Complete prenatal care");
+        JLabel description4 = new JLabel("•Complete prenatal care");
         description4.setBounds(300, 240, 900, 40);
         description4.setForeground(commonconstant.SECONDARY_COLOR);
         description4.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description4);
 
-        JLabel description5 = new JLabel("• Labor and delivery services");
-        description5.setBounds(300, 250, 900, 40);
+        JLabel description5 = new JLabel("•Labor and delivery services");
+        description5.setBounds(300, 255, 900, 40);
         description5.setForeground(commonconstant.SECONDARY_COLOR);
         description5.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description5);
 
-        JLabel description6 = new JLabel("");
-        description6.setBounds(300, 260, 900, 40);
+        JLabel description6 = new JLabel("•Management of high-risk pregnancies");
+        description6.setBounds(300, 270, 900, 40);
         description6.setForeground(commonconstant.SECONDARY_COLOR);
         description6.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description6);
 
-        /*
+        JLabel description7 = new JLabel("•Postpartum care and lactation support, etc.");
+        description7.setBounds(300, 285, 900, 40);
+        description7.setForeground(commonconstant.SECONDARY_COLOR);
+        description7.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description7);
+
+        JLabel description8 = new JLabel("Gynecological Services");
+        description8.setBounds(300, 310, 900, 40);
+        description8.setForeground(commonconstant.SECONDARY_COLOR);
+        description8.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description8);
+
+        JLabel description9 = new JLabel("•Annual well-woman exams");
+        description9.setBounds(300, 335, 900, 40);
+        description9.setForeground(commonconstant.SECONDARY_COLOR);
+        description9.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description9);
+
+        JLabel description10 = new JLabel("•Pap tests and HPV screenings");
+        description10.setBounds(300, 350, 900, 40);
+        description10.setForeground(commonconstant.SECONDARY_COLOR);
+        description10.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description10);
+
+        JLabel description11 = new JLabel("•Evaluation of abnormal bleeding");
+        description11.setBounds(300, 365, 900, 40);
+        description11.setForeground(commonconstant.SECONDARY_COLOR);
+        description11.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description11);
+
+        JLabel description12 = new JLabel("•Contraceptive counseling and management");
+        description12.setBounds(300, 380, 900, 40);
+        description12.setForeground(commonconstant.SECONDARY_COLOR);
+        description12.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description12);
+
+        JLabel description13 = new JLabel("•Diagnosis of pelvic pain, fibroids, etc.");
+        description13.setBounds(545, 335, 900, 40);
+        description13.setForeground(commonconstant.SECONDARY_COLOR);
+        description13.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description13);
+
+        JLabel description14 = new JLabel("•Fertility assessment & treatment options");
+        description14.setBounds(545, 350, 900, 40);
+        description14.setForeground(commonconstant.SECONDARY_COLOR);
+        description14.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description14);
+
+        JLabel description15 = new JLabel("•Menopause management");
+        description15.setBounds(545, 365, 900, 40);
+        description15.setForeground(commonconstant.SECONDARY_COLOR);
+        description15.setFont(new Font("Georgia",Font.PLAIN, 15));
+        add(description15);
 
 
 
 
-
-
-Management of high-risk pregnancies
-Postpartum care and lactation support
-
-Gynecological Services
-
-Annual well-woman exams
-Pap tests and HPV screenings
-Evaluation of abnormal bleeding
-Contraceptive counseling and management
-Diagnosis/treatment of pelvic pain, fibroids, endometriosis
-Menopause management
-Fertility assessment and treatment options
-Minimally invasive gynecological surgery
-        *
-        *
-        * */
 
         //nothing button
         JButton nothing= new JButton("");
@@ -120,7 +154,6 @@ Minimally invasive gynecological surgery
         });
         add(accountButton);
 
-
         //service image
         ImageIcon ob = new ImageIcon("appoinment/src/image/01obygnpic.png");
         JLabel obygn = new JLabel(ob);
@@ -137,24 +170,6 @@ Minimally invasive gynecological surgery
         // Set the size and location of the panel
         panel.setBounds(295, 150, 520, 265);
         add(panel);
-
-
-
-        //pannel for  background picture
-        JPanel panel2 = new JPanel();
-
-        panel2.setLayout(new BorderLayout());
-
-        JLabel panelLabel = new JLabel();
-        panel2.add(panelLabel, BorderLayout.CENTER);
-        panel2.setBackground(new Color(255, 255, 255, 110));
-        // Set the size and location of the panel
-        panel2.setBounds(220, 0, 640, 700);
-        add(panel2);
-
-
-
-
 
 
         //logo
@@ -176,6 +191,58 @@ Minimally invasive gynecological surgery
         // Add the panel to the main container
         add(panel1);
 
+        //OG label
+        JLabel ObygynLabel = new JLabel("Obstetrics and Gynaecology");
+        ObygynLabel.setBounds(347, 454, 280, 50);
+        ObygynLabel.setForeground(commonconstant.SECONDARY_COLOR);
+        ObygynLabel.setFont(new Font("Georgia",Font.BOLD, 18));
+        add(ObygynLabel);
+
+        JLabel OGdoc = new JLabel("- Dr. Sherilyn Sanchez");
+        OGdoc.setBounds(370, 494, 200, 30);
+        OGdoc.setForeground(commonconstant.SECONDARY_COLOR);
+        OGdoc.setFont(new Font("Calibre", Font.PLAIN, 15));
+        OGdoc.setHorizontalAlignment(SwingConstants.CENTER);
+        add(OGdoc);
+        //Consult BUTTON
+        JButton Consult = new JButton("Consult Now");
+        Consult.setFont(new Font("Dialog", Font.BOLD, 16));
+        Consult.setBounds(379, 534, 200, 30);
+        Consult.setBackground(commonconstant.HOME_BG1_BLUE);
+        Consult.setForeground(commonconstant.SECONDARY_COLOR);
+
+        Consult.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Consult.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                ObygnDescription.this.dispose();
+
+                new loginpage().setVisible(true);
+
+            }
+        });
+        add(Consult);
+
+        //doctor profile image
+        ImageIcon image6 = new ImageIcon("appoinment/src/image/shes.png");
+        JLabel imageL1 = new JLabel(image6);
+        imageL1.setBounds(225, 465, 130, 125); // Adjust the position and size as needed
+        add(imageL1);
+
+        //Panel Transparent
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new BorderLayout());
+
+        JLabel panelLabel3 = new JLabel();
+        panel2.add(panelLabel3, BorderLayout.CENTER);
+        panel2.setBackground(new Color(0, 0, 0, 110));
+        // Set the size and location of the panel
+        panel2.setBounds(220, 450, 400, 150);
+        // Add the panel to the main container
+        add(panel2);
+
+
 
         //left image
         ImageIcon image5 = new ImageIcon("appoinment/src/image/whiteBGupper.png");
@@ -183,7 +250,11 @@ Minimally invasive gynecological surgery
         imageL.setBounds(0, 0, 980, 120); // Adjust the position and size as needed
         add(imageL);
 
-
+        //background
+        ImageIcon image = new ImageIcon("appoinment/src/image/hex4.png");
+        JLabel logo = new JLabel(image);
+        logo.setBounds(0, 120, 850, 560); // Adjust the position and size as needed
+        add(logo);
 
     }
 }
