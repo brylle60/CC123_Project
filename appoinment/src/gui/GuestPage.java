@@ -27,8 +27,8 @@ public class GuestPage extends GuestPageExtends {
 
 
         //Our Service
-        JLabel Ours = new JLabel("O U R  S E R V I C E S ");
-        Ours.setBounds(613, 30, 700, 80);
+        JLabel Ours = new JLabel("M E D C A R E  S E R V I C E S ");
+        Ours.setBounds(500, 30, 830, 80);
         Ours.setForeground(new Color(255,255,255));
         Ours.setFont(new Font("Georgia",Font.BOLD, 50));
         add(Ours);
@@ -39,16 +39,6 @@ public class GuestPage extends GuestPageExtends {
         ObygynLabel.setBounds(565, 160, 400, 40);
         ObygynLabel.setForeground(commonconstant.SECONDARY_COLOR);
         ObygynLabel.setFont(new Font("Georgia",Font.BOLD, 20));
-        ObygynLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        ObygynLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                GuestPage.this.dispose();
-
-                new loginpage().setVisible(true);
-            }
-        });
         add(ObygynLabel);
 
         //OG description
@@ -66,8 +56,8 @@ public class GuestPage extends GuestPageExtends {
         add(ogDescription);
         add(ogDescription1);
 
-        JLabel OGdoc = new JLabel("Dr. Sherilyn Sanchez");
-        OGdoc.setBounds(465, 300, 600, 40);
+        JLabel OGdoc = new JLabel("-Dr. Sherilyn Sanchez");
+        OGdoc.setBounds(465, 290, 600, 40);
         OGdoc.setForeground(commonconstant.SECONDARY_COLOR);
         OGdoc.setFont(new Font("Calibre", Font.PLAIN, 15));
         OGdoc.setHorizontalAlignment(SwingConstants.CENTER);
@@ -103,8 +93,8 @@ public class GuestPage extends GuestPageExtends {
         add(pediaDescription);
         add(pediaDescription1);
 
-        JLabel Pediadoc = new JLabel("Dr. Chelsie Faith Maranga");
-        Pediadoc.setBounds(950, 290, 600, 40);
+        JLabel Pediadoc = new JLabel("-Dr. Chelsie Faith Maranga");
+        Pediadoc.setBounds(920, 290, 600, 40);
         Pediadoc.setForeground(commonconstant.SECONDARY_COLOR);
         Pediadoc.setFont(new Font("Calibre", Font.PLAIN, 15));
         Pediadoc.setHorizontalAlignment(SwingConstants.CENTER);
@@ -140,8 +130,8 @@ public class GuestPage extends GuestPageExtends {
         add(ophDescription);
         add(ophDescription1);
 
-        JLabel Ophdoc = new JLabel("Dr. Khen Lloyd Baylon");
-        Ophdoc.setBounds(415, 530, 600, 40);
+        JLabel Ophdoc = new JLabel("-Dr. Khen Lloyd Baylon");
+        Ophdoc.setBounds(450, 505, 600, 40);
         Ophdoc.setForeground(commonconstant.SECONDARY_COLOR);
         Ophdoc.setFont(new Font("Calibre", Font.PLAIN, 15));
         Ophdoc.setHorizontalAlignment(SwingConstants.CENTER);
@@ -176,8 +166,8 @@ public class GuestPage extends GuestPageExtends {
         add(famDescription);
         add(famDescription1);
 
-        JLabel Famdoc = new JLabel("Dr. John Brylle Crodua");
-        Famdoc.setBounds(960, 530, 600, 40);
+        JLabel Famdoc = new JLabel("-Dr. John Brylle Crodua");
+        Famdoc.setBounds(920, 510, 600, 40);
         Famdoc.setForeground(commonconstant.SECONDARY_COLOR);
         Famdoc.setFont(new Font("Calibre", Font.PLAIN, 15));
         Famdoc.setHorizontalAlignment(SwingConstants.CENTER);
@@ -208,10 +198,10 @@ public class GuestPage extends GuestPageExtends {
         add(nothing);
 
         //Consult BUTTON
-        JButton Consult = new JButton("Consult Now");
+        JButton Consult = new JButton("LOG-IN");
         Consult.setFont(new Font("Dialog", Font.BOLD, 20));
-        Consult.setBounds(1070, 620, 180, 60);
-        Consult.setBackground(commonconstant.HOME_BG1_BLUE);
+        Consult.setBounds(1000, 620, 280, 60);
+        Consult.setBackground(commonconstant.TEAL_REGISTER);
         Consult.setForeground(commonconstant.SECONDARY_COLOR);
 
         Consult.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -220,7 +210,8 @@ public class GuestPage extends GuestPageExtends {
             public void mouseClicked(MouseEvent e) {
 
                 GuestPage.this.dispose();
-                //new home().setVisible(true);
+
+                new loginpage().setVisible(true);
 
             }
         });
@@ -259,7 +250,7 @@ public class GuestPage extends GuestPageExtends {
             public void mouseClicked(MouseEvent e) {
                 GuestPage.this.dispose();
 
-                new loginpage().setVisible(true);
+                new PediatresDescription().setVisible(true);
             }
         });
         add(panelpedia);
@@ -278,7 +269,7 @@ public class GuestPage extends GuestPageExtends {
             public void mouseClicked(MouseEvent e) {
                 GuestPage.this.dispose();
 
-                new loginpage().setVisible(true);
+                new OphthalmologyDescription().setVisible(true);
             }
         });
         add(Ophthalmology1);
@@ -297,7 +288,7 @@ public class GuestPage extends GuestPageExtends {
             public void mouseClicked(MouseEvent e) {
                 GuestPage.this.dispose();
 
-                new loginpage().setVisible(true);
+                new MedFamDescription().setVisible(true);
             }
         });
         add(panelfammed);
