@@ -26,11 +26,11 @@ public class launcher {
             public void run() {
 //                new doctorhomepage().setVisible(true);
 
-                //new DoctorTypeAppointment().setVisible(true);
+                new DoctorTypeAppointment().setVisible(true);
 //new AdminHome().setVisible(true);
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);
-           new loginpage().setVisible(true);
+//           new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
    //new home().setVisible(true);
 //new HowToAppointment().setVisible(true);
