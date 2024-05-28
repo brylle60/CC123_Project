@@ -8,110 +8,75 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ObygnDescription extends DescriptionPage {
+public class PediatresDescription extends DescriptionPage {
 
-    public ObygnDescription() {
-        super("MedCare (Obgyn Description)");
+    public PediatresDescription() {
+        super("MedCare (Pediatrics Description)");
         GuestPageExtends();
 
     }
     private void GuestPageExtends() {
 
-        JLabel description = new JLabel("Our Obstetrician-Gynecologist team provides specialized medical care to ");
+
+        JLabel description = new JLabel("Our Pediatrics services focus on the healthcare needs of infants ");
         description.setBounds(300, 150, 900, 40);
         description.setForeground(commonconstant.SECONDARY_COLOR);
         description.setFont(new Font("Georgia", Font.PLAIN, 15));
         add(description);
 
-        JLabel description1 = new JLabel("women throughout all stages of life. We offer a range of obstetric");
+        JLabel description1 = new JLabel("children, and adolescents, providing comprehensive care tailored ");
         description1.setBounds(300, 170, 900, 40);
         description1.setForeground(commonconstant.SECONDARY_COLOR);
         description1.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description1);
 
-        JLabel description2 = new JLabel("and gynecological services focused on diagnosing and treating conditions.");
+        JLabel description2 = new JLabel("to their unique developmental stages and medical requirements.");
         description2.setBounds(300, 190, 900, 40);
         description2.setForeground(commonconstant.SECONDARY_COLOR);
         description2.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description2);
 
-        JLabel description3 = new JLabel("Obstetric Services: ");
+        JLabel description3 = new JLabel("Services: ");
         description3.setBounds(300, 220, 900, 40);
         description3.setForeground(commonconstant.SECONDARY_COLOR);
         description3.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description3);
 
-        JLabel description4 = new JLabel("•Complete prenatal care");
-        description4.setBounds(300, 240, 900, 40);
+        JLabel description4 = new JLabel("•Routine check-ups");
+        description4.setBounds(300, 245, 900, 40);
         description4.setForeground(commonconstant.SECONDARY_COLOR);
         description4.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description4);
 
-        JLabel description5 = new JLabel("•Labor and delivery services");
-        description5.setBounds(300, 255, 900, 40);
+        JLabel description5 = new JLabel("•Vaccinations");
+        description5.setBounds(300, 265, 900, 40);
         description5.setForeground(commonconstant.SECONDARY_COLOR);
         description5.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description5);
 
-        JLabel description6 = new JLabel("•Management of high-risk pregnancies");
-        description6.setBounds(300, 270, 900, 40);
+        JLabel description6 = new JLabel("•Treatment of illnesses like colds and flu");
+        description6.setBounds(300, 285, 900, 40);
         description6.setForeground(commonconstant.SECONDARY_COLOR);
         description6.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description6);
 
-        JLabel description7 = new JLabel("•Postpartum care and lactation support, etc.");
-        description7.setBounds(300, 285, 900, 40);
+        JLabel description7 = new JLabel("•Management of chronic conditions such as asthma and diabetes");
+        description7.setBounds(300, 305, 900, 40);
         description7.setForeground(commonconstant.SECONDARY_COLOR);
         description7.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description7);
 
-        JLabel description8 = new JLabel("Gynecological Services: ");
-        description8.setBounds(300, 310, 900, 40);
+        JLabel description8 = new JLabel("•Developmental screenings");
+        description8.setBounds(300, 325, 900, 40);
         description8.setForeground(commonconstant.SECONDARY_COLOR);
         description8.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description8);
 
-        JLabel description9 = new JLabel("•Annual well-woman exams");
-        description9.setBounds(300, 335, 900, 40);
+        JLabel description9 = new JLabel("•Counseling on child behavior and nutrition");
+        description9.setBounds(300, 345, 900, 40);
         description9.setForeground(commonconstant.SECONDARY_COLOR);
         description9.setFont(new Font("Georgia",Font.PLAIN, 15));
         add(description9);
-
-        JLabel description10 = new JLabel("•Pap tests and HPV screenings");
-        description10.setBounds(300, 350, 900, 40);
-        description10.setForeground(commonconstant.SECONDARY_COLOR);
-        description10.setFont(new Font("Georgia",Font.PLAIN, 15));
-        add(description10);
-
-        JLabel description11 = new JLabel("•Evaluation of abnormal bleeding");
-        description11.setBounds(300, 365, 900, 40);
-        description11.setForeground(commonconstant.SECONDARY_COLOR);
-        description11.setFont(new Font("Georgia",Font.PLAIN, 15));
-        add(description11);
-
-        JLabel description12 = new JLabel("•Contraceptive counseling and management");
-        description12.setBounds(300, 380, 900, 40);
-        description12.setForeground(commonconstant.SECONDARY_COLOR);
-        description12.setFont(new Font("Georgia",Font.PLAIN, 15));
-        add(description12);
-
-        JLabel description13 = new JLabel("•Diagnosis of pelvic pain, fibroids, etc.");
-        description13.setBounds(545, 335, 900, 40);
-        description13.setForeground(commonconstant.SECONDARY_COLOR);
-        description13.setFont(new Font("Georgia",Font.PLAIN, 15));
-        add(description13);
-
-        JLabel description14 = new JLabel("•Fertility assessment & treatment options");
-        description14.setBounds(545, 350, 900, 40);
-        description14.setForeground(commonconstant.SECONDARY_COLOR);
-        description14.setFont(new Font("Georgia",Font.PLAIN, 15));
-        add(description14);
-
-        JLabel description15 = new JLabel("•Menopause management");
-        description15.setBounds(545, 365, 900, 40);
-        description15.setForeground(commonconstant.SECONDARY_COLOR);
-        description15.setFont(new Font("Georgia",Font.PLAIN, 15));
-        add(description15);
 
 
         //nothing button
@@ -134,14 +99,14 @@ public class ObygnDescription extends DescriptionPage {
         accountButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ObygnDescription.this.dispose();
+                PediatresDescription.this.dispose();
                 new GuestPage().setVisible(true);
             }
         });
         add(accountButton);
 
         //service image
-        ImageIcon ob = new ImageIcon("appoinment/src/image/01obygnpic.png");
+        ImageIcon ob = new ImageIcon("appoinment/src/image/file.png");
         JLabel obygn = new JLabel(ob);
         obygn.setBounds(20, 150, 250, 265); // Adjust the position and size as needed
         add(obygn);
@@ -200,14 +165,14 @@ public class ObygnDescription extends DescriptionPage {
         add(panel1);
 
         //OG label
-        JLabel ObygynLabel = new JLabel("Obstetrics and Gynaecology");
-        ObygynLabel.setBounds(347, 454, 280, 50);
+        JLabel ObygynLabel = new JLabel("Pediatrics");
+        ObygynLabel.setBounds(436, 454, 280, 50);
         ObygynLabel.setForeground(commonconstant.SECONDARY_COLOR);
         ObygynLabel.setFont(new Font("Georgia",Font.BOLD, 18));
         add(ObygynLabel);
 
-        JLabel OGdoc = new JLabel("- Dr. Sherilyn Sanchez");
-        OGdoc.setBounds(370, 494, 200, 30);
+        JLabel OGdoc = new JLabel("- Dr. Chelsie Faith Maranga");
+        OGdoc.setBounds(377, 494, 200, 30);
         OGdoc.setForeground(commonconstant.SECONDARY_COLOR);
         OGdoc.setFont(new Font("Calibre", Font.PLAIN, 15));
         OGdoc.setHorizontalAlignment(SwingConstants.CENTER);
@@ -224,7 +189,7 @@ public class ObygnDescription extends DescriptionPage {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                ObygnDescription.this.dispose();
+                PediatresDescription.this.dispose();
 
                 new loginpage().setVisible(true);
 
@@ -233,7 +198,7 @@ public class ObygnDescription extends DescriptionPage {
         add(Consult);
 
         //doctor profile image
-        ImageIcon image6 = new ImageIcon("appoinment/src/image/shes.png");
+        ImageIcon image6 = new ImageIcon("appoinment/src/image/faith.png");
         JLabel imageL1 = new JLabel(image6);
         imageL1.setBounds(225, 465, 130, 125); // Adjust the position and size as needed
         add(imageL1);
