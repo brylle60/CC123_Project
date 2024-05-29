@@ -26,13 +26,12 @@ public class launcher {
 
             @Override
             public void run() {
-//                new OPHTHALMOLOGIST().setVisible(true);
+                new OPHTHALMOLOGIST().setVisible(true);
 
             //    new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
 
 
-//                new DoctorTypeAppointment().setVisible(true);
-                new GuestPage().setVisible(true);
+                //new DoctorTypeAppointment().setVisible(true);
 //new AdminHome().setVisible(true);
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);
