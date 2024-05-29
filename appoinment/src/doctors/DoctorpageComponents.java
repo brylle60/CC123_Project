@@ -1,14 +1,18 @@
-package gui;
+package doctors;
+import constant.TimeSlotManager;
 import constant.commonconstant;
+import gui.form2Register;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalTime;
 
-public class DoctorpageComponents extends form2Register{
+public class DoctorpageComponents extends form2Register {
     public DoctorpageComponents(String title){
         super(title);
         addGUIDoctor();
     }
+
 
     public void addGUIDoctor(){
 
@@ -26,11 +30,54 @@ public class DoctorpageComponents extends form2Register{
         availabletime.setBackground(commonconstant.SECONDARY_COLOR);
         availabletime.setBounds(200,100,150,60);
 
-        //requests table
+        JLabel timeLabel = new JLabel("Time Available from: ");
+        timeLabel.setBounds(460, 190, 200, 25);
+        timeLabel.setForeground(commonconstant.TEXT_COLOR);
+        timeLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+
+//
+        JComboBox<LocalTime> timeComboBox1 = new JComboBox<>();
+        timeComboBox1.setBounds(460, 220, 150, 25);
+        timeComboBox1.setBackground(commonconstant.SECONDARY_COLOR);
+        timeComboBox1.setForeground(commonconstant.TEXT_COLOR);
+        timeComboBox1.setFont(new Font("Dialog", Font.PLAIN, 14));
+
+        // Add available time slots to the combo box
+        for (LocalTime time : TimeSlotManager.timeSlots.keySet()) {
+            timeComboBox1.addItem(time);
+        }
+
+        add(timeLabel);
+        add(timeComboBox1);
+
+        JLabel timeLabel2 = new JLabel("Time Available from: ");
+        timeLabel2.setBounds(460, 190, 200, 25);
+        timeLabel2.setForeground(commonconstant.TEXT_COLOR);
+        timeLabel2.setFont(new Font("Dialog", Font.PLAIN, 18));
+
+//
+        JComboBox<LocalTime> timeComboBox2 = new JComboBox<>();
+        timeComboBox2.setBounds(660, 220, 150, 25);
+        timeComboBox2.setBackground(commonconstant.SECONDARY_COLOR);
+        timeComboBox2.setForeground(commonconstant.TEXT_COLOR);
+        timeComboBox2.setFont(new Font("Dialog", Font.PLAIN, 14));
+
+        // Add available time slots to the combo box
+        for (LocalTime time : TimeSlotManager.timeSlots.keySet()) {
+            timeComboBox2.addItem(time);
+        }
+
+        add(timeLabel2);
+        add(timeComboBox2);
+
+
+            //requests table
         JButton requestForAppointment= new JButton("Requests");
         requestForAppointment.setForeground(commonconstant.TEXT_COLOR);
         requestForAppointment.setBackground(commonconstant.SECONDARY_COLOR);
         requestForAppointment.setBounds(200,200,100,60);
+
+
 
         //confimed table
         JButton confirmedAppointments = new JButton("Confirmed Appointments");
@@ -75,6 +122,10 @@ public class DoctorpageComponents extends form2Register{
         clearButton.setBackground(commonconstant.SECONDARY_COLOR);
         clearButton.setBounds(200,400,200,60);
 
+
+
+
+
         //add(clearButton);
         //add(finishedButton);
 //        add(cancelButton);
@@ -84,7 +135,6 @@ public class DoctorpageComponents extends form2Register{
         add(confirmedAppointments);
         add(requestForAppointment);
         add(availabletime);
-        add(bg1);
 
 
 

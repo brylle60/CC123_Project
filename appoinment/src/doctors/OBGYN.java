@@ -1,9 +1,11 @@
-package gui;
+package doctors;
+
+import doctors.DoctorpageComponents;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class OBGYN extends DoctorpageComponents{
+public class OBGYN extends DoctorpageComponents {
     public OBGYN(){
         super("OBGYN DOCTOR's PAGE");
         addGUIDoctor();

@@ -25,9 +25,10 @@ public class DoctorTypeAppointment extends doctors{
     private String sex;
     private String email;
 
-    public DoctorTypeAppointment() {
+    public DoctorTypeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address) {
         super("Health Apoointment");
         addDoctorComponents();
+
         handleNotifications();
         retrieveUnconfirmedNotifications();
 
@@ -94,7 +95,6 @@ public class DoctorTypeAppointment extends doctors{
         add(logolabel3);
 
 
-
         JLabel text = new JLabel("We're bridging the gap between Doctors and Patients");
         text.setBounds(-40, -130, 1000, 400);
         text.setForeground(commonconstant.TEXT_COLOR.brighter());
@@ -107,10 +107,15 @@ public class DoctorTypeAppointment extends doctors{
         text1.setFont(new Font("Dialog", Font.BOLD, 20));
         text1.setHorizontalAlignment(SwingConstants.CENTER);
 
+        JLabel text2 = new JLabel("");
+        text2.setBounds(0,0,100,50);
+        text2.setForeground(commonconstant.TEXT_COLOR.brighter());
+        text2.setFont(new Font("Dialog",Font.PLAIN,20));
+        text2.setHorizontalAlignment(SwingConstants.CENTER);
 
         add(text);
         add(text1);
-
+        add(text2);
 
         JLabel doctorn1= new JLabel("Dr. Khen Lloyed Baylon");
         doctorn1.setBounds(160, 150, 400, 100);
@@ -182,7 +187,8 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new PatientProfile1().setVisible(true);
+
+                new OPHTHALMOLOGIST().setVisible(true);
             }
         });
 
@@ -199,7 +205,9 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new loginpage().setVisible(true);
+
+                new Pedia().setVisible(true);
+
             }
         });
 
@@ -216,7 +224,8 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new loginpage().setVisible(true);
+      new Family_med().setVisible(true);
+
             }
         });
 
@@ -233,7 +242,8 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new loginpage().setVisible(true);
+          new Obstetrics().setVisible(true);
+
             }
         });
 
@@ -282,15 +292,17 @@ public class DoctorTypeAppointment extends doctors{
 
 
     }
-    // In the DoctorTypeAppointment class
+
     private void retrieveUnconfirmedNotifications() {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
             PreparedStatement statement = connection.prepareStatement("SELECT id, message FROM " + commonconstant.NOTIFICATION + " WHERE confirmed = false");
             ResultSet resultSet = statement.executeQuery();
 
+
             while (resultSet.next()) {
                 int notificationId = resultSet.getInt("id");
+
                 String notificationMessage = resultSet.getString("message");
                 int response = JOptionPane.showConfirmDialog(this, notificationMessage, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
                 if (response == JOptionPane.YES_OPTION) {

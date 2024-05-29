@@ -40,7 +40,7 @@ public class userDb {
                             // Book the time slot
                             TimeSlotManager.bookTimeSlot(time);
                             TimeSlotManager.removeTimeSlot(time);
-
+//
                             // Store the appointment notification
                             String notificationMessage = "New appointment booked: " + first_name + " " + last_name + " at " + time;
                             NotificationManager.storeAppointmentNotification(id, notificationMessage);

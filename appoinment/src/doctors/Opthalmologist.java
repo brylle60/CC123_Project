@@ -1,26 +1,32 @@
-package gui;
+package doctors;
 
 
-import adminpage.*;
 import constant.TimeSlotManager;
 import db.userDb;
-
+import gui.loginpage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import adminpage.User;
 import adminpage.schedules;
 
 import constant.commonconstant;
+import doctors.DoctorpageComponents;
+import doctors.finishedAppointmentsTable;
+import doctors.requests;
+import doctors.todayAppointmentsTable;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Vector;
 
+import static java.awt.AWTEventMulticaster.add;
 
-public class UserProfile extends homepage  {
+public class Opthalmologist extends  doctors{
+
     private String loggedInLastName;
     private String loggedInFirstName;
     private String loggedInMiddleName;
@@ -34,15 +40,14 @@ public class UserProfile extends homepage  {
     private List<schedules> userAppointments;
     private JList<String> appointmentList;
     private DefaultListModel<String> listModel;
-    private  DefaultListModel<String> medicalHistoryModel;
-    private  JList<String> medicalHistoryList;
+    private DefaultListModel<String> medicalHistoryModel;
+    private JList<String> medicalHistoryList;
     private int userId;
 
+    private JTable opthalAppointmentTable; // Declare opthalAppointmentTable as an instance variable
 
-
-    public UserProfile(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String address, String email) {
-        super("User Profile");
-
+    public Opthalmologist(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String address, String email) {
+        super("OPTHALMOLOGIST DOCTOR's PAGE");
         this.userId = id;
         this.loggedInLastName = loggedInLastName;
         this.loggedInFirstName = loggedInFirstName;
@@ -52,14 +57,21 @@ public class UserProfile extends homepage  {
         this.number = (int) number;
         this.address = address;
         this.email = email; // Assign the email to the instance variable
-        addUserProfileGUI();
+        addDoctorProfileGUI();
+
     }
 
-    private void addUserProfileGUI() {
+    private void addDoctorProfileGUI() {
         JPanel userProfilePanel = new JPanel();
         userProfilePanel.setLayout(null);
 
         userProfilePanel.setBounds(0, 0, 1300, 900);
+
+        //background
+        JPanel bg1 = new JPanel(null);
+        bg1.setBackground(commonconstant.BUTTON_COLOR);
+        bg1.setBounds(0,0, 500, 900);
+
 
         //for image
         ImageIcon losIcon = new ImageIcon("appoinment/src/image/img.png"); // Replace with the actual path to your image file
@@ -68,11 +80,15 @@ public class UserProfile extends homepage  {
 
 
         // Create a JLabel to display the logo image
-        JLabel logsLabel = new JLabel(losIcon);
+        JLabel logsIcon = new JLabel(losIcon);
         JLabel logoLabel = new JLabel(logoIcon);
         JLabel avatarLabel = new JLabel(avatarIcon);
-        add(avatarLabel);
+
         avatarLabel.setBounds(170, 175, 150, 150);
+        logsIcon.setBounds(0, 0, 1300, 900);
+        logoLabel.setBounds(100, 45, 180, 100);
+
+
 
         // Nothing button
         JButton nothing = new JButton("");
@@ -89,39 +105,51 @@ public class UserProfile extends homepage  {
         });
         add(nothing);
 
-        // Home button
-        JButton home = new JButton("Home");
-        home.setFont(new Font("Dialog", Font.BOLD, 18));
-        home.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        home.setForeground(commonconstant.TEXT_COLOR);
-        home.addMouseListener(new MouseAdapter() {
+        // req button
+        JButton request = new JButton("Requests");
+        request.setFont(new Font("Dialog", Font.BOLD, 18));
+        request.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        request.setForeground(commonconstant.TEXT_COLOR);
+        request.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UserProfile.this.dispose();
+                Opthalmologist.this.dispose();
 
 
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+                new requests(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
 
             }
         });
 
-        // About Us button
-        JButton about1 = new JButton("About Us");
-        about1.setFont(new Font("Dialog", Font.BOLD, 18));
-        about1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        about1.setForeground(commonconstant.TEXT_COLOR);
+        // confirmed button
+        JButton confirmed = new JButton("Confirmed Appointments");
+        confirmed.setFont(new Font("Dialog", Font.BOLD, 18));
+        confirmed.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        confirmed.setForeground(commonconstant.TEXT_COLOR);
 
 
         // Contact Us button
-        JButton contactUs = new JButton("Contact Us");
-        contactUs.setFont(new Font("Dialog", Font.BOLD, 18));
-        contactUs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        contactUs.setForeground(commonconstant.TEXT_COLOR);
-        contactUs.addMouseListener(new MouseAdapter() {
+        JButton finished = new JButton("Finished Appointments");
+        finished.setFont(new Font("Dialog", Font.BOLD, 18));
+        finished.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        finished.setForeground(commonconstant.TEXT_COLOR);
+        finished.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UserProfile.this.dispose();
-                new ContactUs().setVisible(true);
+                Opthalmologist.this.dispose();
+                new finishedAppointmentsTable(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+            }
+        });
+
+        JButton today = new JButton("Today's Appointments");
+        today.setFont(new Font("Dialog", Font.BOLD, 18));
+        today.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        today.setForeground(commonconstant.TEXT_COLOR);
+        today.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Opthalmologist.this.dispose();
+                new todayAppointmentsTable(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
 
@@ -134,7 +162,7 @@ public class UserProfile extends homepage  {
         logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UserProfile.this.dispose();
+                Opthalmologist.this.dispose();
 
                 userDb.removeBookedTimeSlotsForUser(id);
 
@@ -144,46 +172,47 @@ public class UserProfile extends homepage  {
 
 
         // User information section
-        JLabel patientProfile = new JLabel("Patient's Profile");
+        JLabel patientProfile = new JLabel("Doctor's Profile");
         patientProfile.setBounds(180, 245, 550, 150);
         patientProfile.setForeground(commonconstant.SECONDARY_COLOR);
         patientProfile.setFont(new Font("Serif", Font.BOLD, 18));
+
         add(patientProfile);
 
         // User information below sa Patient's Profile
-        JLabel fnameLabel = new JLabel("First Name: "+ loggedInFirstName);
+        JLabel fnameLabel = new JLabel("First Name: " + loggedInFirstName);
         fnameLabel.setBounds(115, 350, 300, 25);
         fnameLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         fnameLabel.setForeground(commonconstant.BLUE_COLOR);
         add(fnameLabel);
 
-        JLabel lnameLabel = new JLabel("Last Name: "+loggedInLastName);
+        JLabel lnameLabel = new JLabel("Last Name: " + loggedInLastName);
         lnameLabel.setBounds(115, 385, 300, 25);
         lnameLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         lnameLabel.setForeground(commonconstant.BLUE_COLOR);
         add(lnameLabel);
 
 
-        JLabel emailLabel = new JLabel("Gender: "+sex);
+        JLabel emailLabel = new JLabel("Gender: " + sex);
         emailLabel.setBounds(115, 415, 300, 25);
         emailLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         emailLabel.setForeground(commonconstant.BLUE_COLOR);
         add(emailLabel);
 
-        JLabel addressLabel = new JLabel("Email: "+email);
+        JLabel addressLabel = new JLabel("Email: " + email);
         addressLabel.setBounds(115, 445, 300, 25);
         addressLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         addressLabel.setForeground(commonconstant.BLUE_COLOR);
         add(addressLabel);
 
 
-        JLabel genderLabel = new JLabel("Address: "+address);
+        JLabel genderLabel = new JLabel("Address: " + address);
         genderLabel.setBounds(115, 480, 300, 25);
         genderLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         genderLabel.setForeground(commonconstant.BLUE_COLOR);
         add(genderLabel);
 
-        JLabel contactNumberLabel = new JLabel("Contact Number: "+number);
+        JLabel contactNumberLabel = new JLabel("Contact Number: " + number);
         contactNumberLabel.setBounds(115, 510, 300, 25);
         contactNumberLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         contactNumberLabel.setForeground(commonconstant.BLUE_COLOR);
@@ -230,11 +259,10 @@ public class UserProfile extends homepage  {
         appointmentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(appointmentList);
-        scrollPane.setBounds(500, 410, 500, 200);
+        scrollPane.setBounds(500, 550, 500, 200);
         add(scrollPane);
 
         loadAppointments();
-
 
 
         // Background panels
@@ -248,40 +276,46 @@ public class UserProfile extends homepage  {
         BGlightblo.setBackground(commonconstant.PRIMARY_COLOR);
 
         // Adding components to the frame
-        add(home);
-        add(about1);
-        add(contactUs);
-        add(logout);
 
         // Set bounds for menu buttons
-        home.setBounds(480, 130, 150, 25);
-        about1.setBounds(780, 130, 150, 25);
-        contactUs.setBounds(630, 130, 150, 25);
-        logout.setBounds(927, 130, 150, 25);
+        request.setBounds(380, 130, 350, 25);
+        confirmed.setBounds(680, 230, 350, 25);
+        today.setBounds(630, 330, 350, 25);
+        logout.setBounds(927, 430, 350, 25);
 
-        // Set bounds for background panels
-        add(BGlightblo);
-        add(BGdarkblue);
-        add(BGlightblue);
-        BGdarkblue.setBounds(100, 190, 300, 450);
+        // panels
+        BGdarkblue.setBounds(80, 190, 400, 450);
         BGlightblue.setBounds(430, 190, 650, 150);
         BGlightblo.setBounds(430, 380, 650, 258);
 
-        // Set bounds for images
+        add(request);
+        add(confirmed);
+        add(today);
+        add(logout);
+
+        // Set bounds for background panels
+        add(BGlightblo); //likod sa todays appointments
+        BGdarkblue.add(avatarLabel);
+        add(BGdarkblue);
+        add(BGlightblue);//likod sa confiremed appointments
         add(logoLabel);
-        add(logsLabel);
-        logsLabel.setBounds(0, 0, 1300, 900);
-        logoLabel.setBounds(100, 45, 180, 100);
+        add(bg1);
+        add(logsIcon);
+
+        // Set bounds for images
+
+
     }
-    private void pastappointment(){
+
+    private void pastappointment() {
         List<schedules> pastAppointments = userDb.getPastAppointments();
         for (schedules appointment : pastAppointments) {
             String appointmentString = String.format("%s %s (%s) - %s at %s", appointment.getFirst_name(), appointment.getlast_name(), appointment.getid(), appointment.getAppointmet(), appointment.getTime());
             medicalHistoryModel.addElement(appointmentString);
         }
     }
+
     private void loadAppointments() {
-        // Replace with the actual user ID
         List<schedules> appointments = userDb.getAppointment();
         for (schedules appointment : appointments) {
             String appointmentString = String.format("%s %s (%s) - %s at %s", appointment.getFirst_name(), appointment.getlast_name(), appointment.getid(), appointment.getAppointmet(), appointment.getTime());
@@ -289,6 +323,7 @@ public class UserProfile extends homepage  {
         }
 
     }
+
     private void cancelAppointment() {
         int selectedIndex = appointmentList.getSelectedIndex();
         if (selectedIndex != -1) {
@@ -331,5 +366,64 @@ public class UserProfile extends homepage  {
             }
         }
     }
+
+
+//    private void addGUIOptal() {
+//
+//
+//        //background
+//        JPanel bg1 = new JPanel(null);
+//        bg1.setBackground(commonconstant.BUTTON_COLOR);
+//        bg1.setBounds(0,80, 1250, 700);
+//
+//
+//        // Doctors name
+//        JLabel OptalTxt = new JLabel("WELCOME ");
+//        OptalTxt.setFont(new Font("Times New Roman", Font.BOLD, 35));
+//        OptalTxt.setBounds(90, 20, 700, 35);
+//
+//        add(OptalTxt);
+
+//        JPanel Optalpanel = new JPanel(new BorderLayout());
+//        Optalpanel.setBackground(new Color(120, 187, 217, 255));
+//        Optalpanel.setBounds(260, 90, 500, 500);
+//
+//        DefaultTableModel appointmentTableModel = new DefaultTableModel();
+//        appointmentTableModel.addColumn("Patient Number");
+//        appointmentTableModel.addColumn("Last Name");
+//        appointmentTableModel.addColumn("First Name");
+//        appointmentTableModel.addColumn("Sex");
+//        appointmentTableModel.addColumn("Age");
+//        appointmentTableModel.addColumn("Time");
+//        appointmentTableModel.addColumn("Date");
+//
+//        opthalAppointmentTable = new JTable(appointmentTableModel); // Assign the JTable to the instance variable
+//        JScrollPane scrollPane = new JScrollPane(opthalAppointmentTable);
+//        scrollPane.setBounds(600, 300, 600, 300); // Set the desired bounds for the scroll pane
+//
+//        add(scrollPane); // Add the scroll pane to the frame
+//
+//        populateAppointmentTable();
+//        add(bg1);
+//
+
+
+    private void populateAppointmentTable() {
+        DefaultTableModel appointmentTableModel = (DefaultTableModel) opthalAppointmentTable.getModel();
+        appointmentTableModel.setRowCount(0); // Clear the existing data
+
+        List<schedules> appointments = userDb.getAppointment();
+        for (schedules appointment : appointments) {
+            int patientNumber = appointment.getid();
+            String lastName = appointment.getlast_name();
+            String firstName = appointment.getFirst_name();
+            String sex = appointment.getGender();
+            int age = appointment.getAge();
+            LocalDate date = appointment.getDate();
+            LocalTime timeOfAppointment = appointment.getTime();
+
+            appointmentTableModel.addRow(new Object[]{patientNumber, lastName, firstName, sex, age, timeOfAppointment});
+        }
     }
+}
 

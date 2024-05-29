@@ -42,20 +42,31 @@ public class commonconstant {
 
 
     // mySQL server connector
+
     public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/database";
     public static final String DB_USER = "jdbc:mysql://127.0.0.1:3306/database";
     public static final String DB_NOTIFICATION = "jdbc:mysql://127.0.0.1:3306/notification";
+    public static final String DB_DOCTORS = "jdbc:mysql://127.0.0.1:3306/doctors";
     public static final String DB_USERNAME = "root";
     public static final String DB_PASSWORD = "brylle1234";
+//    passsword table
     public static final String DB_TABLE_NAME = "user_info";
     // public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/system";
     // public static final String DB_USER = "jdbc:mysql://127.0.0.1:3306/system";
     // public static final String DB_USERNAME = "root";
     // public static final String DB_PASSWORD = "kentmadera04";
     // public static final String DB_TABLE_NAME = "user_info";
-
     public static final String DB_USER_INFO = "user_data";
+//    notification table
     public static final String NOTIFICATION = "Appointment_notifications";
+    //patient tables
+    public static final String FAMILY_MED = "family_med";
+    public static final String OBSTETRICS = "obstetrics";
+    public static final String OPHTHAL = "ophthal";
+    public static final String PEDIA = "pedia";
+
+    //time slot table
+    public static final String TIME = "timestamps";
     // public static final String DB_USER_INFO = "user_data";
 
 
