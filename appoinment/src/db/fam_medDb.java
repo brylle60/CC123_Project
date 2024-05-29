@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 public class fam_medDb {
     public static boolean register(String last_name, String first_name, String middle_name, String gender, int age, long number, String address, LocalTime time_appointment, LocalDate date_appointment){
+
         try{
             Connection connection = DriverManager.getConnection(commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD, commonconstant.DB_DOCTORS);
             PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.FAMILY_MED + "( last_name,first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -24,6 +25,9 @@ public class fam_medDb {
             insertUser.setDate(10, Date.valueOf(date_appointment));
 
             insertUser.executeUpdate();
+            String notificationMessage = "New appointment booked: " + last_name;
+            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+
 
         }catch (SQLException e){
             e.printStackTrace();

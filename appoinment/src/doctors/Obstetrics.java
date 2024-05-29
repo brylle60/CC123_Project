@@ -6,6 +6,8 @@ import gui.home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -63,6 +65,22 @@ public class Obstetrics extends doctors{
         add(doctorn3);
         add(logoLabel);
         add(patientLabel);
+
+        JButton back = new JButton("BACK");
+        back.setFont(new Font("Dialog", Font.BOLD,18));
+        back.setForeground(commonconstant.SECONDARY_COLOR);
+        back.setBackground(commonconstant.DARK_BLUE);
+        back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Obstetrics.this.dispose();
+                new DoctorTypeAppointment(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1).setVisible(true);
+            }
+        });
+        back.setBounds(1020,100,130,30);
+
 
 
         JLabel text1 = new JLabel("Patient Details");
@@ -139,6 +157,25 @@ public class Obstetrics extends doctors{
         comboBox.setForeground(commonconstant.TEXT_COLOR);
         comboBox.setBounds(650, 372, 100, 25);
 
+        JLabel day = new JLabel("Select Day");
+        day.setFont(new Font("Dialog", Font.PLAIN,18));
+        day.setForeground(commonconstant.TEXT_COLOR);
+        day.setBounds(950,170,200,25);
+
+        String [] Date={
+                "Monday",
+                "Tusday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+        };
+
+        JComboBox<String> comboBox1 = new JComboBox<>(Date);
+        comboBox1.setFont(new Font("Dialog",Font.PLAIN,20));
+        comboBox1.setForeground(commonconstant.TEXT_COLOR);
+        comboBox1.setBounds(950,200,120,25);
+
 
 
         JTextField genderflield = new JTextField();
@@ -173,9 +210,8 @@ public class Obstetrics extends doctors{
         submit.setForeground(commonconstant.SECONDARY_COLOR);
         submit.setBackground(commonconstant.DARK_BLUE);
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        submit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -220,7 +256,7 @@ public class Obstetrics extends doctors{
                 }
             }
         });
-        submit.setBounds(770,530,200,50);
+        submit.setBounds(950,530,200,50);
         add(submit);
 
 
@@ -234,10 +270,13 @@ public class Obstetrics extends doctors{
         add(agefield);
         add(genderLabel);
         add(comboBox);
+        add(comboBox1);
         add(Address);
         add(Addressfield);
         add(number);
         add(numberfield);
+        add(day);
+        add(back);
         add(losLabel);
         add(Patient3Panel);
 

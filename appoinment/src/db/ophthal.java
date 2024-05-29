@@ -25,6 +25,8 @@ public class ophthal {
             insertUser.setDate(10, Date.valueOf(date_appointment));
 
             insertUser.executeUpdate();
+            String notificationMessage = "New appointment booked: " + last_name;
+            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
 
         }catch (SQLException e){
             e.printStackTrace();
