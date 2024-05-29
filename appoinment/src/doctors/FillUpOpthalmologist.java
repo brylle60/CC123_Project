@@ -1,6 +1,5 @@
 package doctors;
 
-import constant.TimeSlotManager;
 import constant.commonconstant;
 import gui.home;
 
@@ -8,24 +7,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.MalformedParametersException;
-import java.time.LocalTime;
 
-public class PatientProfile3 extends doctors{
+public class FillUpOpthalmologist extends doctors{
 
     private String loggedInLastName;
     private String loggedInFirstName;
     private String loggedInMiddleName;
     private int age;
-    private String sex;
-    private String address;
-    private String email;
     private int number;
+    private String address;
     private int id;
+    private String sex;
+    private String email;
 
 
-
-    public PatientProfile3(){
+    public FillUpOpthalmologist(){
         super("Health Appointment");
         addDoctorComponents();
 
@@ -45,17 +41,17 @@ public class PatientProfile3 extends doctors{
         JLabel logoLabel = new JLabel(logoIcon);
         logoLabel.setBounds(0, 0, 180, 100); // Adjust the position and size as needed
 
-        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/DR BRYLL.png");
+        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/DR KHEN.png");
         JLabel patientLabel = new JLabel(patientIcon);
         patientLabel.setBounds(105, 154, 170, 170); // Adjust the position and size as needed
 
-        JLabel doctorn3= new JLabel("Dr. John Brylle Crodua");
+        JLabel doctorn3= new JLabel("Dr. Khen Lloyed Baylon");
         doctorn3.setBounds(-5, 300, 400, 100);
         doctorn3.setForeground(commonconstant.TEXT_COLOR.brighter());
         doctorn3.setFont(new Font("Dialog", Font.BOLD, 20));
         doctorn3.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel servicen3= new JLabel("FAMILY MEDICINE");
+        JLabel servicen3= new JLabel("OPHTHALMOLOGIST");
         servicen3.setBounds(-3, 330, 400, 100);
         servicen3.setForeground(commonconstant.TEXT_COLOR.brighter());
         servicen3.setFont(new Font("Arial", Font.BOLD, 15));
@@ -66,7 +62,6 @@ public class PatientProfile3 extends doctors{
         add(logoLabel);
         add(patientLabel);
 
-
         JButton submit = new JButton("SUBMIT");
         submit.setFont(new Font("DIALOG", Font.BOLD, 18));
         submit.setForeground(commonconstant.SECONDARY_COLOR);
@@ -76,14 +71,29 @@ public class PatientProfile3 extends doctors{
             @Override
             public void mouseClicked(MouseEvent e){
                 super.mouseClicked(e);
-                PatientProfile3.this.dispose();
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+                FillUpOpthalmologist.this.dispose();
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, address, email).setVisible(true);
             }
         });
-        submit.setBounds(770,530,200,50);
-        add(submit);
+        submit.setBounds(900,530,200,50);
 
+       JButton back = new JButton("BACK");
+       back.setFont(new Font("DIALOG",Font.BOLD,18));
+       back.setForeground(commonconstant.SECONDARY_COLOR);
+       back.setBackground(commonconstant.DARK_BLUE);
+       back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+       back.addMouseListener(new MouseAdapter() {
+           @Override
+           public void mouseClicked(MouseEvent e) {
+               super.mouseClicked(e);
+               FillUpOpthalmologist.this.dispose();
+               new DoctorTypeAppointment(id,loggedInLastName,loggedInFirstName,loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+           }
+       });
+       back.setBounds(1030,70,120,30);
 
+       add(submit);
+       add(back);
 
         JLabel text1 = new JLabel("Patient Details");
         text1.setBounds(250, -100, 600, 400);
@@ -147,8 +157,8 @@ public class PatientProfile3 extends doctors{
         genderLabel.setBounds(650, 345, 200, 25);
         genderLabel.setForeground(commonconstant.TEXT_COLOR);
         genderLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
-        
-        
+
+
         String[] genderType={
                 "Male",
                 "Female",
@@ -158,7 +168,25 @@ public class PatientProfile3 extends doctors{
         comboBox.setFont(new Font("Dialog", Font.PLAIN,20));
         comboBox.setForeground(commonconstant.TEXT_COLOR);
         comboBox.setBounds(650, 372, 100, 25);
-        
+
+        String [] Day={
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+        };
+
+        JComboBox<String> comboBox1 = new JComboBox<>(Day);
+        comboBox1.setFont(new Font("Dialog",Font.PLAIN,20));
+        comboBox1.setForeground(commonconstant.TEXT_COLOR);
+        comboBox1.setBounds(950,200,120,25);
+
+        JLabel selectDay = new JLabel("Select Day");
+        selectDay.setBounds(950, 170, 200, 25);
+        selectDay.setForeground(commonconstant.TEXT_COLOR);
+        selectDay.setFont(new Font("Dialog", Font.PLAIN, 18));
 
 
         JTextField genderflield = new JTextField();
@@ -202,8 +230,9 @@ public class PatientProfile3 extends doctors{
         add(Addressfield);
         add(number);
         add(numberfield);
-        add(losLabel);
         add(Patient3Panel);
-
+        add(selectDay);
+        add(comboBox1);
+        add(losLabel);
     }
 }

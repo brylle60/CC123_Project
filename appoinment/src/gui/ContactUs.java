@@ -132,6 +132,7 @@ public class ContactUs extends homepage {
 
         //new time menu for the time selection mode
 
+
         JLabel home = new JLabel("Home");
         home.setFont(new Font("Dialog", Font.BOLD, 20));
 
@@ -189,7 +190,7 @@ public class ContactUs extends homepage {
         ContactUs.setBounds(860, 91, 200,25);
 
 
-        JButton signin= new JButton("Logout");
+        JButton signin= new JButton("BACK");
         signin.setFont(new Font("Dialog", Font.BOLD, 18));
 
         signin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -201,7 +202,7 @@ public class ContactUs extends homepage {
                 super.mouseClicked(e);
                 userDb.removeBookedTimeSlotsForUser(id);
                 ContactUs.this.dispose();
-                new loginpage().setVisible(true);
+                new home(id,loggedInLastName,loggedInFirstName,loggedInMiddleName,sex,age,number,email,address).setVisible(true);
             }
         });
 

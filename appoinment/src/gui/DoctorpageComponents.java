@@ -10,6 +10,7 @@ public class DoctorpageComponents extends form2Register{
         addGUIDoctor();
     }
 
+
     public void addGUIDoctor(){
 
         //background
