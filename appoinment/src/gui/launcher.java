@@ -1,6 +1,7 @@
 package gui;
 
 
+
 import doctors.DoctorTypeAppointment;
 
 
@@ -21,18 +22,21 @@ public class launcher {
 
         SwingUtilities.invokeLater(new Runnable() {
 
+
             @Override
             public void run() {
+
             //    new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
 
+
+                new DoctorTypeAppointment().setVisible(true);
 //new AdminHome().setVisible(true);
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);
-          // new loginpage().setVisible(true);
+//           new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
    new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, email, address).setVisible(true);
 //new HowToAppointment().setVisible(true);
-
 
               //  new ContactUs().setVisible(true);
 

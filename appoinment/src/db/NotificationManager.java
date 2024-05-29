@@ -12,7 +12,7 @@ public class NotificationManager {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO"+commonconstant.NOTIFICATION+"(appointment_id, message, is_confirmed) VALUES (?, ?, false)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO "+commonconstant.NOTIFICATION+"(appointment_id, message, confirmed)"+" VALUES (?, ?, false)");
             statement.setInt(1, appointmentId);
             statement.setString(2, notificationMessage);
             statement.executeUpdate();

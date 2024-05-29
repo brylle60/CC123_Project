@@ -1,6 +1,7 @@
 package doctors;
 
 import constant.commonconstant;
+import db.NotificationQueue;
 import gui.*;
 
 import javax.swing.*;
@@ -27,7 +28,9 @@ public class DoctorTypeAppointment extends doctors{
     public DoctorTypeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address) {
         super("Health Apoointment");
         addDoctorComponents();
-       // retrieveUnconfirmedNotifications();
+
+        handleNotifications();
+        retrieveUnconfirmedNotifications();
 
     }
 
@@ -280,50 +283,63 @@ public class DoctorTypeAppointment extends doctors{
 
 
     }
-    private void retrieveUqnconfirmedNotifications() {
-        Connection connection = null;
+
+    private void retrieveUnconfirmedNotifications() {
         try {
-            connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("SELECT message FROM "+commonconstant.NOTIFICATION+" WHERE is_confirmed = false");
+            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("SELECT id, message FROM " + commonconstant.NOTIFICATION + " WHERE confirmed = false");
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next())
-            {
+
+            while (resultSet.next()) {
+                int notificationId = resultSet.getInt("id");
+
                 String notificationMessage = resultSet.getString("message");
                 int response = JOptionPane.showConfirmDialog(this, notificationMessage, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
                 if (response == JOptionPane.YES_OPTION) {
-                    confirmAppointment(resultSet.getInt("id"));
+                    confirmAppointment(notificationId);
+                } else {
+                    declineAppointment(notificationId);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
+
     private void confirmAppointment(int notificationId) {
-        Connection connection = null;
         try {
-            connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("UPDATE appointment_notifications SET is_confirmed = true WHERE id = ?");
+            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("UPDATE " + commonconstant.NOTIFICATION + " SET confirmed = true WHERE id = ?");
             statement.setInt(1, notificationId);
             statement.executeUpdate();
+            // Additional logic to store the appointment in the main database
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        }
+    }
+
+    private void declineAppointment(int notificationId) {
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM " + commonconstant.NOTIFICATION + " WHERE id = ?");
+            statement.setInt(1, notificationId);
+            statement.executeUpdate();
+            // Additional logic to notify the user that the appointment was declined
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void handleNotifications() {
+        while (NotificationQueue.hasNotifications()) {
+            String notification = NotificationQueue.pollNotification();
+            int response = JOptionPane.showConfirmDialog(this, notification, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                confirmAppointment(response);
+            } else {
+                declineAppointment(response);
             }
         }
     }
+
 }

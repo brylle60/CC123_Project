@@ -205,5 +205,7 @@ public class PatientProfile3 extends doctors{
         add(losLabel);
         add(Patient3Panel);
 
+
+
     }
 }
