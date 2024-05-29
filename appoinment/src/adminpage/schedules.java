@@ -15,7 +15,7 @@ public class schedules {
     private long number;
     private String Appointmet;
 
-
+    private int age;
     public schedules() {
         // Default constructor
 
@@ -119,6 +119,15 @@ public class schedules {
     public void setAppointmet(String appointmet) {
         Appointmet = appointmet;
     }
+
+    public int getAge()   {
+        return id;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
 }
 
 

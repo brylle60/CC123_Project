@@ -187,7 +187,8 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new FillUpOpthalmologist().setVisible(true);
+
+                new OPHTHALMOLOGIST().setVisible(true);
             }
         });
 
@@ -204,7 +205,9 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new FillUpPediatrics().setVisible(true);
+
+                new Pedia().setVisible(true);
+
             }
         });
 
@@ -221,7 +224,8 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new FillUpFamilyMedicine().setVisible(true);
+      new Family_med().setVisible(true);
+
             }
         });
 
@@ -238,7 +242,8 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new FillUpObgyne().setVisible(true);
+          new Obstetrics().setVisible(true);
+
             }
         });
 
