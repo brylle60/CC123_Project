@@ -7,6 +7,8 @@ import gui.home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -172,9 +174,8 @@ public class OPHTHALMOLOGIST extends doctors{
         submit.setForeground(commonconstant.SECONDARY_COLOR);
         submit.setBackground(commonconstant.DARK_BLUE);
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        submit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();

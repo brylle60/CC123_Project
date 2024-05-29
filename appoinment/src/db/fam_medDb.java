@@ -5,6 +5,7 @@ import constant.commonconstant;
 import java.sql.*;
 
 public class fam_medDb {
+    private static int id;
     public static boolean register(String last_name, String first_name, String middle_name,String gender, int age, long number,String address){
         try{
             Connection connection = DriverManager.getConnection(commonconstant.DB_DOCTORS, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
@@ -18,6 +19,9 @@ public class fam_medDb {
             insertUser.setLong(6, number);
             insertUser.setString(7, address);
             insertUser.executeUpdate();
+            String notificationMessage = "New appointment booked: " + last_name;
+            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+
 
         }catch (SQLException e){
             e.printStackTrace();
