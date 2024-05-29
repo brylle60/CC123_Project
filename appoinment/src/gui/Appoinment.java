@@ -394,6 +394,7 @@ public class Appoinment extends homepage {
                 Boolean finish = false;
                 selectedTime = (LocalTime) timeComboBox1.getSelectedItem();
                 String selectedService = appointmentType;
+
                 int dailogbox =    JOptionPane.showConfirmDialog(Appoinment.this, "Is the info above is correct?");
                 if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
                     if (dailogbox == JOptionPane.YES_OPTION) {
