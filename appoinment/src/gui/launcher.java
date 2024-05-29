@@ -31,8 +31,7 @@ public class launcher {
             //    new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
 
 
-        //new DoctorTypeAppointment().setVisible(true);
-
+                //new DoctorTypeAppointment().setVisible(true);
 //new AdminHome().setVisible(true);
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);
@@ -40,8 +39,6 @@ public class launcher {
 //new typeAppointment().setVisible(true);
 //   new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, email, address).setVisible(true);
 //new HowToAppointment().setVisible(true);
-
-
 
               //  new ContactUs().setVisible(true);
 
