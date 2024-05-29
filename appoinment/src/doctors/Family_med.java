@@ -65,6 +65,22 @@ public class Family_med extends doctors{
         add(logoLabel);
         add(patientLabel);
 
+        JButton back = new JButton("BACK");
+        back.setFont(new Font("Dialog", Font.BOLD,18));
+        back.setForeground(commonconstant.SECONDARY_COLOR);
+        back.setBackground(commonconstant.DARK_BLUE);
+        back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        back.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Family_med.this.dispose();
+                new DoctorTypeAppointment(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1).setVisible(true);
+            }
+        });
+        back.setBounds(1020,100,130,30);
+
+
         JLabel text1 = new JLabel("Patient Details");
         text1.setBounds(250, -100, 600, 400);
         text1.setForeground(commonconstant.TEXT_COLOR);
@@ -138,7 +154,27 @@ public class Family_med extends doctors{
         comboBox.setFont(new Font("Dialog", Font.PLAIN,20));
         comboBox.setForeground(commonconstant.TEXT_COLOR);
         comboBox.setBounds(650, 372, 100, 25);
-        
+
+
+        JLabel day = new JLabel("Select Day");
+        day.setFont(new Font("Dialog", Font.PLAIN,18));
+        day.setForeground(commonconstant.TEXT_COLOR);
+        day.setBounds(950,170,200,25);
+
+        String [] Date={
+                "Monday",
+                "Tusday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+        };
+
+        JComboBox<String> comboBox1 = new JComboBox<>(Date);
+        comboBox1.setFont(new Font("Dialog",Font.PLAIN,20));
+        comboBox1.setForeground(commonconstant.TEXT_COLOR);
+        comboBox1.setBounds(950,200,120,25);
+
 
 
         JTextField genderflield = new JTextField();
@@ -175,7 +211,7 @@ public class Family_med extends doctors{
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submit.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) throws NumberFormatException {
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -193,12 +229,7 @@ public class Family_med extends doctors{
                 int age = 0;
                 long number = 0;
 
-                try {
-                    age = Integer.parseInt(ageString);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(Family_med.this, "Invalid age. Please enter a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                    return; // Exit the method without proceeding further
-                }
+                age = Integer.parseInt(ageString);
 
                 try {
                     number = Long.parseLong(numberString);
@@ -220,7 +251,7 @@ public class Family_med extends doctors{
                 }
             }
         });
-        submit.setBounds(770,530,200,50);
+        submit.setBounds(950,530,200,50);
         add(submit);
 
 
@@ -236,10 +267,13 @@ public class Family_med extends doctors{
         add(agefield);
         add(genderLabel);
         add(comboBox);
+        add(comboBox1);
         add(Address);
         add(Addressfield);
         add(number);
         add(numberfield);
+        add(back);
+        add(day);
         add(losLabel);
         add(Patient3Panel);
 
