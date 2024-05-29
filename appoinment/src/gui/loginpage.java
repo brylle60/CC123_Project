@@ -9,6 +9,7 @@ import db.MyJDBC;
 import doctors.FamilyMed;
 import doctors.Opthalmologist;
 import doctors.Pediatrics;
+import db.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -144,6 +145,8 @@ public class loginpage extends form {
                 }
                     else {
                     JOptionPane.showMessageDialog(loginpage.this, "Login Failed...");
+                } else {
+                    JOptionPane.showMessageDialog(loginpage.this, "Login Failed invalid password and/or \n"+"the email and password is incorrect or missing");
                 }
             }
         });
@@ -194,6 +197,9 @@ public class loginpage extends form {
     }
 
     public boolean admin(String email, String password){
+
+//        boolean result = loginDb.loginUser(email, password);
+//        return result;
         if(email.matches("brylle@example.com") && password.matches("password")) return true;
 
         if (!email.matches("brylle@emaple.com"))    return false;
