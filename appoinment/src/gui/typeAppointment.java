@@ -288,6 +288,7 @@ public class typeAppointment extends homepage {
                 Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
                 PreparedStatement statement = connection.prepareStatement("SELECT idUser_Id, last_name, middle_name, User_email, first_name, sex, age, mobile_number, address, birthdate FROM " + commonconstant.DB_TABLE_NAME + " WHERE User_email = ? AND user_password = ?");
                 statement.setString(1, email);
+                statement.setString(2, password);
                 ResultSet resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
