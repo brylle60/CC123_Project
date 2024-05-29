@@ -20,11 +20,10 @@ public class launcher {
     private static String address;
     public static void main(String[] args) {
 
-
         SwingUtilities.invokeLater(new Runnable() {
 
 
-            @Override
+        @Override
             public void run() {
                 new OPHTHALMOLOGIST().setVisible(true);
 
