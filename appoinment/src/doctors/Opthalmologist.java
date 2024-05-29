@@ -425,5 +425,7 @@ public class Opthalmologist extends  doctors{
             appointmentTableModel.addRow(new Object[]{patientNumber, lastName, firstName, sex, age, timeOfAppointment});
         }
     }
+//bag-o
+
 }
 
