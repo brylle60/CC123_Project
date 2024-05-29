@@ -287,12 +287,12 @@ public class DoctorTypeAppointment extends doctors{
     private void retrieveUnconfirmedNotifications() {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("SELECT id, message FROM " + commonconstant.NOTIFICATION + " WHERE confirmed = false");
+            PreparedStatement statement = connection.prepareStatement("SELECT last_name, message FROM " + commonconstant.NOTIFICATION + " WHERE confirmed = false");
             ResultSet resultSet = statement.executeQuery();
 
 
             while (resultSet.next()) {
-                int notificationId = resultSet.getInt("id");
+                String notificationId = resultSet.getString("last_name");
 
                 String notificationMessage = resultSet.getString("message");
                 int response = JOptionPane.showConfirmDialog(this, notificationMessage, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
@@ -307,11 +307,11 @@ public class DoctorTypeAppointment extends doctors{
         }
     }
 
-    private void confirmAppointment(int notificationId) {
+    private void confirmAppointment(String last_name) {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("UPDATE " + commonconstant.NOTIFICATION + " SET confirmed = true WHERE id = ?");
-            statement.setInt(1, notificationId);
+            PreparedStatement statement = connection.prepareStatement("UPDATE " + commonconstant.NOTIFICATION + " SET confirmed = true WHERE last_name = ?");
+            statement.setString(1, last_name);
             statement.executeUpdate();
             // Additional logic to store the appointment in the main database
         } catch (Exception e) {
@@ -319,11 +319,11 @@ public class DoctorTypeAppointment extends doctors{
         }
     }
 
-    private void declineAppointment(int notificationId) {
+    private void declineAppointment(String last_name) {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM " + commonconstant.NOTIFICATION + " WHERE id = ?");
-            statement.setInt(1, notificationId);
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM " + commonconstant.NOTIFICATION + " WHERE last_name = ?");
+            statement.setString(1, last_name);
             statement.executeUpdate();
             // Additional logic to notify the user that the appointment was declined
         } catch (Exception e) {
@@ -335,9 +335,9 @@ public class DoctorTypeAppointment extends doctors{
             String notification = NotificationQueue.pollNotification();
             int response = JOptionPane.showConfirmDialog(this, notification, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
-                confirmAppointment(response);
+                confirmAppointment(String.valueOf(response));
             } else {
-                declineAppointment(response);
+                declineAppointment(String.valueOf(response));
             }
         }
     }

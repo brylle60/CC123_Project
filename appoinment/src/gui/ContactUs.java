@@ -189,7 +189,7 @@ public class ContactUs extends homepage {
         ContactUs.setBounds(860, 91, 200,25);
 
 
-        JButton signin= new JButton("Logout");
+        JButton signin= new JButton("HOME");
         signin.setFont(new Font("Dialog", Font.BOLD, 18));
 
         signin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

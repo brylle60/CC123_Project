@@ -185,6 +185,23 @@ public class AdminHome extends adminform {
         add(SchedulePM);
 
 
+        //Doctor registration button
+        JButton docreg= new JButton("Doctor Registration");
+        docreg.setBounds(25, 450, 170, 40);
+        docreg.setForeground(commonconstant.SECONDARY_COLOR);
+        docreg.setBackground(commonconstant.HOME_BG1_BLUE);;
+        docreg.setFont(new Font("Dialog", Font.BOLD, 13));
+
+        docreg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        docreg.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                AdminHome.this.dispose();
+                new DoctorRegistration().setVisible(true);
+            }
+        });
+        add(docreg);
+
 
         //Log out BUTTON
         JButton Logout= new JButton("Log out");

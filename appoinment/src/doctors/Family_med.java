@@ -7,6 +7,8 @@ import gui.home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -154,7 +156,7 @@ public class Family_med extends doctors{
         comboBox.setFont(new Font("Dialog", Font.PLAIN,20));
         comboBox.setForeground(commonconstant.TEXT_COLOR);
         comboBox.setBounds(650, 372, 100, 25);
-
+        
 
 
 
@@ -237,9 +239,8 @@ public class Family_med extends doctors{
         submit.setForeground(commonconstant.SECONDARY_COLOR);
         submit.setBackground(commonconstant.DARK_BLUE);
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        submit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) throws NumberFormatException {
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -257,7 +258,12 @@ public class Family_med extends doctors{
                 int age = 0;
                 long number = 0;
 
-                age = Integer.parseInt(ageString);
+                try {
+                    age = Integer.parseInt(ageString);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(Family_med.this, "Invalid age. Please enter a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    return; // Exit the method without proceeding further
+                }
 
                 try {
                     number = Long.parseLong(numberString);
@@ -279,7 +285,9 @@ public class Family_med extends doctors{
                 }
             }
         });
+
         submit.setBounds(950,650,200,50);
+
         add(submit);
 
 
@@ -295,16 +303,20 @@ public class Family_med extends doctors{
         add(agefield);
         add(genderLabel);
         add(comboBox);
+
         add(select);
         add(birthdatetxtformat);
         add(Birthdate);
         add(birthdate1);
         add(birthdate2);
+
         add(Address);
         add(Addressfield);
         add(number);
         add(numberfield);
+
         add(back);
+
         add(losLabel);
         add(Patient3Panel);
 
