@@ -25,9 +25,10 @@ public class DoctorTypeAppointment extends doctors{
     private String sex;
     private String email;
 
-    public DoctorTypeAppointment() {
+    public DoctorTypeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address) {
         super("Health Apoointment");
         addDoctorComponents();
+
         handleNotifications();
         retrieveUnconfirmedNotifications();
 
@@ -199,7 +200,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new loginpage().setVisible(true);
+                new PatientProfile2().setVisible(true);
             }
         });
 
@@ -216,7 +217,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new loginpage().setVisible(true);
+                new PatientProfile3().setVisible(true);
             }
         });
 
@@ -233,7 +234,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new loginpage().setVisible(true);
+                new PatientProfile4().setVisible(true);
             }
         });
 
@@ -282,15 +283,17 @@ public class DoctorTypeAppointment extends doctors{
 
 
     }
-    // In the DoctorTypeAppointment class
+
     private void retrieveUnconfirmedNotifications() {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
             PreparedStatement statement = connection.prepareStatement("SELECT id, message FROM " + commonconstant.NOTIFICATION + " WHERE confirmed = false");
             ResultSet resultSet = statement.executeQuery();
 
+
             while (resultSet.next()) {
                 int notificationId = resultSet.getInt("id");
+
                 String notificationMessage = resultSet.getString("message");
                 int response = JOptionPane.showConfirmDialog(this, notificationMessage, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
                 if (response == JOptionPane.YES_OPTION) {

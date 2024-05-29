@@ -42,6 +42,7 @@ public class commonconstant {
 
 
     // mySQL server connector
+
     public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/database";
     public static final String DB_USER = "jdbc:mysql://127.0.0.1:3306/database";
     public static final String DB_NOTIFICATION = "jdbc:mysql://127.0.0.1:3306/notification";

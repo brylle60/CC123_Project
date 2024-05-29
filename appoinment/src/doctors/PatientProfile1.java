@@ -2,13 +2,29 @@ package doctors;
 
 import constant.TimeSlotManager;
 import constant.commonconstant;
+import gui.UserProfile;
+import gui.home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.MalformedParametersException;
 import java.time.LocalTime;
 
 public class PatientProfile1 extends doctors{
+
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
+    private int age;
+    private int number;
+    private String address;
+    private int id;
+    private String sex;
+    private String email;
+
+
     public PatientProfile1(){
         super("Health Appointment");
         addDoctorComponents();
@@ -33,7 +49,7 @@ public class PatientProfile1 extends doctors{
         JLabel patientLabel = new JLabel(patientIcon);
         patientLabel.setBounds(105, 154, 170, 170); // Adjust the position and size as needed
 
-        JLabel doctorn3= new JLabel("Dr. Khen Lloyd Baylon");
+        JLabel doctorn3= new JLabel("Dr. Khen Lloyed Baylon");
         doctorn3.setBounds(-5, 300, 400, 100);
         doctorn3.setForeground(commonconstant.TEXT_COLOR.brighter());
         doctorn3.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -49,6 +65,25 @@ public class PatientProfile1 extends doctors{
         add(doctorn3);
         add(logoLabel);
         add(patientLabel);
+
+        JButton submit = new JButton("SUBMIT");
+        submit.setFont(new Font("DIALOG", Font.BOLD, 18));
+        submit.setForeground(commonconstant.SECONDARY_COLOR);
+        submit.setBackground(commonconstant.DARK_BLUE);
+        submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        submit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                super.mouseClicked(e);
+                PatientProfile1.this.dispose();
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+            }
+        });
+        submit.setBounds(770,530,200,50);
+       add(submit);
+
+
+
 
 
         JLabel text1 = new JLabel("Patient Details");

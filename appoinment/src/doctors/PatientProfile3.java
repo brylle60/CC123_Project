@@ -2,13 +2,29 @@ package doctors;
 
 import constant.TimeSlotManager;
 import constant.commonconstant;
+import gui.home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.MalformedParametersException;
 import java.time.LocalTime;
 
 public class PatientProfile3 extends doctors{
+
+    private String loggedInLastName;
+    private String loggedInFirstName;
+    private String loggedInMiddleName;
+    private int age;
+    private String sex;
+    private String address;
+    private String email;
+    private int number;
+    private int id;
+
+
+
     public PatientProfile3(){
         super("Health Appointment");
         addDoctorComponents();
@@ -49,6 +65,24 @@ public class PatientProfile3 extends doctors{
         add(doctorn3);
         add(logoLabel);
         add(patientLabel);
+
+
+        JButton submit = new JButton("SUBMIT");
+        submit.setFont(new Font("DIALOG", Font.BOLD, 18));
+        submit.setForeground(commonconstant.SECONDARY_COLOR);
+        submit.setBackground(commonconstant.DARK_BLUE);
+        submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        submit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                super.mouseClicked(e);
+                PatientProfile3.this.dispose();
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+            }
+        });
+        submit.setBounds(770,530,200,50);
+        add(submit);
+
 
 
         JLabel text1 = new JLabel("Patient Details");
