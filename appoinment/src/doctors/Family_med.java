@@ -7,14 +7,12 @@ import gui.home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-<<<<<<<< HEAD:appoinment/src/doctors/FillUpFamilyMedicine.java
-public class FillUpFamilyMedicine extends doctors{
-========
 public class Family_med extends doctors{
->>>>>>>> upstream/main:appoinment/src/doctors/Family_med.java
 
     private String loggedInLastName;
     private String loggedInFirstName;
@@ -28,11 +26,7 @@ public class Family_med extends doctors{
 
 
 
-<<<<<<<< HEAD:appoinment/src/doctors/FillUpFamilyMedicine.java
-    public FillUpFamilyMedicine(){
-========
     public Family_med(){
->>>>>>>> upstream/main:appoinment/src/doctors/Family_med.java
         super("Health Appointment");
         addDoctorComponents();
 
@@ -73,45 +67,22 @@ public class Family_med extends doctors{
         add(logoLabel);
         add(patientLabel);
 
-<<<<<<<< HEAD:appoinment/src/doctors/FillUpFamilyMedicine.java
-
-        JButton submit = new JButton("SUBMIT");
-        submit.setFont(new Font("DIALOG", Font.BOLD, 18));
-        submit.setForeground(commonconstant.SECONDARY_COLOR);
-        submit.setBackground(commonconstant.DARK_BLUE);
-        submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        submit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e){
-                super.mouseClicked(e);
-                FillUpFamilyMedicine.this.dispose();
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
-            }
-        });
-        submit.setBounds(900,530,200,50);
-
         JButton back = new JButton("BACK");
-        back.setFont(new Font("DIALOG", Font.BOLD,18));
+        back.setFont(new Font("Dialog", Font.BOLD,18));
         back.setForeground(commonconstant.SECONDARY_COLOR);
         back.setBackground(commonconstant.DARK_BLUE);
         back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         back.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
+            public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                FillUpFamilyMedicine.this.dispose();
-                new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+                Family_med.this.dispose();
+                new DoctorTypeAppointment(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1).setVisible(true);
             }
         });
-        back.setBounds(1030,70,120,30);
-
-        add(submit);
-        add(back);
+        back.setBounds(1020,100,130,30);
 
 
-
-========
->>>>>>>> upstream/main:appoinment/src/doctors/Family_med.java
         JLabel text1 = new JLabel("Patient Details");
         text1.setBounds(250, -100, 600, 400);
         text1.setForeground(commonconstant.TEXT_COLOR);
@@ -185,14 +156,20 @@ public class Family_med extends doctors{
         comboBox.setFont(new Font("Dialog", Font.PLAIN,20));
         comboBox.setForeground(commonconstant.TEXT_COLOR);
         comboBox.setBounds(650, 372, 100, 25);
+        
 
-        String [] Date = {
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
+        JLabel day = new JLabel("Select Day");
+        day.setFont(new Font("Dialog", Font.PLAIN,18));
+        day.setForeground(commonconstant.TEXT_COLOR);
+        day.setBounds(950,170,200,25);
+
+        String [] Date={
+                "Monday",
+                "Tusday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
         };
 
         JComboBox<String> comboBox1 = new JComboBox<>(Date);
@@ -200,10 +177,6 @@ public class Family_med extends doctors{
         comboBox1.setForeground(commonconstant.TEXT_COLOR);
         comboBox1.setBounds(950,200,120,25);
 
-        JLabel selectDay = new JLabel("Select Day");
-        selectDay.setBounds(950, 170, 200, 25);
-        selectDay.setForeground(commonconstant.TEXT_COLOR);
-        selectDay.setFont(new Font("Dialog", Font.PLAIN, 18));
 
 
         JTextField genderflield = new JTextField();
@@ -238,9 +211,8 @@ public class Family_med extends doctors{
         submit.setForeground(commonconstant.SECONDARY_COLOR);
         submit.setBackground(commonconstant.DARK_BLUE);
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        submit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -305,10 +277,8 @@ public class Family_med extends doctors{
         add(Addressfield);
         add(number);
         add(numberfield);
-        add(Patient3Panel);
-        add(comboBox1);
-        add(selectDay);
         add(losLabel);
+        add(Patient3Panel);
 
 
 

@@ -405,6 +405,7 @@ public class Appoinment extends homepage {
                                 home home = new home(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age1, number1, email, address);
                                 Appoinment.this.dispose();
                                 home.setVisible(true);
+
                                 // new AppointmentList().setVisible(true);
 
                                 JOptionPane.showMessageDialog(home, "Booked account successfully");

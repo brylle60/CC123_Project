@@ -18,6 +18,8 @@ public class pedia{
             insertUser.setLong(6, number);
             insertUser.setString(7, address);
             insertUser.executeUpdate();
+            String notificationMessage = "New appointment booked: " + last_name;
+            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
 
         }catch (SQLException e){
             e.printStackTrace();

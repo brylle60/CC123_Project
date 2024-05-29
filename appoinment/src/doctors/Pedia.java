@@ -6,14 +6,12 @@ import gui.home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-<<<<<<<< HEAD:appoinment/src/doctors/FillUpPediatrics.java
-public class FillUpPediatrics extends doctors{
-========
 public class Pedia extends doctors{
->>>>>>>> upstream/main:appoinment/src/doctors/Pedia.java
 
     private String loggedInLastName;
     private String loggedInFirstName;
@@ -25,11 +23,7 @@ public class Pedia extends doctors{
     private int number1;
     private String email;
 
-<<<<<<<< HEAD:appoinment/src/doctors/FillUpPediatrics.java
-    public FillUpPediatrics(){
-========
     public Pedia(){
->>>>>>>> upstream/main:appoinment/src/doctors/Pedia.java
         super("Health Appointment");
         addDoctorComponents();
 
@@ -70,45 +64,22 @@ public class Pedia extends doctors{
         add(logoLabel);
         add(patientLabel);
 
-<<<<<<<< HEAD:appoinment/src/doctors/FillUpPediatrics.java
-
-        JButton submit = new JButton("SUBMIT");
-        submit.setFont(new Font("DIALOG", Font.BOLD, 18));
-        submit.setForeground(commonconstant.SECONDARY_COLOR);
-        submit.setBackground(commonconstant.DARK_BLUE);
-        submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        submit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e){
-                super.mouseClicked(e);
-                FillUpPediatrics.this.dispose();
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
-            }
-        });
-        submit.setBounds(900,530,200,50);
-
-
         JButton back = new JButton("BACK");
-        back.setFont(new Font("DIALOG", Font.BOLD,18));
+        back.setFont(new Font("Dialog", Font.BOLD,18));
         back.setForeground(commonconstant.SECONDARY_COLOR);
         back.setBackground(commonconstant.DARK_BLUE);
         back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         back.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
-            super.mouseClicked(e);
-            FillUpPediatrics.this.dispose();
-            new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Pedia.this.dispose();
+                new DoctorTypeAppointment(id1,loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1).setVisible(true);
             }
         });
-        back.setBounds(1030,70,120,30);
-
-        add(submit);
-        add(back);
+        back.setBounds(1020,100,130,30);
 
 
-========
->>>>>>>> upstream/main:appoinment/src/doctors/Pedia.java
         JLabel text1 = new JLabel("Patient Details");
         text1.setBounds(250, -100, 600, 400);
         text1.setForeground(commonconstant.TEXT_COLOR);
@@ -181,14 +152,20 @@ public class Pedia extends doctors{
         JComboBox<String> comboBox = new JComboBox<>(genderType);
         comboBox.setFont(new Font("Dialog", Font.PLAIN,20));
         comboBox.setForeground(commonconstant.TEXT_COLOR);
+        comboBox.setBounds(650, 372, 100, 25);
+
+        JLabel day = new JLabel("Select Day");
+        day.setFont(new Font("Dialog", Font.PLAIN,18));
+        day.setForeground(commonconstant.TEXT_COLOR);
+        day.setBounds(950,170,200,25);
 
         String [] Date={
-          "Monday",
-          "Tusday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
+                "Monday",
+                "Tusday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
         };
 
         JComboBox<String> comboBox1 = new JComboBox<>(Date);
@@ -196,11 +173,6 @@ public class Pedia extends doctors{
         comboBox1.setForeground(commonconstant.TEXT_COLOR);
         comboBox1.setBounds(950,200,120,25);
 
-
-        JLabel selectDay = new JLabel("Select Day");
-        selectDay.setBounds(950, 170, 200, 25);
-        selectDay.setForeground(commonconstant.TEXT_COLOR);
-        selectDay.setFont(new Font("Dialog", Font.PLAIN, 18));
 
 
         JTextField genderflield = new JTextField();
@@ -235,9 +207,8 @@ public class Pedia extends doctors{
         submit.setForeground(commonconstant.SECONDARY_COLOR);
         submit.setBackground(commonconstant.DARK_BLUE);
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        submit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -282,7 +253,7 @@ public class Pedia extends doctors{
                 }
             }
         });
-        submit.setBounds(770,530,200,50);
+        submit.setBounds(950,530,200,50);
         add(submit);
 
 
@@ -296,14 +267,15 @@ public class Pedia extends doctors{
         add(agefield);
         add(genderLabel);
         add(comboBox);
+        add(comboBox1);
         add(Address);
         add(Addressfield);
         add(number);
         add(numberfield);
-        add(Patient3Panel);
-        add(comboBox1);
-        add(selectDay);
+        add(back);
+        add(day);
         add(losLabel);
+        add(Patient3Panel);
 
     }
     private boolean validateUser( String Last_name, String first_name, String middle_name, String sex, int age, long number, String address){
