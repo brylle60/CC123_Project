@@ -156,25 +156,6 @@ public class Family_med extends doctors{
         comboBox.setBounds(650, 372, 100, 25);
 
 
-        JLabel day = new JLabel("Select Day");
-        day.setFont(new Font("Dialog", Font.PLAIN,18));
-        day.setForeground(commonconstant.TEXT_COLOR);
-        day.setBounds(950,170,200,25);
-
-        String [] Date={
-                "Monday",
-                "Tusday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday"
-        };
-
-        JComboBox<String> comboBox1 = new JComboBox<>(Date);
-        comboBox1.setFont(new Font("Dialog",Font.PLAIN,20));
-        comboBox1.setForeground(commonconstant.TEXT_COLOR);
-        comboBox1.setBounds(950,200,120,25);
-
 
 
         JTextField genderflield = new JTextField();
@@ -202,6 +183,53 @@ public class Family_med extends doctors{
         numberfield.setBounds(450, 472, 350, 25);
         numberfield.setForeground(commonconstant.TEXT_COLOR);
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));
+
+        JLabel select = new JLabel("Select Appointment Date");
+        select.setBounds(450,510,200,30);
+        select.setForeground(commonconstant.TEXT_COLOR);
+        select.setFont(new Font("Dialog",Font.PLAIN,18));
+
+        JLabel birthdatetxtformat = new JLabel("mm/dd/year:");
+        birthdatetxtformat.setBounds(450,535,130,30);
+        birthdatetxtformat.setForeground(commonconstant.TEXT_COLOR);
+        birthdatetxtformat.setFont(new Font("Dialog",Font.PLAIN,18));
+
+        String [] birthdate = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+
+        JComboBox<String> Birthdate = new JComboBox<>(birthdate);
+        Birthdate.setFont(new Font("Dialog",Font.PLAIN,18));
+        Birthdate.setForeground(commonconstant.TEXT_COLOR);
+        Birthdate.setBounds(450,570,130,30);
+
+        String [] Birthdate1={"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+
+        JComboBox<String>birthdate1 = new JComboBox<>(Birthdate1);
+        birthdate1.setFont(new Font("Dialog",Font.PLAIN,18));
+        birthdate1.setForeground(commonconstant.TEXT_COLOR);
+        birthdate1.setBounds(585,570,130,30);
+
+        String [] Birthdate2= {"2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017",
+                "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009",
+                "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001",
+                "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993",
+                "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985",
+                "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977",
+                "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969",
+                "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961",
+                "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953",
+                "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945",
+                "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937",
+                "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929",
+                "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921",
+                "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913",
+                "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905",
+                "1904", "1903", "1902", "1901", "1900"};
+
+        JComboBox<String> birthdate2 = new JComboBox<>(Birthdate2);
+        birthdate2.setFont(new Font("Dialog",Font.PLAIN,18));
+        birthdate2.setForeground(commonconstant.TEXT_COLOR);
+        birthdate2.setBounds(720,570,130,30);
+
 
 
         JButton submit = new JButton("SUBMIT");
@@ -251,7 +279,7 @@ public class Family_med extends doctors{
                 }
             }
         });
-        submit.setBounds(950,530,200,50);
+        submit.setBounds(950,650,200,50);
         add(submit);
 
 
@@ -267,13 +295,16 @@ public class Family_med extends doctors{
         add(agefield);
         add(genderLabel);
         add(comboBox);
-        add(comboBox1);
+        add(select);
+        add(birthdatetxtformat);
+        add(Birthdate);
+        add(birthdate1);
+        add(birthdate2);
         add(Address);
         add(Addressfield);
         add(number);
         add(numberfield);
         add(back);
-        add(day);
         add(losLabel);
         add(Patient3Panel);
 
