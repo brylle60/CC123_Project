@@ -34,6 +34,7 @@ public class loginpage extends form {
         addGuiComponents();
 
     }
+    //
 //
     private void addGuiComponents(){
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/logotransparent.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file

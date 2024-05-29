@@ -183,7 +183,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new PatientProfile1().setVisible(true);
+                new OPHTHALMOLOGIST().setVisible(true);
             }
         });
 
@@ -200,7 +200,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new PatientProfile2().setVisible(true);
+                new Pedia().setVisible(true);
             }
         });
 
@@ -217,7 +217,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new PatientProfile3().setVisible(true);
+                new Family_med().setVisible(true);
             }
         });
 
@@ -234,7 +234,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new PatientProfile4().setVisible(true);
+                new Obstetrics().setVisible(true);
             }
         });
 
