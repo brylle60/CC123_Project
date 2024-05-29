@@ -22,6 +22,7 @@ public class fam_medDb {
             insertUser.setString(8, address);
             insertUser.setTime(9, Time.valueOf(time_appointment));
             insertUser.setDate(10, Date.valueOf(date_appointment));
+
             insertUser.executeUpdate();
 
         }catch (SQLException e){
@@ -31,7 +32,7 @@ public class fam_medDb {
     }
     public static boolean validateRegistretion(String last_name, String first_name){
         try {
-            Connection connection = DriverManager.getConnection(commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD, commonconstant.DB_DOCTORS);
+            Connection connection = DriverManager.getConnection(commonconstant.DB_DOCTORS, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
             PreparedStatement validate = connection.prepareStatement("SELECT * FROM "+ commonconstant.FAMILY_MED +" WHERE last_name = ? AND first_name = ?");
 
             validate.setString(1, last_name);

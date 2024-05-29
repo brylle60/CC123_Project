@@ -1,31 +1,27 @@
 package doctors;
 
-import constant.TimeSlotManager;
 import constant.commonconstant;
+import db.pedia;
 import gui.home;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.MalformedParametersException;
-import java.time.LocalTime;
 
-public class PatientProfile4 extends doctors{
+public class Pedia extends doctors{
 
     private String loggedInLastName;
     private String loggedInFirstName;
     private String loggedInMiddleName;
-    private String address;
-    private String sex;
+    private int age1;
+    private String address1;
+    private String sex1;
+    private int id1;
+    private int number1;
     private String email;
-    private int number;
-    private int age;
-    private int id;
 
-
-
-    public PatientProfile4(){
+    public Pedia(){
         super("Health Appointment");
         addDoctorComponents();
 
@@ -45,17 +41,17 @@ public class PatientProfile4 extends doctors{
         JLabel logoLabel = new JLabel(logoIcon);
         logoLabel.setBounds(0, 0, 180, 100); // Adjust the position and size as needed
 
-        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/DR SHER.png");
+        ImageIcon patientIcon = new ImageIcon("appoinment/src/image/DR FAITH.png");
         JLabel patientLabel = new JLabel(patientIcon);
         patientLabel.setBounds(105, 154, 170, 170); // Adjust the position and size as needed
 
-        JLabel doctorn3= new JLabel("Dr. Sherilyn Sanchez");
+        JLabel doctorn3= new JLabel("Dr. Chelsie Faith Maranga");
         doctorn3.setBounds(-5, 300, 400, 100);
         doctorn3.setForeground(commonconstant.TEXT_COLOR.brighter());
         doctorn3.setFont(new Font("Dialog", Font.BOLD, 20));
         doctorn3.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel servicen3= new JLabel("OBSTETRICS GYNECOLOGY");
+        JLabel servicen3= new JLabel("PEDIATRICS");
         servicen3.setBounds(-3, 330, 400, 100);
         servicen3.setForeground(commonconstant.TEXT_COLOR.brighter());
         servicen3.setFont(new Font("Arial", Font.BOLD, 15));
@@ -65,26 +61,6 @@ public class PatientProfile4 extends doctors{
         add(doctorn3);
         add(logoLabel);
         add(patientLabel);
-
-
-
-        JButton submit = new JButton("SUBMIT");
-        submit.setFont(new Font("DIALOG", Font.BOLD, 18));
-        submit.setForeground(commonconstant.SECONDARY_COLOR);
-        submit.setBackground(commonconstant.DARK_BLUE);
-        submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        submit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e){
-                super.mouseClicked(e);
-                PatientProfile4.this.dispose();
-                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
-            }
-        });
-        submit.setBounds(770,530,200,50);
-        add(submit);
-
-
 
         JLabel text1 = new JLabel("Patient Details");
         text1.setBounds(250, -100, 600, 400);
@@ -189,6 +165,62 @@ public class PatientProfile4 extends doctors{
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
 
+        JButton submit = new JButton("SUBMIT");
+        submit.setFont(new Font("DIALOG", Font.BOLD, 18));
+        submit.setForeground(commonconstant.SECONDARY_COLOR);
+        submit.setBackground(commonconstant.DARK_BLUE);
+        submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        submit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String last_name = lNamefield.getText();
+                String first_name = fNamefield.getText();
+                String middle_name = Mifield.getText();
+                String ageString = agefield.getText().trim();
+                String sex = (String) comboBox.getSelectedItem();
+                String address = Addressfield.getText();
+                String numberString = numberfield.getText().trim();
+
+                // Check if any of the required fields are empty
+                if (last_name.isEmpty() || first_name.isEmpty() || middle_name.isEmpty() || ageString.isEmpty() || sex.isEmpty() || address.isEmpty() || numberString.isEmpty()) {
+                    JOptionPane.showMessageDialog(Pedia.this, "Please fill in all the required fields.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    return; // Exit the method without proceeding further
+                }
+
+                int age = 0;
+                long number = 0;
+
+                try {
+                    age = Integer.parseInt(ageString);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(Pedia.this, "Invalid age. Please enter a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    return; // Exit the method without proceeding further
+                }
+
+                try {
+                    number = Long.parseLong(numberString);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(Pedia.this, "Invalid mobile number. Please enter a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    return; // Exit the method without proceeding further
+                }
+
+                if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
+                    if (pedia.register(last_name, first_name, middle_name, sex, age, number, address)) {
+                        Pedia.this.dispose();
+
+                        home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);
+                        home.setVisible(true);
+                        JOptionPane.showMessageDialog(home, " Appointment Sent Successfully\n" + "wait for confirmation");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(Pedia.this, " Incorrect Input");
+                }
+            }
+        });
+        submit.setBounds(770,530,200,50);
+        add(submit);
+
+
         add(lName);
         add(lNamefield);
         add(fName);
@@ -207,4 +239,10 @@ public class PatientProfile4 extends doctors{
         add(Patient3Panel);
 
     }
+    private boolean validateUser( String Last_name, String first_name, String middle_name, String sex, int age, long number, String address){
+        if ( Last_name.length() == 0 || first_name.length() == 0 || middle_name.length() == 0 || sex.length()==0 || age == 0 || number == 0 || address.length()==0) return false;
+
+        return true;
+    }
+
 }

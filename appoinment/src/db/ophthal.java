@@ -12,6 +12,7 @@ public class ophthal {
             Connection connection = DriverManager.getConnection(commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD, commonconstant.DB_DOCTORS);
             PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.FAMILY_MED + "( last_name,first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+
             insertUser.setString(1, last_name);
             insertUser.setString(2, first_name);
             insertUser.setString(3, middle_name);
@@ -22,6 +23,7 @@ public class ophthal {
             insertUser.setString(8, address);
             insertUser.setTime(9, Time.valueOf(time_appointment));
             insertUser.setDate(10, Date.valueOf(date_appointment));
+
             insertUser.executeUpdate();
 
         }catch (SQLException e){
@@ -31,7 +33,7 @@ public class ophthal {
     }
     public static boolean validateRegistretion(String last_name, String first_name){
         try {
-            Connection connection = DriverManager.getConnection(commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD, commonconstant.DB_DOCTORS);
+            Connection connection = DriverManager.getConnection(commonconstant.DB_DOCTORS, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
             PreparedStatement validate = connection.prepareStatement("SELECT * FROM "+ commonconstant.OPHTHAL +" WHERE last_name = ? AND first_name = ?");
 
             validate.setString(1, last_name);

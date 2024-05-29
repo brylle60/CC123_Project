@@ -56,7 +56,6 @@ public class commonconstant {
     // public static final String DB_USERNAME = "root";
     // public static final String DB_PASSWORD = "kentmadera04";
     // public static final String DB_TABLE_NAME = "user_info";
-
     public static final String DB_USER_INFO = "user_data";
 //    notification table
     public static final String NOTIFICATION = "Appointment_notifications";
