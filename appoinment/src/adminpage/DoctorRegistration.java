@@ -348,7 +348,11 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         });
         add(registerButton);
 
-
+        //logo
+        ImageIcon image4 = new ImageIcon("appoinment/src/image/logotransparent.png");
+        JLabel Logo = new JLabel(image4);
+        Logo.setBounds(-45, -80, 250, 250); // Adjust the position and size as needed
+        add(Logo);
 
         //Panel Transparent black
         JPanel panel1 = new JPanel();
