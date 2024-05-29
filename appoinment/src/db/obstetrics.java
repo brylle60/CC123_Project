@@ -4,11 +4,11 @@ import constant.commonconstant;
 
 import java.sql.*;
 
-public class fam_medDb {
+public class obstetrics {
     public static boolean register(String last_name, String first_name, String middle_name,String gender, int age, long number,String address){
         try{
             Connection connection = DriverManager.getConnection(commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD, commonconstant.DB_DOCTORS);
-            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.FAMILY_MED + "( last_name,first_name, middle_name, sex, age, number, address)" + "VALUES(?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.OBSTETRICS + "( last_name,first_name, middle_name, sex, age, number, address)" + "VALUES(?, ?, ?, ?, ?, ?, ?)");
 
             insertUser.setString(1, last_name);
             insertUser.setString(2, first_name);
@@ -28,7 +28,7 @@ public class fam_medDb {
     public static boolean validateRegistretion(String last_name, String first_name){
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD, commonconstant.DB_DOCTORS);
-            PreparedStatement validate = connection.prepareStatement("SELECT * FROM "+ commonconstant.FAMILY_MED +" WHERE last_name = ? AND first_name = ?");
+            PreparedStatement validate = connection.prepareStatement("SELECT * FROM "+ commonconstant.OBSTETRICS +" WHERE last_name = ? AND first_name = ?");
 
             validate.setString(1, last_name);
             validate.setString(2, first_name);
