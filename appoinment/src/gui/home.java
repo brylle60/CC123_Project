@@ -2,6 +2,7 @@ package gui;
 import constant.commonconstant;
 import db.MyJDBC;
 import db.userDb;
+import doctors.DoctorTypeAppointment;
 /*import sa curve sa panel
  */
 import javax.swing.BorderFactory;
@@ -284,7 +285,7 @@ public class home extends homepage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 home.this.dispose();
-                new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, email, address).setVisible(true);
+                new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, email, address).setVisible(true);
             }
         });
 
