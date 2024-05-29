@@ -263,7 +263,7 @@ public class Appoinment extends homepage {
         numberfield.setForeground(commonconstant.TEXT_COLOR);
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));
 
-        JLabel dashBoard = new JLabel("To days Dash Board");
+        JLabel dashBoard = new JLabel("Today's Dash Board");
         dashBoard.setBounds(750, 270,300, 25);
         dashBoard.setForeground(commonconstant.TEXT_COLOR);
         dashBoard.setFont(new Font("Dialog",Font.BOLD, 18));
@@ -396,6 +396,7 @@ public class Appoinment extends homepage {
                 Boolean finish = false;
                 selectedTime = (LocalTime) timeComboBox1.getSelectedItem();
                 String selectedService = appointmentType;
+
                 int dailogbox =    JOptionPane.showConfirmDialog(Appoinment.this, "Is the info above is correct?");
                 if (TimeSlotManager.isTimeSlotAvailable(selectedTime)) {
                     if (dailogbox == JOptionPane.YES_OPTION) {

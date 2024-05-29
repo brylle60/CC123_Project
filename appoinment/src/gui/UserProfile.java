@@ -42,6 +42,7 @@ public class UserProfile extends homepage  {
 
     public UserProfile(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String address, String email) {
         super("User Profile");
+
         this.userId = id;
         this.loggedInLastName = loggedInLastName;
         this.loggedInFirstName = loggedInFirstName;
@@ -148,7 +149,7 @@ public class UserProfile extends homepage  {
         add(patientProfile);
 
         // User information below sa Patient's Profile
-        JLabel fnameLabel = new JLabel("First Name: "+loggedInFirstName);
+        JLabel fnameLabel = new JLabel("First Name: "+ loggedInFirstName);
         fnameLabel.setBounds(115, 350, 300, 25);
         fnameLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         fnameLabel.setForeground(commonconstant.BLUE_COLOR);
@@ -187,7 +188,7 @@ public class UserProfile extends homepage  {
         add(contactNumberLabel);
 
         // for Medical History
-        JLabel medicalHistoryLabel = new JLabel("Medical History");
+        JLabel medicalHistoryLabel = new JLabel("Previous Appointments");
         medicalHistoryLabel.setBounds(668, 188, 180, 25);
         medicalHistoryLabel.setFont(new Font("Dialog", Font.BOLD, 16));
         medicalHistoryLabel.setForeground(commonconstant.DARK_BLUE);
@@ -202,6 +203,7 @@ public class UserProfile extends homepage  {
         JScrollPane medicalHistoryScrollPane = new JScrollPane(medicalHistoryList);
         medicalHistoryScrollPane.setBounds(500, 220, 500, 100);
         add(medicalHistoryScrollPane);
+
         pastappointment();
 
         // for Appointment History

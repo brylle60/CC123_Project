@@ -8,10 +8,10 @@ import java.awt.*;
 public class doctorhomepage extends doctors{
     public doctorhomepage(String title) {
         super("Health Apoointment");
-        addDoctorComponents();
+        DoctorComponents();
 
     }
-    private void DoctorComponents{
+    private void DoctorComponents(){
 
         JLabel text = new JLabel("We're bridging the gap between Doctors and Patients");
         text.setBounds(16, 80, 600, 400);
@@ -55,5 +55,23 @@ public class doctorhomepage extends doctors{
         add(doctorpanel2);
         add(doctorpanel3);
         add(doctorpanel4);
+    }
+
+    public static class Pediatrics extends DoctorpageComponents {
+        public Pediatrics(){
+            super("PEDIATRICS DOCTOR's PAGE");
+            addGUIDoctor();
+            addGUIPediatrics();
+
+        }
+        private void addGUIPediatrics(){
+            //doctors name
+            JLabel PediaTxt = new JLabel("WELCOME DR. SINETCH ITEY");
+            PediaTxt.setFont(new Font("Times New Roman", Font.BOLD, 35));
+            PediaTxt.setBounds(90,20,700,35);
+
+            add(PediaTxt);
+        }
+
     }
 }

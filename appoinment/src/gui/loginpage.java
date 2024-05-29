@@ -6,6 +6,9 @@ import adminpage.ScheduleTable;
 import adminpage.User;
 import constant.commonconstant;
 import db.MyJDBC;
+import doctors.FamilyMed;
+import doctors.Opthalmologist;
+import doctors.Pediatrics;
 
 import javax.swing.*;
 import java.awt.*;
@@ -119,8 +122,27 @@ public class loginpage extends form {
                 } else if (admin(email, password)) {
                     new AdminHome().setVisible(true);
                     loginpage.this.dispose();
+                    JOptionPane.showMessageDialog(loginpage.this, "WELCOME DOCTOR");
+                }
+                    else if (opthalmologist(email, password)) {
+                    new Opthalmologist().setVisible(true);
+                    loginpage.this.dispose();
+                    JOptionPane.showMessageDialog(loginpage.this, "WELCOME DOCTOR");
+                }
+                    else if (famMed(email, password)) {
+                    new FamilyMed().setVisible(true);
+                    loginpage.this.dispose();
+                    JOptionPane.showMessageDialog(loginpage.this, "WELCOME DOCTOR");
+                } else if (pediatrics(email, password)) {
+                    new Pediatrics().setVisible(true);
+                    loginpage.this.dispose();
+                    JOptionPane.showMessageDialog(loginpage.this, "WELCOME DOCTOR");
+                } else if (OBGYN(email, password)) {
+                    new Opthalmologist().setVisible(true);
+                    loginpage.this.dispose();
                     JOptionPane.showMessageDialog(loginpage.this, "WELCOME ADMIN");
-                } else {
+                }
+                    else {
                     JOptionPane.showMessageDialog(loginpage.this, "Login Failed...");
                 }
             }
@@ -178,5 +200,44 @@ public class loginpage extends form {
         if(!password.matches("password"))   return false;
         return true;
     }
+
+
+    public boolean opthalmologist(String email, String password){
+        if(email.matches("khen@example.com") && password.matches("password")) return true;
+
+
+        if (!email.matches("khen@example.com"))    return false;
+        if(!password.matches("password"))   return false;
+        return true;
+    }
+public boolean famMed(String email, String password){
+        if(email.matches("john@example.com") && password.matches("password")) return true;
+
+
+        if (!email.matches("john@example.com"))    return false;
+        if(!password.matches("password"))   return false;
+        return true;
+    }
+
+    public boolean pediatrics(String email, String password){
+        if(email.matches("chelsie@example.com") && password.matches("password")) return true;
+
+
+        if (!email.matches("chelsie@example.com"))    return false;
+        if(!password.matches("password"))   return false;
+        return true;
+    }
+
+    public boolean OBGYN(String email, String password){
+        if(email.matches("sherilyn@example.com") && password.matches("password")) return true;
+
+
+        if (!email.matches("sherilyn@example.com"))    return false;
+        if(!password.matches("password"))   return false;
+        return true;
+    }
+
+
+
 
 }
