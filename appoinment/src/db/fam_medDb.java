@@ -11,7 +11,7 @@ public class fam_medDb {
 
         try{
             Connection connection = DriverManager.getConnection( commonconstant.DB_DOCTORS, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.FAMILY_MED + "( last_name,first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.FAMILY_MED + "( last_name, first_name, middle_name, sex, age, number, address, time_appoitnment, date_appointment)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             insertUser.setString(1, last_name);
             insertUser.setString(2, first_name);

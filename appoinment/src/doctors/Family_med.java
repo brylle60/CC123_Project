@@ -253,7 +253,8 @@ public class Family_med extends doctors{
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                LocalTime time = null;
+                LocalTime time = LocalTime.ofSecondOfDay(12);
+                time =  LocalTime.ofSecondOfDay(time.getHour());
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -297,7 +298,7 @@ public class Family_med extends doctors{
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
 
-                    if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
+                    if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address, time, date1)) {
                         Family_med.this.dispose();
 
                         home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);
