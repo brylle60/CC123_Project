@@ -400,23 +400,23 @@ public class home extends homepage {
         availableServices.setBounds(10,15, 500, 40);
         availableServices.setForeground(commonconstant.SECONDARY_COLOR);
 
-        JLabel generalConsult = new JLabel("    General Consultation");
+        JLabel generalConsult = new JLabel("    OPTHALMOLOGIST");
         generalConsult.setFont(new Font("Dialogs", Font.BOLD, 18));
         generalConsult.setForeground(commonconstant.TEXT_COLOR);
         generalConsult.setBounds(10,55, 300, 30);
 
 
-        JLabel labDiagnostics = new JLabel("    Laboratory and Diagnostics");
+        JLabel labDiagnostics = new JLabel("    PEDIATRICS");
         labDiagnostics.setFont(new Font("Dialogs", Font.BOLD, 18));
         labDiagnostics.setForeground(commonconstant.TEXT_COLOR);
         labDiagnostics.setBounds(10, 80, 300, 30);
 
-        JLabel rehabilitationMeds = new JLabel("    Rehabilitation and Medicine");
+        JLabel rehabilitationMeds = new JLabel("    FAMILY MEDICINE");
         rehabilitationMeds.setFont(new Font("Dialogs", Font.BOLD, 18));
         rehabilitationMeds.setForeground(commonconstant.TEXT_COLOR);
         rehabilitationMeds.setBounds(10,105, 300, 30);
 
-        JLabel onlineConsult = new JLabel("    Online Consultation");
+        JLabel onlineConsult = new JLabel("    OBGYN");
         onlineConsult.setFont(new Font("Dialogs", Font.BOLD, 18));
         onlineConsult.setForeground(commonconstant.TEXT_COLOR);
         onlineConsult.setBounds(10,130, 300, 30);
