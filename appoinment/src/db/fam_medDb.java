@@ -3,21 +3,27 @@ package db;
 import constant.commonconstant;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class fam_medDb {
-    private static int id;
-    public static boolean register(String last_name, String first_name, String middle_name,String gender, int age, long number,String address){
+    public static boolean register(String last_name, String first_name, String middle_name, String gender, int age, long number, String address, LocalTime time_appointment, LocalDate date_appointment){
+
         try{
-            Connection connection = DriverManager.getConnection(commonconstant.DB_DOCTORS, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.FAMILY_MED + "( last_name,first_name, middle_name, sex, age, number, address)" + "VALUES(?, ?, ?, ?, ?, ?, ?)");
+            Connection connection = DriverManager.getConnection(commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD, commonconstant.DB_DOCTORS);
+            PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.FAMILY_MED + "( last_name,first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             insertUser.setString(1, last_name);
             insertUser.setString(2, first_name);
             insertUser.setString(3, middle_name);
-            insertUser.setString(4, gender);
-            insertUser.setInt(5,age);
-            insertUser.setLong(6, number);
-            insertUser.setString(7, address);
+            insertUser.setString(4, middle_name);
+            insertUser.setString(5, gender);
+            insertUser.setInt(6,age);
+            insertUser.setLong(7, number);
+            insertUser.setString(8, address);
+            insertUser.setTime(9, Time.valueOf(time_appointment));
+            insertUser.setDate(10, Date.valueOf(date_appointment));
+
             int rowsInserted = insertUser.executeUpdate();
             if (rowsInserted > 0) {
                 // Book the time slot
