@@ -2,11 +2,17 @@ package doctors;
 
 
 
+import db.NotificationManager;
+import db.NotificationQueue;
 import db.userDb;
 import gui.loginpage;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -47,7 +53,8 @@ public class OphthalDocPage extends doctors{
 
     public OphthalDocPage(int id, int age, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int number, String address, String email) {
         super("Ophthalmologist Doctor Page");
-
+        handleNotifications();
+        retrieveUnconfirmedNotifications();
         addDoctorProfileGUI();
     }
     private void addDoctorProfileGUI() {
@@ -198,6 +205,7 @@ public class OphthalDocPage extends doctors{
             public void mouseClicked(MouseEvent e) {
                 OphthalDocPage.this.dispose();
                 new HistoryAppointments().setVisible(true);
+                
             }
         });
         add(today);
@@ -410,6 +418,77 @@ private void addGUIOptal() {
             LocalDate date = appointment.getDate();
             LocalTime timeOfAppointment = appointment.getTime();
              appointmentTableModel.addRow(new Object[]{patientNumber, lastName, firstName, sex, age, timeOfAppointment});
+        }
+    }
+    private void retrieveUnconfirmedNotifications() {
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("SELECT last_name, message FROM " + commonconstant.NOTIFICATION + " WHERE confirmed = false");
+            ResultSet resultSet = statement.executeQuery();
+
+
+            while (resultSet.next()) {
+                String notificationId = resultSet.getString("last_name");
+
+                String notificationMessage = resultSet.getString("message");
+                int response = JOptionPane.showConfirmDialog(this, notificationMessage, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
+                if (response == JOptionPane.YES_OPTION) {
+                    confirmAppointment(notificationId);
+                } else {
+                    declineAppointment(notificationId);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void confirmAppointment(String last_name) {
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + commonconstant.NOTIFICATION + " SET confirmed = true WHERE last_name = ?");
+            updateStatement.setString(1, last_name);
+            updateStatement.executeUpdate();
+
+            // Store the confirmed appointment in the main database
+            PreparedStatement insertAppointment = connection.prepareStatement("INSERT INTO "+commonconstant.CONFIRMED_NOTIF+" (last_name, doctor_name, appointment_date) VALUES (?, ?, ?)");
+            insertAppointment.setString(1, last_name);
+            insertAppointment.setString(2, "Dr. John Brylle Crodua"); // Replace with the appropriate doctor's name
+            insertAppointment.setDate(3, new java.sql.Date(System.currentTimeMillis())); // Replace with the actual appointment date
+            insertAppointment.executeUpdate();
+
+            // Send a notification to the user
+            // Send a notification to the user
+            String notificationMessage = "Your appointment with Dr. John Brylle Crodua has been confirmed.";
+            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void declineAppointment(String last_name) {
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM " + commonconstant.NOTIFICATION + " WHERE last_name = ?");
+            statement.setString(1, last_name);
+            statement.executeUpdate();
+            // Send a notification to the user
+            String notificationMessage = "Your appointment with Dr. John Brylle Crodua has been declined.";
+            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+            // Additional logic to notify the user that the appointment was declined
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void handleNotifications() {
+        while (NotificationQueue.hasNotifications()) {
+            String notification = NotificationQueue.pollNotification();
+            int response = JOptionPane.showConfirmDialog(this, notification, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                confirmAppointment(String.valueOf(response));
+            } else {
+                declineAppointment(String.valueOf(response));
+            }
         }
     }
 }
