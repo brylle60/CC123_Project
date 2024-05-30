@@ -1,5 +1,7 @@
 package TIMESLOTS;
 
+import db.timeslotManager;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class DoctorsSchedules {
     public void addTimeSlot(LocalTime startTime, LocalTime endTime) {
         TimeSlots timeSlot = new TimeSlots(0, startTime, endTime, true);
         timeSlots.add(timeSlot);
-        // Call the timeRegister method from timeslotManager to save the time slot in the database
+        timeslotManager.registerTimeSlot(doctorId, date, startTime, endTime);
     }
 
     public List<TimeSlots> getAvailableTimeSlots() {
@@ -36,7 +38,7 @@ public class DoctorsSchedules {
         for (TimeSlots timeSlot : timeSlots) {
             if (timeSlot.getStartTime().equals(time)) {
                 timeSlot.setAvailable(false);
-                // Call the updateTimeSlot method from timeslotManager to update the time slot in the database
+                timeslotManager.updateTimeSlotAvailability(timeSlot.getId(), false);
                 break;
             }
         }
@@ -46,7 +48,7 @@ public class DoctorsSchedules {
         for (TimeSlots timeSlot : timeSlots) {
             if (timeSlot.getStartTime().equals(time)) {
                 timeSlot.setAvailable(true);
-                // Call the updateTimeSlot method from timeslotManager to update the time slot in the database
+                timeslotManager.updateTimeSlotAvailability(timeSlot.getId(), true);
                 break;
             }
         }
@@ -54,7 +56,8 @@ public class DoctorsSchedules {
 
     // Load time slots from the database using the timeslotManager
     public void loadTimeSlots() {
-        // Implement database logic to load time slots for the specific doctor and date
-        // Call the timeRegister method from timeslotManager to save the loaded time slots
+        timeSlots.clear(); // Clear the existing time slots
+        List<TimeSlots> availableSlots = timeslotManager.getAvailableTimeSlotsForDoctorAndDate(doctorId, date);
+        timeSlots.addAll(availableSlots);
     }
 }

@@ -2,10 +2,13 @@ package doctors;
 
 
 
+import TIMESLOTS.TimeSlots;
 import db.NotificationManager;
 import db.NotificationQueue;
+import db.timeslotManager;
 import db.userDb;
 import gui.loginpage;
+import db.fam_medDb;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import adminpage.schedules;
 
@@ -49,6 +53,18 @@ public class OphthalDocPage extends doctors{
     private static DefaultListModel<String> medicalHistoryModel;
     private static JList<String> medicalHistoryList;
     private  JTable opthalAppointmentTable;
+    private JComboBox<String> startTimeDropdown;
+    private JComboBox<String> endTimeDropdown;
+
+    private static final List<LocalTime> START_TIMES = List.of(
+            LocalTime.of(8, 0), // 8:00 AM
+            LocalTime.of(13, 0) // 1:00 PM
+    );
+
+    private static final List<LocalTime> END_TIMES = List.of(
+            LocalTime.of(11, 0), // 11:00 AM
+            LocalTime.of(16, 0) // 4:00 PM
+    );
 
 
     public OphthalDocPage(int id, int age, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int number, String address, String email) {
@@ -56,6 +72,7 @@ public class OphthalDocPage extends doctors{
         handleNotifications();
         retrieveUnconfirmedNotifications();
         addDoctorProfileGUI();
+        loadAvailableTimeSlots();
     }
     private void addDoctorProfileGUI() {
 
@@ -74,6 +91,41 @@ public class OphthalDocPage extends doctors{
         JLabel avatarLabel = new JLabel(avatarIcon);
         avatarLabel.setBounds(170, 190, 150, 150);
         add(avatarLabel);
+
+        // Start time dropdown
+        startTimeDropdown = new JComboBox<>();
+        for (LocalTime startTime : START_TIMES) {
+            startTimeDropdown.addItem(startTime.toString());
+        }
+        startTimeDropdown.setBounds(800, 650, 100, 25);
+        add(startTimeDropdown);
+
+// End time dropdown
+        endTimeDropdown = new JComboBox<>();
+        for (LocalTime endTime : END_TIMES) {
+            endTimeDropdown.addItem(endTime.toString());
+        }
+        endTimeDropdown.setBounds(920, 650, 100, 25);
+        add(endTimeDropdown);
+
+// Submit button
+        JButton submitButton = new JButton("Submit");
+        submitButton.setBounds(1040, 650, 100, 25);
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String startTimeString = (String) startTimeDropdown.getSelectedItem();
+                String endTimeString = (String) endTimeDropdown.getSelectedItem();
+
+                // Parse the selected times into LocalTime objects
+                LocalTime startTime = LocalTime.parse(startTimeString);
+                LocalTime endTime = LocalTime.parse(endTimeString);
+
+                // Call the handleTimeSlotSelection method
+                handleTimeSlotSelection(startTime, endTime);
+            }
+        });
+        add(submitButton);
 
 
         // Nothing button
@@ -205,7 +257,7 @@ public class OphthalDocPage extends doctors{
             public void mouseClicked(MouseEvent e) {
                 OphthalDocPage.this.dispose();
                 new HistoryAppointments().setVisible(true);
-                
+
             }
         });
         add(today);
@@ -491,4 +543,31 @@ private void addGUIOptal() {
             }
         }
     }
+    private void loadAvailableTimeSlots() {
+        // Get the available time slots from the database
+        int doctorId = 1;
+        List<TimeSlots> availableSlots = timeslotManager.getAvailableTimeSlotsForDoctorAndDate(doctorId, LocalDate.now());
+
+        // Clear the existing time slot options
+//        startTimeDropdown.removeAllItems();
+//        endTimeDropdown.removeAllItems();
+
+        // Populate the dropdowns with the available time slots
+        for (TimeSlots timeSlot : availableSlots) {
+            startTimeDropdown.addItem(timeSlot.getStartTime().toString());
+            endTimeDropdown.addItem(timeSlot.getEndTime().toString());
+        }
+    }
+    private void handleTimeSlotSelection(LocalTime startTime, LocalTime endTime) {
+        // Call the registerTimeSlot method from the timeslotManager to store the selected time slot in the database
+        int doctorId = 1;
+        int slotId = timeslotManager.registerTimeSlot(doctorId, LocalDate.now(), startTime, endTime);
+
+        // Make the registered time slot available to users
+        fam_medDb.addAvailableTimeSlots(doctorId, LocalDate.now(), Collections.singletonList(startTime), Collections.singletonList(endTime));
+
+        // Reload the available time slots after registering the new slot
+        loadAvailableTimeSlots();
+    }
+
 }

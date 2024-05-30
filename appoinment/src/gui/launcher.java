@@ -29,6 +29,7 @@ public class launcher {
 
         @Override
             public void run() {
+            //new OphthalDocPage(id, age, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, number, address, email).setVisible(true);
             new GuestPage().setVisible(true);
 
             }

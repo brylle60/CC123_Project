@@ -1,5 +1,7 @@
 package doctors;
 
+import TIMESLOTS.DoctorsSchedules;
+import TIMESLOTS.TimeSlots;
 import constant.commonconstant;
 import db.pedia;
 import gui.home;
@@ -12,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Pedia extends doctors{
 
@@ -243,6 +246,36 @@ private LocalDate date_appointment;
         birthdate2.setForeground(commonconstant.TEXT_COLOR);
         birthdate2.setBounds(720,570,130,30);
 
+        JLabel timeLabel = new JLabel("Select Time Slot");
+        timeLabel.setBounds(450, 610, 200, 30);
+        timeLabel.setForeground(commonconstant.TEXT_COLOR);
+        timeLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+        add(timeLabel);
+
+        JComboBox<String> timeSlotComboBox = new JComboBox<>();
+        timeSlotComboBox.setBounds(650, 610, 200, 30);
+        timeSlotComboBox.setFont(new Font("Dialog", Font.PLAIN, 18));
+        timeSlotComboBox.setForeground(commonconstant.TEXT_COLOR);
+        add(timeSlotComboBox);
+
+        // Assuming you have a doctorId and selectedDate
+        // Assuming you have a doctorId and selectedDate
+        int doctorId = 1;
+        LocalDate selectedDate = LocalDate.now();
+
+        DoctorsSchedules doctorSchedule = new DoctorsSchedules(doctorId, selectedDate);
+        doctorSchedule.loadTimeSlots();
+        List<TimeSlots> availableSlots = doctorSchedule.getAvailableTimeSlots();
+
+// Populate the timeSlotComboBox with the available time slots
+        for (TimeSlots timeSlot : availableSlots) {
+            LocalTime startTime = timeSlot.getStartTime();
+            LocalTime endTime = timeSlot.getEndTime();
+            String slotString = String.format("%02d:%02d - %02d:%02d", startTime.getHour(), startTime.getMinute(), endTime.getHour(), endTime.getMinute());
+            timeSlotComboBox.addItem(slotString);
+        }
+
+
 
 
 
@@ -262,6 +295,22 @@ private LocalDate date_appointment;
                 String address = Addressfield.getText();
                 String numberString = numberfield.getText().trim();
 
+
+                LocalTime startTime = null;
+
+                String selectedSlotString = (String) timeSlotComboBox.getSelectedItem();
+                if (selectedSlotString != null) {
+                    String[] timeParts = selectedSlotString.split(" - ");
+                    if (timeParts.length == 2) {
+                        String[] startTimeParts = timeParts[0].split(":");
+                        String[] endTimeParts = timeParts[1].split(":");
+
+                        if (startTimeParts.length == 2 && endTimeParts.length == 2) {
+                            startTime = LocalTime.of(Integer.parseInt(startTimeParts[0]), Integer.parseInt(startTimeParts[1]));
+                            LocalTime endTime = LocalTime.of(Integer.parseInt(endTimeParts[0]), Integer.parseInt(endTimeParts[1]));
+                        }
+                    }
+                }
 
                 // Check if any of the required fields are empty
                 if (last_name.isEmpty() || first_name.isEmpty() || middle_name.isEmpty() || ageString.isEmpty() || sex.isEmpty() || address.isEmpty() || numberString.isEmpty()) {
@@ -298,7 +347,8 @@ private LocalDate date_appointment;
                 LocalDate date1 = LocalDate.of(year, month, day);
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
-                    if (pedia.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
+                    if (pedia.register(last_name, first_name, middle_name, sex, age, number, address, startTime, date1)) {
+                        doctorSchedule.bookAppointment(startTime);
 
                         Pedia.this.dispose();
 
