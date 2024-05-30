@@ -1,56 +1,122 @@
 package adminpage;
 
+
 import constant.commonconstant;
 import db.MyJDBC;
-import gui.*;
+import gui.form2Register;
+import gui.loginpage;
 
-import java.util.Arrays;
-import javax.swing.JComboBox;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.util.Arrays;
+import javax.swing.JComboBox;
 
-public class DoctorRegistration extends DoctorRegistrationExtends {
+
+public class regDoctor extends form2Register{
     private JComboBox<String> combox;
-    public DoctorRegistration() {
-        super("Doctor registration page");
+    public regDoctor() {
+        super("Doctor Register");
         addGuiComponents();
+
     }
 
     private void addGuiComponents() {
-        /*ImageIcon logoIcon = new ImageIcon("appoinment/src/image/logo.png");
+        ImageIcon logoIcon = new ImageIcon("appoinment/src/image/logo.png"); // Replace "path_to_your_logo_image_file.jpg" with the actual path to your image file
+        // Create a JLabel to display the logo image
         JLabel logoLabel = new JLabel(logoIcon);
 
-        logoLabel.setBounds(90, -10, 300, 300);
+        logoLabel.setBounds(90, -10, 300, 300); // Adjust the position and size as needed
         add(logoLabel);
-*/
 
 
-        JLabel registerlabel = new JLabel("Doctor");
-        registerlabel .setBounds(315, -10, 520, 100);
-        registerlabel.setForeground(commonconstant.DARKERBLUE_REG);
-        registerlabel.setFont(new Font("Georgia", Font.BOLD, 30));
+
+
+        JLabel registerlabel = new JLabel("MEDCare");
+        registerlabel .setBounds(725, 5, 520, 100);
+        registerlabel.setForeground(commonconstant.BUTTON_COLOR);
+        registerlabel.setFont(new Font("Dialog", Font.BOLD, 30));
+
         add(registerlabel);
 //
-        JLabel registerlabel2 = new JLabel("Registration");
-        registerlabel2 .setBounds(430, -10, 520, 100);
-        registerlabel2.setForeground(commonconstant.DARKTEAL_REGISTER);
-        registerlabel2.setFont(new Font("Georgia", Font.BOLD, 30));
+        JLabel registerlabel2 = new JLabel("Registration ");
+        registerlabel2 .setBounds(870, 5, 520, 100);
+        registerlabel2.setForeground(commonconstant.HOME_BG1_GRAY);
+        registerlabel2.setFont(new Font("Dialog", Font.BOLD, 30));
         add(registerlabel2);
+
+ JLabel registerlabel3 = new JLabel("For Doctors ");
+        registerlabel3 .setBounds(800, 40, 520, 100);
+        registerlabel3.setForeground(commonconstant.HOME_BG1_GRAY);
+        registerlabel3.setFont(new Font("Dialog", Font.BOLD, 30));
+        add(registerlabel3);
+
+
+        //MEDCARE Medical Appointment!
+        JLabel description1label = new JLabel("Welcome to ");
+        description1label.setBounds(95, 295, 400, 25);
+        description1label.setForeground(commonconstant.DARKERBLUE_REG);
+        description1label.setFont(new Font("Georgia",Font.PLAIN, 16));
+
+        add(description1label);
+        //
+        JLabel description1Alabel = new JLabel("MEDCARE");
+        description1Alabel.setBounds(185, 295, 400, 25);
+        description1Alabel.setForeground(commonconstant.DARKTEAL_REGISTER);
+        description1Alabel.setFont(new Font("Georgia",Font.BOLD, 20));
+        add(description1Alabel);
+//
+        JLabel description1Blabel = new JLabel("Medical Appointment!");
+        description1Blabel.setBounds(185, 325, 400, 25);
+        description1Blabel.setForeground(commonconstant.TEAL_REGISTER);
+        description1Blabel.setFont(new Font("Times New Roman",Font.BOLD, 21));
+        add(description1Blabel);
+
+//add description
+        JLabel description2label = new JLabel("We are dedicated to revolutionizing ");
+        description2label.setBounds(135, 400, 500, 25);
+        description2label.setForeground(commonconstant.HOME_BG1_BLUE);
+        description2label.setFont(new Font("Dialog",Font.PLAIN, 14));
+        add(description2label);
+
+        JLabel description2Alabel = new JLabel("the way you manage your healthcare appointments. ");
+        description2Alabel.setBounds(88, 425, 500, 25);
+        description2Alabel.setForeground(commonconstant.HOME_BG1_BLUE);
+        description2Alabel.setFont(new Font("Dialog",Font.PLAIN, 14));
+        add(description2Alabel);
+
+        JLabel description2Blabel = new JLabel("Our platform is designed to provide seamless ");
+        description2Blabel.setBounds(101, 450, 500, 25);
+        description2Blabel.setForeground(commonconstant.HOME_BG1_BLUE);
+        description2Blabel.setFont(new Font("Dialog",Font.PLAIN, 14));
+        add(description2Blabel);
+
+        JLabel description2Clabel = new JLabel("scheduling, ensuring you can access ");
+        description2Clabel.setBounds(127, 475, 500, 25);
+        description2Clabel.setForeground(commonconstant.HOME_BG1_BLUE);
+        description2Clabel.setFont(new Font("Dialog",Font.PLAIN, 14));
+        add(description2Clabel);
+
+        JLabel description2Dlabel = new JLabel("medical care conveniently and efficiently.");
+        description2Dlabel.setBounds(112, 500, 500, 25);
+        description2Dlabel.setForeground(commonconstant.HOME_BG1_BLUE);
+        description2Dlabel.setFont(new Font("Dialog",Font.PLAIN, 14));
+        add(description2Dlabel);
 
 
         //last name
         JLabel namelabel1 = new JLabel("Last Name:");
-        namelabel1.setBounds(200, 100, 400, 25);
+        namelabel1.setBounds(620, 125, 400, 25);
         namelabel1.setForeground(commonconstant.SECONDARY_COLOR);
-        namelabel1.setFont(new Font("Georgia",Font.PLAIN, 18));
+        namelabel1.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField nameField1 = new JTextField();
-        nameField1.setBounds(300, 100, 350, 25);
+        nameField1.setBounds(720, 125, 350, 30);
         nameField1.setBackground(commonconstant.SECONDARY_COLOR);
         nameField1.setForeground(commonconstant.TEXT_COLOR);
         nameField1.setFont(new Font("Dialog", Font.PLAIN, 15));
@@ -60,38 +126,40 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
 
         //first name
         JLabel namelabel2 = new JLabel("First Name:");
-        namelabel2.setBounds(200, 150, 400, 25);
+        namelabel2.setBounds(620, 175, 400, 25);
         namelabel2.setForeground(commonconstant.SECONDARY_COLOR);
         namelabel2.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField nameField2 = new JTextField();
-        nameField2.setBounds(300, 150, 350, 25);
+        nameField2.setBounds(720, 175, 350, 30);
         nameField2.setBackground(commonconstant.SECONDARY_COLOR);
         nameField2.setForeground(commonconstant.TEXT_COLOR);
         nameField2.setFont(new Font("Dialog", Font.PLAIN, 15));
+
         add(namelabel2);
         add(nameField2);
 
         //middle name
         JLabel namelabel3 = new JLabel("Middle Name:");
-        namelabel3.setBounds(180, 200, 400, 25);
+        namelabel3.setBounds(605, 225, 400, 25);
         namelabel3.setForeground(commonconstant.SECONDARY_COLOR);
         namelabel3.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField nameField3 = new JTextField();
-        nameField3.setBounds(300, 200, 350, 25);
+        nameField3.setBounds(720, 225, 350, 35);
         nameField3.setBackground(commonconstant.SECONDARY_COLOR);
         nameField3.setForeground(commonconstant.TEXT_COLOR);
-        nameField3.setFont(new Font("Dialog", Font.PLAIN, 15));
+        nameField3.setFont(new Font("Dialog", Font.PLAIN, 18));
         add(namelabel3);
         add(nameField3);
 
-
         //Sex
+
         JLabel sex = new JLabel("Sex:");
-        sex.setBounds(230, 250, 400, 25);
+        sex.setBounds(860, 278, 400, 25);
         sex.setForeground(commonconstant.SECONDARY_COLOR);
         sex.setFont(new Font("Dialog",Font.PLAIN, 18));
+
         add(sex);
 
         String[] appointmentType = {
@@ -100,40 +168,41 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         JComboBox<String> comboBox = new JComboBox<>(appointmentType);
         comboBox.setFont(new Font("Dialog", Font.PLAIN,18));
         comboBox.setForeground(commonconstant.TEXT_COLOR);
-        comboBox.setBounds(300, 250, 100, 25);
+        comboBox.setBounds(900, 275, 100, 30);
         add(comboBox);
 
         JLabel birthdatetxt = new JLabel("Birth Date:");
-        birthdatetxt.setBounds(200, 300, 400, 25);
+        birthdatetxt.setBounds(620, 325, 400, 25);
         birthdatetxt.setForeground(commonconstant.SECONDARY_COLOR);
         birthdatetxt.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JLabel birthdatetxtformat = new JLabel("(mm-dd-yyyy)");
-        birthdatetxtformat.setBounds(200, 320, 400, 25);
+        birthdatetxtformat.setBounds(610, 345, 400, 25);
         birthdatetxtformat.setForeground(commonconstant.SECONDARY_COLOR);
         birthdatetxtformat.setFont(new Font("Dialog",Font.ITALIC, 15));
 
+
         add(birthdatetxt);
         add(birthdatetxtformat);
-
-        //birth month
+        //birthdate
         String[] birthdate = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+
 
         JComboBox<String> Birthdate = new JComboBox<>(birthdate);
         Birthdate.setFont(new Font("Dialog", Font.PLAIN,18));
         Birthdate.setForeground(commonconstant.TEXT_COLOR);
-        Birthdate.setBounds(300, 295, 100, 25);
+        Birthdate.setBounds(720, 325, 100, 30);
         add(Birthdate);
 
-        //birth date
+        //birthdate
         String[] birthdate1 = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
         JComboBox<String> Birthdate1 = new JComboBox<>(birthdate1);
         Birthdate1.setFont(new Font("Dialog", Font.PLAIN,18));
         Birthdate1.setForeground(commonconstant.TEXT_COLOR);
-        Birthdate1.setBounds(420, 295, 100, 25);
+        Birthdate1.setBounds(835, 325, 100, 30);
         add(Birthdate1);
 
-        //birth year
+        //birthdate
         String[] birthdate2 = {"2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017",
                 "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009",
                 "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001",
@@ -154,59 +223,84 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         JComboBox<String> Birthdate2 = new JComboBox<>(birthdate2);
         Birthdate2.setFont(new Font("Dialog", Font.PLAIN,18));
         Birthdate2.setForeground(commonconstant.TEXT_COLOR);
-        Birthdate2.setBounds(540, 295, 100, 25);
+        Birthdate2.setBounds(950, 325, 100, 30);
         add(Birthdate2);
 
         //Age
         JLabel age = new JLabel("Age:");
-        age.setBounds(500, 250, 400, 25);
+        age.setBounds(620, 275, 400, 25);
         age.setForeground(commonconstant.SECONDARY_COLOR);
         age.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField age1 = new JTextField();
-        age1.setBounds(545, 250, 80, 25);
+        age1.setBounds(720, 275, 80, 35);
         age1.setBackground(commonconstant.SECONDARY_COLOR);
         age1.setForeground(commonconstant.TEXT_COLOR);
-        age1.setFont(new Font("Dialog", Font.PLAIN, 15));
+        age1.setFont(new Font("Dialog", Font.PLAIN, 18));
+
         add(age);
         add(age1);
 
-        //Address
+        String[] specializations = {
+                "Cardiology", "Dermatology", "Endocrinology", "Gastroenterology",
+                "Neurology", "Oncology", "Pediatrics", "Psychiatry", "Radiology",
+                "Surgery", "Urology"
+        };
+
+
+        //Specialization
+        JLabel specialization = new JLabel("Specialization: ");
+        specialization.setBounds(590, 375, 400, 25);
+        specialization.setForeground(commonconstant.SECONDARY_COLOR);
+        specialization.setFont(new Font("Dialog",Font.PLAIN, 18));
+
+        JComboBox<String> specializationCB= new JComboBox<>(specializations);
+        specializationCB.setFont(new Font("Dialog", Font.PLAIN,18));
+        specializationCB.setForeground(commonconstant.TEXT_COLOR);
+        specializationCB.setBounds(750, 375, 200, 30);
+
+        add(specializationCB);
+        add(specialization);
+
         JLabel address1 = new JLabel("Address:");
-        address1.setBounds(200, 350, 400, 25);
+        address1.setBounds(620, 425, 400, 25);
         address1.setForeground(commonconstant.SECONDARY_COLOR);
         address1.setFont(new Font("Dialog",Font.PLAIN, 18));
 
+
         JTextField address2 = new JTextField();
-        address2.setBounds(300, 350, 350, 25);
+        address2.setBounds(720, 425, 350, 35);
         address2.setBackground(commonconstant.SECONDARY_COLOR);
         address2.setForeground(commonconstant.TEXT_COLOR);
-        address2.setFont(new Font("Dialog", Font.PLAIN, 15));
+        address2.setFont(new Font("Dialog", Font.PLAIN, 18));
+
         add(address1);
         add(address2);
 
+
         // add email label
         JLabel email = new JLabel("E-mail Address:");
-        email.setBounds(170, 400, 400, 25);
+        email.setBounds(580, 475, 400, 25);
         email.setForeground(commonconstant.SECONDARY_COLOR);
         email.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField emailField = new JTextField();
-        emailField.setBounds(300, 400, 350, 25);
+
+        emailField.setBounds(720, 475, 350, 35);
         emailField.setBackground(commonconstant.SECONDARY_COLOR);
         emailField.setForeground(commonconstant.TEXT_COLOR);
-        emailField.setFont(new Font("Dialog", Font.PLAIN, 15));
 
         add(email);
         add(emailField);
 
         JLabel number = new JLabel("Mobile Number: ");
-        number.setBounds(170, 445, 400, 25);
+        number.setBounds(580, 525, 400, 25);
         number.setForeground(commonconstant.SECONDARY_COLOR);
         number.setFont(new Font("Dialog",Font.PLAIN, 18));
 
         JTextField numberField = new JTextField();
-        numberField.setBounds(300, 450, 350, 25);
+
+        numberField.setBounds(720, 525, 350, 35);
         numberField.setBackground(commonconstant.SECONDARY_COLOR);
         numberField.setForeground(commonconstant.TEXT_COLOR);
 
@@ -214,14 +308,19 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         add(numberField);
 
 
+
+
+
         //password label
         JLabel passwordlabel = new JLabel("Password:");
-        passwordlabel.setBounds(200, 495, 400, 25);
+
+        passwordlabel.setBounds(620, 575, 400, 25);
         passwordlabel.setFont(new Font("Dialog",Font.PLAIN, 18));
         passwordlabel.setForeground(commonconstant.SECONDARY_COLOR);
 
         JPasswordField passwordField = new JPasswordField();
-        passwordField.setBounds(300, 500, 350, 25);
+
+        passwordField.setBounds(720, 575, 350, 35);
         passwordField.setBackground(commonconstant.SECONDARY_COLOR);
         passwordField.setForeground(commonconstant.TEXT_COLOR);
 
@@ -232,14 +331,14 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
 
         //confirm password
         JLabel rePassword = new JLabel("Confirm Password:");
-        rePassword.setBounds(130, 545, 400, 25);
+        rePassword.setBounds(555, 625, 400, 25);
         rePassword.setFont(new Font("Dialog",Font.PLAIN, 18));
         rePassword.setForeground(commonconstant.SECONDARY_COLOR);
 
         JPasswordField repasswordField = new JPasswordField();
 
         //confirm password
-        repasswordField.setBounds(300, 550, 350, 25);
+        repasswordField.setBounds(720, 625, 350, 35);
         repasswordField.setBackground(commonconstant.SECONDARY_COLOR);
         repasswordField.setForeground(commonconstant.TEXT_COLOR);
         repasswordField.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -247,35 +346,21 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         add(rePassword);
         add(repasswordField);
 
-        // TYPE OF APPOINTMENT
-        JLabel appointment = new JLabel("Type of Appointment:");
-        appointment.setBounds(115, 595, 400, 25);
-        appointment.setForeground(commonconstant.SECONDARY_COLOR);
-        appointment.setFont(new Font("Dialog",Font.PLAIN, 18));
-        add(appointment);
-
-        String[] app = {
-                "Obstetrics & Gynaecology", "Pediatrics", "Ophthalmology","Family Medicine"
-        };
-        JComboBox<String> appointmentt = new JComboBox<>(app);
-        appointmentt.setFont(new Font("Dialog", Font.PLAIN,18));
-        appointmentt.setForeground(commonconstant.TEXT_COLOR);
-        appointmentt.setBounds(300, 595, 344, 25);
-        add(appointmentt);
-
 
         //registration button
-        JButton registerButton = new JButton("Register");
-        registerButton.setBounds(355, 635, 200,45);
-        registerButton.setForeground(commonconstant.SECONDARY_COLOR);
-        registerButton.setBackground(commonconstant.DARKTEAL_REGISTER);
-        registerButton.setFont(new Font("Dialog", Font.BOLD, 18));
+        JButton regiserButton = new JButton("Register");
+        regiserButton.setForeground(commonconstant.SECONDARY_COLOR);
 
-        registerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        registerButton.addActionListener(new ActionListener() {
+        regiserButton.setFont(new Font("Dialog", Font.BOLD, 18));
+
+        regiserButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        regiserButton.setBackground(commonconstant.BUTTON_COLOR);
+
+        regiserButton.setBounds(770, 655, 250,50);
+        regiserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*String LastName = null;
+                String LastName = null;
                 String FirstName = null;
                 String MiddleName = null;
                 String sex = null;
@@ -285,7 +370,7 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
                 int age = 0;
                 String email = null;
                 String address = null;
-                String numberString = numberField.getText().trim();
+                String numberString = numberField.getText().trim(); // Trim any leading/trailing whitespace
 
                 if (numberString.isEmpty()) {
                     // Handle the case where the numberField is empty
@@ -295,7 +380,7 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
                         number = Long.parseLong(numberString);
                     } catch (NumberFormatException ex) {
                         // Handle the case where the numberField contains an invalid value
-                        JOptionPane.showMessageDialog(gui.DoctorRegistration.this, "Invalid mobile number. Please enter a valid number.");
+                        JOptionPane.showMessageDialog(regDoctor.this, "Invalid mobile number. Please enter a valid number.");
                         return; // Exit the method without proceeding further
                     }
                 }
@@ -312,7 +397,7 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
                     email = emailField.getText();
                     address = address2.getText();
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(gui.DoctorRegistration.this, "Error: Invalid input. Please enter valid values.");
+                    JOptionPane.showMessageDialog(regDoctor.this, "Error: Invalid input. Please enter valid values.");
                     return;
                 }
 /// Get the selected value from the combo box
@@ -329,51 +414,73 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
                 Boolean logg = true;
 
                 if (validateuserinput(LastName, FirstName,MiddleName, sex, age, number ,passsword, rePassword, email, address)) {
-                    if (MyJDBC.DoctorRegistration(LastName, FirstName, MiddleName, sex, age, number, email, passsword, address, birthdate, logg)) {
-                        gui.DoctorRegistration.this.dispose();
+                    if (MyJDBC.register(LastName, FirstName, MiddleName, sex, age, number, email, passsword, address, birthdate, logg)) {
+                        regDoctor.this.dispose();
                         loginpage login = new loginpage();
                         login.setVisible(true);
                         JOptionPane.showMessageDialog(login, "Registered Account Successfully");
                     } else {
-                        JOptionPane.showMessageDialog(gui.DoctorRegistration.this, "Error: Email already exists");
+                        JOptionPane.showMessageDialog(regDoctor.this, "Error: Email already exists");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(gui.DoctorRegistration.this, "Error. Username must contain 6 characters\n" + "and/or password must match in confirm password\n" + "and/or email is missing");
+                    JOptionPane.showMessageDialog(regDoctor.this, "Error. Username must contain 6 characters\n" + "and/or password must match in confirm password\n" + "and/or email is missing");
                 }
             }
         });
-        */
-                DoctorRegistration.this.dispose();
-                new AdminPageController().setVisible(true);
+        add(regiserButton);
+
+        JLabel loginLabel2 = new JLabel("Already have an account?");
+        loginLabel2.setForeground(commonconstant.SECONDARY_COLOR);
+        loginLabel2.setBounds(780, 700, 250, 30);
+
+        add(loginLabel2);
+        JLabel loginLabel = new JLabel("<html><u>LOGIN HERE!</u></html>");
+        loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        loginLabel.setForeground(commonconstant.DARKERBLUE_REG);
+        // if the user have already an account or have an existing account
+
+        loginLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                regDoctor.this.dispose();
+
+                new loginpage().setVisible(true);
             }
         });
-        add(registerButton);
 
-        //logo
-        ImageIcon image4 = new ImageIcon("appoinment/src/image/logotransparent.png");
-        JLabel Logo = new JLabel(image4);
-        Logo.setBounds(-45, -80, 250, 250); // Adjust the position and size as needed
-        add(Logo);
+        loginLabel.setBounds(930, 700, 250, 30);
+        add(loginLabel);
 
-        //Panel Transparent black
+        //Panel Transparent brown
         JPanel panel1 = new JPanel();
+
         panel1.setLayout(new BorderLayout());
 
         JLabel panelLabel1 = new JLabel();
         panel1.add(panelLabel1, BorderLayout.CENTER);
         panel1.setBackground(new Color (0, 0, 0, 80));
         // Set the size and location of the panel
-        panel1.setBounds( 0, 0, 900, 730);
+        panel1.setBounds( 550, 0, 850, 780);
+
+
+
+        // Add the panel to the main container
         add(panel1);
 
 
-        // background picture
-        ImageIcon image = new ImageIcon("appoinment/src/image/DoctorRegistration.png");
+        //stethoscope background picture
+        ImageIcon image = new ImageIcon("appoinment/src/image/scope1reg .png");
         JLabel image2 = new JLabel(image);
-        image2.setBounds(0, 0, 900, 730); // Adjust the position and size as needed
+        image2.setBounds(550, 0, 725, 1000); // Adjust the position and size as needed
         add(image2); // right bg picture
 
 
+        //abstract background picture
+        ImageIcon imageA = new ImageIcon("appoinment/src/image/abstractreg.png");
+        JLabel image3 = new JLabel(imageA);
+        image3.setBounds(-50, 0, 725, 1000); // Adjust the position and size as needed
+        add(image3); // left bg picture
 
     }
     private boolean validateuserinput(String LastName, String FirstName, String MiddleName, String sex, int age, long number,String password, String rePassword, String email, String address){
@@ -395,7 +502,6 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
 
     }
 }
-
 
 
 

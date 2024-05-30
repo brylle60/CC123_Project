@@ -16,13 +16,12 @@ public class fam_medDb {
             insertUser.setString(1, last_name);
             insertUser.setString(2, first_name);
             insertUser.setString(3, middle_name);
-            insertUser.setString(4, middle_name);
-            insertUser.setString(5, gender);
-            insertUser.setInt(6,age);
-            insertUser.setLong(7, number);
-            insertUser.setString(8, address);
-            insertUser.setTime(9, Time.valueOf(time_appointment));
-            insertUser.setDate(10, Date.valueOf(date_appointment));
+            insertUser.setString(4, gender);
+            insertUser.setInt(5,age);
+            insertUser.setLong(6, number);
+            insertUser.setString(7, address);
+            insertUser.setTime(8, Time.valueOf(time_appointment));
+            insertUser.setDate(9, Date.valueOf(date_appointment));
 
             int rowsInserted = insertUser.executeUpdate();
             if (rowsInserted > 0) {

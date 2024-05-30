@@ -1,7 +1,9 @@
 package gui;
 
 
-
+import adminpage.AdminHome;
+import adminpage.regDoctor;
+import doctors.OphthalDocPage;
 import doctors.DoctorTypeAppointment;
 import doctors.DoctorpageComponents;
 import doctors.OPHTHALMOLOGIST;
@@ -27,15 +29,20 @@ public class launcher {
 
         @Override
             public void run() {
+
 //                new OPHTHALMOLOGIST().setVisible(true);
 //                new DoctorpageComponents().setVisible(true);
 
                 new doctorhomepage.Pediatrics().setVisible(true);
             //    new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+//new OphthalDocPage(id,  age, loggedInLastName, loggedInFirstName,  loggedInMiddleName ,sex,  number,  address,  email).setVisible(true);
+//new regDoctor().setVisible(true);
+                //new DoctorTypeAppointment().setVisible(true);
 
 
 //                new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number,email, address).setVisible(true);
 //new AdminHome().setVisible(true);
+
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);
 //           new loginpage().setVisible(true);
