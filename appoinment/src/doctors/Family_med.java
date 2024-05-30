@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Family_med extends doctors{
 
@@ -23,7 +25,8 @@ public class Family_med extends doctors{
     private String email;
     private int number1;
     private int id1;
-
+    private LocalTime time_appointment;
+    private LocalDate date_appointment;
 
 
     public Family_med(){
@@ -273,7 +276,7 @@ public class Family_med extends doctors{
                 }
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
-                    if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address)) {
+                    if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
                         Family_med.this.dispose();
 
                         home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);

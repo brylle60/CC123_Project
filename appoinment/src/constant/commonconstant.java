@@ -48,7 +48,8 @@ public class commonconstant {
     public static final String DB_NOTIFICATION = "jdbc:mysql://127.0.0.1:3306/notification";
     public static final String DB_DOCTORS = "jdbc:mysql://127.0.0.1:3306/doctors";
     public static final String DB_USERNAME = "root";
-    public static final String DB_PASSWORD = "brylle1234";
+    public static final String DB_PASSWORD = "chelsepit";
+
 //    passsword table
     public static final String DB_TABLE_NAME = "user_info";
     // public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/system";
@@ -57,6 +58,7 @@ public class commonconstant {
     // public static final String DB_PASSWORD = "kentmadera04";
     // public static final String DB_TABLE_NAME = "user_info";
     public static final String DB_USER_INFO = "user_data";
+    public static final String DOCTOR_INFO = "doctor_info";
 //    notification table
     public static final String NOTIFICATION = "Appointment_notifications";
     //patient tables

@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Pedia extends doctors{
 
@@ -22,6 +24,8 @@ public class Pedia extends doctors{
     private int id1;
     private int number1;
     private String email;
+private LocalTime time_appointment;
+private LocalDate date_appointment;
 
     public Pedia(){
         super("Health Appointment");
@@ -271,7 +275,7 @@ public class Pedia extends doctors{
                 }
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
-                    if (pedia.register(last_name, first_name, middle_name, sex, age, number, address)) {
+                    if (pedia.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
                         Pedia.this.dispose();
 
                         home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);
