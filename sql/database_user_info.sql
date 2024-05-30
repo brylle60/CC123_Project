@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: user_schema
+-- Host: 127.0.0.1    Database: database
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.36-2ubuntu3
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,12 +24,19 @@ DROP TABLE IF EXISTS `user_info`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_info` (
   `idUser_Id` int NOT NULL AUTO_INCREMENT,
-  `User_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `middle_name` varchar(45) NOT NULL,
+  `sex` varchar(45) NOT NULL,
+  `age` tinyint unsigned NOT NULL,
+  `mobile_number` bigint NOT NULL,
   `User_email` varchar(45) DEFAULT NULL,
   `user_password` varchar(45) NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `birthdate` date NOT NULL DEFAULT (curdate()),
   `logged_in_users` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idUser_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +45,7 @@ CREATE TABLE `user_info` (
 
 LOCK TABLES `user_info` WRITE;
 /*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
-INSERT INTO `user_info` VALUES (12,'username','username@gmail.com','password',NULL),(13,'username',NULL,'password',NULL),(14,'username1234',NULL,'password',NULL),(15,'username',NULL,'password',NULL),(16,'username',NULL,'password',NULL),(17,'user_name123',NULL,'password',NULL),(18,'username',NULL,'password',NULL),(19,'username',NULL,'password',NULL),(20,'username',NULL,'password',NULL),(21,'username',NULL,'password',NULL),(22,'123456',NULL,'password',NULL),(23,'username',NULL,'password',NULL),(24,'carlrey',NULL,'carlrey123',NULL),(25,'brylle',NULL,'password',NULL),(26,'username',NULL,'password',1),(27,'username',NULL,'password',1),(28,'crodua',NULL,'brylle',NULL),(29,'brylle123',NULL,'password',1),(30,'crodua12',NULL,'password',1),(32,'username',NULL,'password',1),(33,'username',NULL,'password',1),(34,'johnbrylle',NULL,'crodua',1),(35,'wwwwww',NULL,'password',1),(36,'username','example@email.com','password',1),(37,'john1234','johnbryllecrodua@gmail.com','password',1),(38,'anything','example@email.com','password',1),(39,'johnbrylle12','brylle@gamil.com','brylle',1),(40,'john12345','johnbrylle@gmail.com','brylle',1),(41,'mingmong','mingmong@gmail.com','123abc',1);
+INSERT INTO `user_info` VALUES (49,'admin','admin','admin','',23,12345678912,'john@gmail.com','password','bon,bin','2020-05-05',0),(50,'admin','admin','admin','male',23,12345678912,'john@gmail.com','password','bon,bin','2020-05-05',0),(52,'admin','admin','admin','male',23,1234567891,'john@gmail.com','password','bon,bin','2020-05-05',1),(54,'john','admin','admin','male',25,1234567891,'johnbrylle@gmail.com','password','bon,bin','2020-05-05',1),(55,'Crodua','John Brylle','Almedilla','Male',18,9928633764,'johnbrryllecrodua@gmail.com','password','bong bong','2005-06-29',1);
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-16 17:45:08
+-- Dump completed on 2024-05-30 18:38:40
