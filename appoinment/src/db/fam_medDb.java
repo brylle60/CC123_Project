@@ -34,8 +34,7 @@ public class fam_medDb {
 
                 return true;
             }
-            String notificationMessage = "New appointment booked: " + last_name;
-            NotificationQueue.addNotification(notificationMessage);
+
 
         }catch (SQLException e){
             e.printStackTrace();

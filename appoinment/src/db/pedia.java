@@ -24,9 +24,17 @@ public class pedia {
             insertUser.setTime(9, Time.valueOf(time_appointment));
             insertUser.setDate(10, Date.valueOf(date_appointment));
 
-            insertUser.executeUpdate();
-            String notificationMessage = "New appointment booked: " + last_name;
-            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+            int rowsInserted = insertUser.executeUpdate();
+            if (rowsInserted > 0) {
+                // Book the time slot
+
+//
+                // Store the appointment notification
+                String notificationMessage = "New appointment booked: " + last_name;
+                NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+
+                return true;
+            }
 
         }catch (SQLException e){
             e.printStackTrace();
