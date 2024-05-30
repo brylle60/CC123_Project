@@ -59,11 +59,13 @@ public class commonconstant {
     public static final String DB_USER_INFO = "user_data";
 //    notification table
     public static final String NOTIFICATION = "Appointment_notifications";
+    public static final String CONFIRMED_NOTIF = "confirmed_appointment";
     //patient tables
     public static final String FAMILY_MED = "family_med";
     public static final String OBSTETRICS = "obstetrics";
     public static final String OPHTHAL = "ophthal";
     public static final String PEDIA = "pedia";
+
 
     //time slot table
     public static final String TIME = "timestamps";

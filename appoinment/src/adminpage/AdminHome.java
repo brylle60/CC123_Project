@@ -1,13 +1,10 @@
 package adminpage;
 
-import constant.TimeSlotManager;
 import constant.commonconstant;
 import gui.loginpage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -29,7 +26,7 @@ public class AdminHome extends adminform {
         //this button should  reset all slot in time and should be pressed after a day or so and/or if its sunday dont press it.
         JButton resetButton = new JButton("Reset Booked Time Slots");
         resetButton.addActionListener(e -> {
-            TimeSlotManager.resetBookedTimeSlots();
+
             JOptionPane.showMessageDialog(null, "Booked time slots have been reset.");
         });
 

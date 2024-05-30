@@ -18,10 +18,19 @@ public class fam_medDb {
             insertUser.setInt(5,age);
             insertUser.setLong(6, number);
             insertUser.setString(7, address);
-            insertUser.executeUpdate();
-            String notificationMessage = "New appointment booked: " + last_name;
-            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+            int rowsInserted = insertUser.executeUpdate();
+            if (rowsInserted > 0) {
+                // Book the time slot
 
+//
+                // Store the appointment notification
+                String notificationMessage = "New appointment booked: " + last_name;
+                NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+
+                return true;
+            }
+            String notificationMessage = "New appointment booked: " + last_name;
+            NotificationQueue.addNotification(notificationMessage);
 
         }catch (SQLException e){
             e.printStackTrace();

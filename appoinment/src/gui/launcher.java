@@ -3,7 +3,9 @@ package gui;
 
 
 import doctors.DoctorTypeAppointment;
+import doctors.DoctorpageComponents;
 import doctors.OPHTHALMOLOGIST;
+import doctors.doctorhomepage;
 
 
 import javax.swing.*;
@@ -26,16 +28,18 @@ public class launcher {
 
             @Override
             public void run() {
-                new OPHTHALMOLOGIST().setVisible(true);
+//                new OPHTHALMOLOGIST().setVisible(true);
+//                new DoctorpageComponents().setVisible(true);
 
+//                new doctorhomepage().setVisible(true);
             //    new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
 
 
-                //new DoctorTypeAppointment().setVisible(true);
+//                new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number,email, address).setVisible(true);
 //new AdminHome().setVisible(true);
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);
-//           new loginpage().setVisible(true);
+           new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
 //   new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, email, address).setVisible(true);
 //new HowToAppointment().setVisible(true);

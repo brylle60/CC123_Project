@@ -1,6 +1,7 @@
 package doctors;
 
 import constant.commonconstant;
+import db.NotificationManager;
 import db.NotificationQueue;
 import gui.*;
 
@@ -26,12 +27,11 @@ public class DoctorTypeAppointment extends doctors{
     private String email;
 
     public DoctorTypeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address) {
-        super("Health Apoointment");
+        super("Health Appointment");
         addDoctorComponents();
 
         handleNotifications();
         retrieveUnconfirmedNotifications();
-
     }
 
     private void addDoctorComponents() {
@@ -310,10 +310,21 @@ public class DoctorTypeAppointment extends doctors{
     private void confirmAppointment(String last_name) {
         try {
             Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("UPDATE " + commonconstant.NOTIFICATION + " SET confirmed = true WHERE last_name = ?");
-            statement.setString(1, last_name);
-            statement.executeUpdate();
-            // Additional logic to store the appointment in the main database
+            PreparedStatement updateStatement = connection.prepareStatement("UPDATE " + commonconstant.NOTIFICATION + " SET confirmed = true WHERE last_name = ?");
+            updateStatement.setString(1, last_name);
+            updateStatement.executeUpdate();
+
+            // Store the confirmed appointment in the main database
+            PreparedStatement insertAppointment = connection.prepareStatement("INSERT INTO "+commonconstant.CONFIRMED_NOTIF+" (last_name, doctor_name, appointment_date) VALUES (?, ?, ?)");
+            insertAppointment.setString(1, last_name);
+            insertAppointment.setString(2, "Dr. John Brylle Crodua"); // Replace with the appropriate doctor's name
+            insertAppointment.setDate(3, new java.sql.Date(System.currentTimeMillis())); // Replace with the actual appointment date
+            insertAppointment.executeUpdate();
+
+            // Send a notification to the user
+            // Send a notification to the user
+            String notificationMessage = "Your appointment with Dr. John Brylle Crodua has been confirmed.";
+            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -325,6 +336,9 @@ public class DoctorTypeAppointment extends doctors{
             PreparedStatement statement = connection.prepareStatement("DELETE FROM " + commonconstant.NOTIFICATION + " WHERE last_name = ?");
             statement.setString(1, last_name);
             statement.executeUpdate();
+            // Send a notification to the user
+            String notificationMessage = "Your appointment with Dr. John Brylle Crodua has been declined.";
+            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
             // Additional logic to notify the user that the appointment was declined
         } catch (Exception e) {
             e.printStackTrace();
