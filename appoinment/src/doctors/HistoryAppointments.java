@@ -1,7 +1,7 @@
 package doctors;
 
 
-import constant.TimeSlotManager;
+
 import db.userDb;
 import gui.loginpage;
 
@@ -182,8 +182,7 @@ import static java.awt.AWTEventMulticaster.add;
                                     boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
                                     if (cancelled) {
                                         listModel.removeElementAt(selectedIndex);
-                                        TimeSlotManager.cancelTimeSlot(appointmentTime);
-                                        TimeSlotManager.addTimeSlot(appointmentTime); // Add the freed time slot back
+                                      // Add the freed time slot back
                                         JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
                                     } else {
                                         JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");

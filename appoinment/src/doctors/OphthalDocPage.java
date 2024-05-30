@@ -1,7 +1,7 @@
 package doctors;
 
 
-import constant.TimeSlotManager;
+
 import db.userDb;
 import gui.loginpage;
 
@@ -47,22 +47,9 @@ public class OphthalDocPage extends doctors{
 
     public OphthalDocPage(int id, int age, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int number, String address, String email) {
         super("Ophthalmologist Doctor Page");
+
         addDoctorProfileGUI();
     }
-
-    private void addDoctorProfileGUI(int id, int age, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, long number, String address, String email) {
-
-        this.userId = id;
-        this.loggedInLastName = loggedInLastName;
-        this.loggedInFirstName = loggedInFirstName;
-        this.loggedInMiddleName = loggedInMiddleName;
-        this.sex = sex;
-        this.age = age;
-        this.number = (int) number;
-        this.address = address;
-        this.email = email;
-    }
-
     private void addDoctorProfileGUI() {
 
 
@@ -359,8 +346,7 @@ public class OphthalDocPage extends doctors{
                                 boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
                                 if (cancelled) {
                                     listModel.removeElementAt(selectedIndex);
-                                    TimeSlotManager.cancelTimeSlot(appointmentTime);
-                                    TimeSlotManager.addTimeSlot(appointmentTime); // Add the freed time slot back
+                                     // Add the freed time slot back
                                     JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
                                 } else {
                                     JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");

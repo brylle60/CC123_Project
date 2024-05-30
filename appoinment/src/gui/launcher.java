@@ -30,7 +30,7 @@ public class launcher {
 //                new OPHTHALMOLOGIST().setVisible(true);
 //                new DoctorpageComponents().setVisible(true);
 
-//                new doctorhomepage().setVisible(true);
+                new doctorhomepage.Pediatrics().setVisible(true);
             //    new DoctorTypeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
 
 
@@ -38,7 +38,7 @@ public class launcher {
 //new AdminHome().setVisible(true);
 //new About().setVisible(true);
               //new AppointmentList().setVisible(true);
-           new loginpage().setVisible(true);
+//           new loginpage().setVisible(true);
 //new typeAppointment().setVisible(true);
 //   new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex , age, number, email, address).setVisible(true);
 //new HowToAppointment().setVisible(true);
