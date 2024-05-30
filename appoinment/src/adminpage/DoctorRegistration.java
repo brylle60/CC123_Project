@@ -31,14 +31,14 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
 
 
         JLabel registerlabel = new JLabel("Doctor");
-        registerlabel .setBounds(300, -10, 520, 100);
-        registerlabel.setForeground(commonconstant.BUTTON_COLOR);
+        registerlabel .setBounds(315, -10, 520, 100);
+        registerlabel.setForeground(commonconstant.DARKERBLUE_REG);
         registerlabel.setFont(new Font("Georgia", Font.BOLD, 30));
         add(registerlabel);
 //
         JLabel registerlabel2 = new JLabel("Registration");
         registerlabel2 .setBounds(430, -10, 520, 100);
-        registerlabel2.setForeground(commonconstant.HOME_BG1_GRAY);
+        registerlabel2.setForeground(commonconstant.DARKTEAL_REGISTER);
         registerlabel2.setFont(new Font("Georgia", Font.BOLD, 30));
         add(registerlabel2);
 
@@ -82,7 +82,7 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         nameField3.setBounds(300, 200, 350, 25);
         nameField3.setBackground(commonconstant.SECONDARY_COLOR);
         nameField3.setForeground(commonconstant.TEXT_COLOR);
-        nameField3.setFont(new Font("Dialog", Font.PLAIN, 18));
+        nameField3.setFont(new Font("Dialog", Font.PLAIN, 15));
         add(namelabel3);
         add(nameField3);
 
@@ -167,7 +167,7 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         age1.setBounds(545, 250, 80, 25);
         age1.setBackground(commonconstant.SECONDARY_COLOR);
         age1.setForeground(commonconstant.TEXT_COLOR);
-        age1.setFont(new Font("Dialog", Font.PLAIN, 18));
+        age1.setFont(new Font("Dialog", Font.PLAIN, 15));
         add(age);
         add(age1);
 
@@ -181,7 +181,7 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         address2.setBounds(300, 350, 350, 25);
         address2.setBackground(commonconstant.SECONDARY_COLOR);
         address2.setForeground(commonconstant.TEXT_COLOR);
-        address2.setFont(new Font("Dialog", Font.PLAIN, 18));
+        address2.setFont(new Font("Dialog", Font.PLAIN, 15));
         add(address1);
         add(address2);
 
@@ -195,6 +195,7 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         emailField.setBounds(300, 400, 350, 25);
         emailField.setBackground(commonconstant.SECONDARY_COLOR);
         emailField.setForeground(commonconstant.TEXT_COLOR);
+        emailField.setFont(new Font("Dialog", Font.PLAIN, 15));
 
         add(email);
         add(emailField);
@@ -248,7 +249,7 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
 
         // TYPE OF APPOINTMENT
         JLabel appointment = new JLabel("Type of Appointment:");
-        appointment.setBounds(130, 595, 400, 25);
+        appointment.setBounds(115, 595, 400, 25);
         appointment.setForeground(commonconstant.SECONDARY_COLOR);
         appointment.setFont(new Font("Dialog",Font.PLAIN, 18));
         add(appointment);
@@ -259,15 +260,15 @@ public class DoctorRegistration extends DoctorRegistrationExtends {
         JComboBox<String> appointmentt = new JComboBox<>(app);
         appointmentt.setFont(new Font("Dialog", Font.PLAIN,18));
         appointmentt.setForeground(commonconstant.TEXT_COLOR);
-        appointmentt.setBounds(310, 595, 344, 25);
+        appointmentt.setBounds(300, 595, 344, 25);
         add(appointmentt);
 
 
         //registration button
         JButton registerButton = new JButton("Register");
-        registerButton.setBounds(325, 635, 200,45);
+        registerButton.setBounds(355, 635, 200,45);
         registerButton.setForeground(commonconstant.SECONDARY_COLOR);
-        registerButton.setBackground(commonconstant.BUTTON_COLOR);
+        registerButton.setBackground(commonconstant.DARKTEAL_REGISTER);
         registerButton.setFont(new Font("Dialog", Font.BOLD, 18));
 
         registerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

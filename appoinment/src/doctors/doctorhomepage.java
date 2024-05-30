@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class doctorhomepage extends doctors{
-    public doctorhomepage(String title) {
+    public doctorhomepage() {
         super("Health Apoointment");
         DoctorComponents();
 
