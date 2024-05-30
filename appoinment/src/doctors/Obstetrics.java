@@ -25,7 +25,8 @@ public class Obstetrics extends doctors{
     private int age1;
     private int id1;
 
-
+    private LocalTime time_appointment;
+    private LocalDate date_appointment;
 
     public Obstetrics(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address){
         super("Health Appointment");
@@ -296,7 +297,8 @@ public class Obstetrics extends doctors{
                 }
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
-                    if (pedia.register(last_name, first_name, middle_name, sex, age, number, address, time, date1)) {
+                    if (pedia.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
+
                         Obstetrics.this.dispose();
 
                         home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);

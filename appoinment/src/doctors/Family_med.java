@@ -25,7 +25,8 @@ public class Family_med extends doctors{
     private String email;
     private long number1;
     private int id1;
-
+    private LocalTime time_appointment;
+    private LocalDate date_appointment;
 
 
     public Family_med(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address){
@@ -295,7 +296,8 @@ public class Family_med extends doctors{
                 }
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
-                    if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address, time, date1)) {
+
+                    if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
                         Family_med.this.dispose();
 
                         home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);

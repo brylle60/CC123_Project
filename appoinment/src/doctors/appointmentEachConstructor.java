@@ -1,45 +1,43 @@
 package doctors;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 public class appointmentEachConstructor {
     private int id;
-    private String last_name;
-    private String first_name;
-    private String midlle_name;
-    LocalTime time;
-    LocalDate date;
-    private String gender;
-    private String adress;
-    private long number;
-    private String Appointmet;
-
+    private String lastName;
+    private String firstName;
+    private String middleName;
+    private String specialization;
+    private String sex;
+    private String address;
+    private long contactNumber;
     private int age;
+    private String email;
+    private int birthdate;
+
+    // Default constructor
     public appointmentEachConstructor() {
-        // Default constructor
-
-        this.last_name = "";
-        this.first_name = "";
-        midlle_name = "";
-
+        this.lastName = "";
+        this.firstName = "";
+        this.middleName = "";
+        this.specialization = "";
     }
 
-    public appointmentEachConstructor(int id, String last_name, String first_name, String midlle_name, LocalTime time, LocalDate date, String gender, String adress, long number, String appointment) {
+    // Parameterized constructor
+    public appointmentEachConstructor(int id, String lastName, String firstName, String middleName, String specialization, String gender, String address, long contactNumber, int age) {
         this.id = id;
-        this.last_name = last_name;
-        this.first_name = first_name;
-        this.midlle_name = midlle_name;
-        this.time = time;
-        this.date = date;
-        this.gender = gender;
-        this.adress = adress;
-        this.number = number;
-        this.Appointmet = appointment;
-
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.specialization = specialization;
+        this.sex = sex;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.age = age;
+        this.email= email;
+        this.birthdate= birthdate ;
     }
 
-    public int getid() {
+    // Getters and setters
+    public int getId() {
         return id;
     }
 
@@ -47,88 +45,81 @@ public class appointmentEachConstructor {
         this.id = id;
     }
 
-    public String getlast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getMidlle_name() {
-        return midlle_name;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMidlle_name(String midlle_name) {
-        this.midlle_name = midlle_name;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public String getSpecialization() {
+        return specialization;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 
-    public LocalDate getDate() {
-        return date;
-
+    public String getSex() {
+        return sex;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getGender() {
-        return gender;
+    public String getAddress() {
+        return address;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getAdress() {
-        return adress;
+    public long getContactNumber() {
+        return contactNumber;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setContactNumber(long contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
-    public long getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public String getAppointmet() {
-        return Appointmet;
-    }
-
-    public void setAppointmet(String appointmet) {
-        Appointmet = appointmet;
-    }
-
-    public int getAge()   {
-        return id;
+    public int getAge() {
+        return age;
     }
 
     public void setAge(int age) {
         this.age = age;
     }
+    public int getEmail() {
+        return age;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public int getBirthdate(int birthdate) {
+        return birthdate;
+    }
+
+    public void setBirthdate(int birthdate) {
+        this.birthdate= birthdate;
+    }
 }
-
-
-
