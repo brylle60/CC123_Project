@@ -23,14 +23,23 @@ public class Family_med extends doctors{
     private String sex1;
     private String address1;
     private String email;
-    private int number1;
+    private long number1;
     private int id1;
     private LocalTime time_appointment;
     private LocalDate date_appointment;
 
 
-    public Family_med(){
+    public Family_med(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address){
         super("Health Appointment");
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+        this.sex1 = sex;
+        this.age1 = age;
+        this.number1 = number;
+        this.address1 = address;
+        this.email = email;
+        this.id1 = id;
         addDoctorComponents();
 
     }
@@ -244,6 +253,7 @@ public class Family_med extends doctors{
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                LocalTime time = null;
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -251,6 +261,16 @@ public class Family_med extends doctors{
                 String sex = (String) comboBox.getSelectedItem();
                 String address = Addressfield.getText();
                 String numberString = numberfield.getText().trim();
+                String selectedMonth = (String) Birthdate.getSelectedItem();
+                String selectedDay = (String) birthdate1.getSelectedItem();
+                String selectedYear = (String) birthdate2.getSelectedItem();
+
+// Convert the selected values to integers
+                int month = Integer.parseInt(selectedMonth);
+                int day = Integer.parseInt(selectedDay);
+                int year = Integer.parseInt(selectedYear);
+// Create a LocalDate object from the selected values
+                LocalDate date1 = LocalDate.of(year, month, day);
 
                 // Check if any of the required fields are empty
                 if (last_name.isEmpty() || first_name.isEmpty() || middle_name.isEmpty() || ageString.isEmpty() || sex.isEmpty() || address.isEmpty() || numberString.isEmpty()) {
@@ -276,6 +296,7 @@ public class Family_med extends doctors{
                 }
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
+
                     if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
                         Family_med.this.dispose();
 

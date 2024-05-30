@@ -1,6 +1,7 @@
 package doctors;
 
 import constant.commonconstant;
+import db.NotificationManager;
 import db.NotificationQueue;
 import gui.*;
 
@@ -19,18 +20,25 @@ public class DoctorTypeAppointment extends doctors{
     private String loggedInFirstName;
     private String loggedInMiddleName;
     private int age;
-    private int number;
+    private long number;
     private String address;
     private int id;
     private String sex;
     private String email;
 
     public DoctorTypeAppointment(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address) {
-        super("Health Apoointment");
+        super("Health Appointment");
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+        this.sex = sex;
+        this.age = age;
+        this.number = number;
+        this.address = address;
+        this.email = email;
+        this.id = id;
         addDoctorComponents();
 
-        handleNotifications();
-        retrieveUnconfirmedNotifications();
 
     }
 
@@ -183,7 +191,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new OPHTHALMOLOGIST().setVisible(true);
+                new OPHTHALMOLOGIST(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
 
@@ -200,7 +208,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new Pedia().setVisible(true);
+                new Pedia(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
 
@@ -217,7 +225,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new Family_med().setVisible(true);
+                new Family_med(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
 
@@ -234,7 +242,7 @@ public class DoctorTypeAppointment extends doctors{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 DoctorTypeAppointment.this.dispose();
-                new Obstetrics().setVisible(true);
+                new Obstetrics(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
             }
         });
 
@@ -284,62 +292,5 @@ public class DoctorTypeAppointment extends doctors{
 
     }
 
-    private void retrieveUnconfirmedNotifications() {
-        try {
-            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("SELECT last_name, message FROM " + commonconstant.NOTIFICATION + " WHERE confirmed = false");
-            ResultSet resultSet = statement.executeQuery();
-
-
-            while (resultSet.next()) {
-                String notificationId = resultSet.getString("last_name");
-
-                String notificationMessage = resultSet.getString("message");
-                int response = JOptionPane.showConfirmDialog(this, notificationMessage, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.YES_OPTION) {
-                    confirmAppointment(notificationId);
-                } else {
-                    declineAppointment(notificationId);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void confirmAppointment(String last_name) {
-        try {
-            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("UPDATE " + commonconstant.NOTIFICATION + " SET confirmed = true WHERE last_name = ?");
-            statement.setString(1, last_name);
-            statement.executeUpdate();
-            // Additional logic to store the appointment in the main database
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void declineAppointment(String last_name) {
-        try {
-            Connection connection = DriverManager.getConnection(commonconstant.DB_NOTIFICATION, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM " + commonconstant.NOTIFICATION + " WHERE last_name = ?");
-            statement.setString(1, last_name);
-            statement.executeUpdate();
-            // Additional logic to notify the user that the appointment was declined
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private void handleNotifications() {
-        while (NotificationQueue.hasNotifications()) {
-            String notification = NotificationQueue.pollNotification();
-            int response = JOptionPane.showConfirmDialog(this, notification, "Confirm Appointment", JOptionPane.YES_NO_OPTION);
-            if (response == JOptionPane.YES_OPTION) {
-                confirmAppointment(String.valueOf(response));
-            } else {
-                declineAppointment(String.valueOf(response));
-            }
-        }
-    }
 
 }

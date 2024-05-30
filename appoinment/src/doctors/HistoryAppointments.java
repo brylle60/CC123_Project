@@ -1,7 +1,7 @@
 package doctors;
 
 
-import constant.TimeSlotManager;
+
 import db.userDb;
 import gui.loginpage;
 
@@ -66,10 +66,17 @@ import static java.awt.AWTEventMulticaster.add;
             JPanel userProfilePanel = new JPanel();
             userProfilePanel.setLayout(null);
 
+            //description
+            JLabel medicalHistoryLabel = new JLabel("History/Finished Appointments");
+            medicalHistoryLabel.setBounds(250, 20, 900, 60);
+            medicalHistoryLabel.setFont(new Font("Georga", Font.BOLD, 40));
+            medicalHistoryLabel.setForeground(commonconstant.DARKERBLUE_REG);
+            add(medicalHistoryLabel);
+
             //logo image
             ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png");
             JLabel logoLabel = new JLabel(logoIcon);
-            logoLabel.setBounds(150, 40, 180, 100);
+            logoLabel.setBounds(50, 5, 180, 100);
             add(logoLabel);
 
 
@@ -88,28 +95,14 @@ import static java.awt.AWTEventMulticaster.add;
             });
             add(nothing);
 
-            // Unavailable button
-            JButton UnavailableButton = new JButton("Unavailable");
-            UnavailableButton.setBounds(950, 200, 150, 25);
-            UnavailableButton.setFont(new Font("Dialog", Font.BOLD, 15));
-            UnavailableButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            UnavailableButton.setForeground(commonconstant.TEXT_COLOR);
-            UnavailableButton.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    HistoryAppointments.this.dispose();
-                }
-            });
-            add(UnavailableButton);
 
-
-
-
+            //Ophthalmologist button
             JButton today = new JButton("Ophthalmologist Doc Page");
-            today.setBounds(10, 650, 250, 25);
-            today.setFont(new Font("Dialog", Font.BOLD, 12));
+            today.setBounds(1000, 90, 220, 25);
+            today.setFont(new Font("Georgia", Font.BOLD, 12));
             today.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            today.setForeground(commonconstant.TEXT_COLOR);
+            today.setForeground(commonconstant.BLUE_COLOR);
+            today.setBackground(commonconstant.TEAL_REGISTER);
             today.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -121,10 +114,11 @@ import static java.awt.AWTEventMulticaster.add;
 
             // Logout button
             JButton logout = new JButton("Logout");
-            logout.setBounds(330, 650, 150, 25);
-            logout.setFont(new Font("Dialog", Font.BOLD, 15));
+            logout.setBounds(1000, 650, 150, 40);
+            logout.setFont(new Font("Dialog", Font.BOLD, 18));
             logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            logout.setForeground(commonconstant.TEXT_COLOR);
+            logout.setForeground(commonconstant.BLUE_COLOR);
+            logout.setBackground(commonconstant.DARKTEAL_REGISTER);
             logout.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -135,14 +129,42 @@ import static java.awt.AWTEventMulticaster.add;
             });
             add(logout);
 
+            medicalHistoryModel = new DefaultListModel<>();
+            medicalHistoryList = new JList<>(medicalHistoryModel);
+            medicalHistoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            JScrollPane medicalHistoryScrollPane = new JScrollPane(medicalHistoryList);
+            medicalHistoryScrollPane.setBounds(60, 150, 1100, 480);
+            add(medicalHistoryScrollPane);
+            pastappointment();
 
 
+            //Panel upper image
+            JPanel upperPanel = new JPanel();
+            upperPanel.setLayout(new BorderLayout());
+            upperPanel.setBackground(new Color(255, 255, 255, 200));
+            upperPanel.setBounds(0, 0, 1300, 120);
+            add(upperPanel);
+
+            //upper image
+            ImageIcon image5 = new ImageIcon("appoinment/src/image/whiteBGupper.png");
+            JLabel imageU = new JLabel(image5);
+            imageU.setBounds(0, 0, 1300, 120);
+            add(imageU);
 
             //for image hexagon
             ImageIcon losIcon = new ImageIcon("appoinment/src/image/img.png");
             JLabel logsIcon = new JLabel(losIcon);
             logsIcon.setBounds(0, 0, 1300, 900);
             add(logsIcon);
+
+            //Panel page
+            JPanel BackPanel = new JPanel();
+            BackPanel.setLayout(new BorderLayout());
+            BackPanel.setBackground(new Color(255, 255, 255, 120));
+            BackPanel.setBounds(0, 0, 1300, 900);
+            add(BackPanel);
+
 
         }
 
@@ -182,8 +204,7 @@ import static java.awt.AWTEventMulticaster.add;
                                     boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
                                     if (cancelled) {
                                         listModel.removeElementAt(selectedIndex);
-                                        TimeSlotManager.cancelTimeSlot(appointmentTime);
-                                        TimeSlotManager.addTimeSlot(appointmentTime); // Add the freed time slot back
+                                      // Add the freed time slot back
                                         JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
                                     } else {
                                         JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
@@ -250,80 +271,3 @@ import static java.awt.AWTEventMulticaster.add;
             }
         }
     }
-
-
-
-    /*
-    *
-        *
-        *
-        * // Create a JList or any other suitable UI component for medical history
-
-        medicalHistoryModel = new DefaultListModel<>();
-        medicalHistoryList = new JList<>(medicalHistoryModel);
-        medicalHistoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        JScrollPane medicalHistoryScrollPane = new JScrollPane(medicalHistoryList);
-        medicalHistoryScrollPane.setBounds(500, 220, 500, 100);
-        add(medicalHistoryScrollPane);
-
-        *
-        *
-        *
-        *  pastappointment();
-
-
-         *
-         *
-
-        *
-        *
-        * listModel = new DefaultListModel<>();
-        appointmentList = new JList<>(listModel);
-        appointmentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        JScrollPane scrollPane = new JScrollPane(appointmentList);
-        scrollPane.setBounds(500, 550, 500, 200);
-        add(scrollPane);
-
-        loadAppointments();
-    *
-    *
-    *
-    * //list
-        listModel = new DefaultListModel<>();
-        appointmentList = new JList<>(listModel);
-        appointmentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(appointmentList);
-        scrollPane.setBounds(570, 40, 600, 140);
-        add(scrollPane);
-    * */
-
-    /*
-
-
-    // for Medical History
-        JLabel medicalHistoryLabel = new JLabel("Previous Appointments");
-        medicalHistoryLabel.setBounds(668, 188, 180, 25);
-        medicalHistoryLabel.setFont(new Font("Dialog", Font.BOLD, 16));
-        medicalHistoryLabel.setForeground(commonconstant.DARK_BLUE);
-        add(medicalHistoryLabel);
-
-
- // Create a JList or any other suitable UI component for medical history
-
-        medicalHistoryModel = new DefaultListModel<>();
-        medicalHistoryList = new JList<>(medicalHistoryModel);
-        medicalHistoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        JScrollPane medicalHistoryScrollPane = new JScrollPane(medicalHistoryList);
-        medicalHistoryScrollPane.setBounds(500, 220, 500, 100);
-        add(medicalHistoryScrollPane);
-
-        pastappointment();
-
-
-
-
-
-     */

@@ -1,15 +1,14 @@
 package gui;
 
 
-import adminpage.*;
-import constant.TimeSlotManager;
+import db.NotificationManager;
 import db.userDb;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.List;
-import adminpage.User;
+
 import adminpage.schedules;
 
 import constant.commonconstant;
@@ -17,7 +16,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Vector;
+
+import static db.NotificationManager.getUserNotifications;
 
 
 public class UserProfile extends homepage  {
@@ -66,6 +66,16 @@ public class UserProfile extends homepage  {
         ImageIcon logoIcon = new ImageIcon("appoinment/src/image/434024649_1363976920953749_3166889348485858378_n.png"); // Replace with the actual path to your image file
         ImageIcon avatarIcon = new ImageIcon("appoinment/src/image/usernoprofile.png"); // Replace with the actual path to your image file
 
+
+        JButton notificationButton = new JButton("Show Notifications");
+        notificationButton.setBounds(655, 520, 200, 40); // Adjust the position and size as needed
+        notificationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showNotifications();
+            }
+        });
+        add(notificationButton);
 
         // Create a JLabel to display the logo image
         JLabel logsLabel = new JLabel(losIcon);
@@ -308,8 +318,7 @@ public class UserProfile extends homepage  {
                                 boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
                                 if (cancelled) {
                                     listModel.removeElementAt(selectedIndex);
-                                    TimeSlotManager.cancelTimeSlot(appointmentTime);
-                                    TimeSlotManager.addTimeSlot(appointmentTime); // Add the freed time slot back
+
                                     JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
                                 } else {
                                     JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
@@ -330,6 +339,30 @@ public class UserProfile extends homepage  {
                 JOptionPane.showMessageDialog(this, "No appointment selected.");
             }
         }
+        List<String> userNotifications = NotificationManager.getUserNotifications(loggedInLastName);
+        if (!userNotifications.isEmpty()) {
+            StringBuilder notificationMessage = new StringBuilder();
+            for (String notification : userNotifications) {
+                notificationMessage.append(notification).append("\n");
+            }
+            JOptionPane.showMessageDialog(this, notificationMessage.toString(), "Notifications", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
+    private void showNotifications() {
+        // Retrieve notifications from the database or any other source
+        List<String> notifications = getUserNotifications(loggedInLastName); // Replace this with your actual method to retrieve notifications
+
+        if (!notifications.isEmpty()) {
+            StringBuilder notificationMessage = new StringBuilder();
+            for (String notification : notifications) {
+                notificationMessage.append(notification).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(this, notificationMessage.toString(), "Notifications", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No new notifications.", "Notifications", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
+
+}
 

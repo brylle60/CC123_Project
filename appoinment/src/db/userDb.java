@@ -1,11 +1,9 @@
 package db;
 
 
-import adminpage.User;
 import adminpage.schedules;
-import constant.TimeSlotManager;
 import constant.commonconstant;
-import gui.Appoinment;
+
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -17,7 +15,7 @@ public class userDb {
     // In the userDb class
     public static boolean book(int id, String last_name, String first_name, String midlle_name, int age, LocalTime time, String Gender, String Address, long number, String appointment, boolean cacel, boolean finished) {
         try {
-            if (TimeSlotManager.isTimeSlotAvailable(time)) {
+           // if (TimeSlotManager.isTimeSlotAvailable(time)) {
                 //if (!checkuser(id)) {
                     if (!isTimeSlotBooked(time)) {
                         Connection connection = DriverManager.getConnection(commonconstant.DB_USER, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
@@ -38,8 +36,7 @@ public class userDb {
                         int rowsInserted = insertUser.executeUpdate();
                         if (rowsInserted > 0) {
                             // Book the time slot
-                            TimeSlotManager.bookTimeSlot(time);
-                            TimeSlotManager.removeTimeSlot(time);
+
 //
                             // Store the appointment notification
                             String notificationMessage = "New appointment booked: " + first_name + " at " + time;
@@ -53,7 +50,7 @@ public class userDb {
                         // Time slot is not available
                         return false;
                     }
-                }
+              //  }
             //}
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,7 +112,7 @@ public class userDb {
             ResultSet resultSet = checkTimeSlot.executeQuery();
             resultSet.next();
             int count = resultSet.getInt(1);
-            TimeSlotManager.removeTimeSlot(time);
+
             return count > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,8 +128,7 @@ public class userDb {
             cancelStatement.setTime(3, Time.valueOf(appointmentTime));
             int rowsAffected = cancelStatement.executeUpdate();
             if (rowsAffected > 0) {
-                TimeSlotManager.freeTimeSlot(appointmentTime); // Update the available time slots
-                TimeSlotManager.addTimeSlot(appointmentTime);
+
             //    TimeSlotManager.saveBookedTimeSlots(); // Save the updated booked time slots
                 return true;
             }
@@ -171,7 +167,7 @@ public class userDb {
 
 
                 // Skip canceled appointments and appointments with unavailable time slots
-                if (canceled || !TimeSlotManager.isTimeSlotAvailable(time)) continue;
+
                 if (finished) continue;
 
 
@@ -230,7 +226,7 @@ public class userDb {
 
             while (resultSet.next()) {
                 LocalTime bookedTime = resultSet.getTime("time").toLocalTime();
-                TimeSlotManager.freeTimeSlot(bookedTime);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -247,8 +243,7 @@ public class userDb {
             finishStatement.setTime(3, Time.valueOf(appointmentTime));
             int rowsAffected = finishStatement.executeUpdate();
             if (rowsAffected > 0) {
-                TimeSlotManager.freeTimeSlot(appointmentTime); // Update the available time slots
-                TimeSlotManager.addTimeSlot(appointmentTime);
+
                 //    TimeSlotManager.saveBookedTimeSlots(); // Save the updated booked time slots
                 return true;
             }

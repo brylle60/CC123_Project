@@ -2,7 +2,7 @@ package doctors;
 
 import constant.commonconstant;
 import db.ophthal;
-import gui.Appoinment;
+
 import gui.home;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class OPHTHALMOLOGIST extends doctors{
     private String loggedInFirstName;
     private String loggedInMiddleName;
     private int age1;
-    private int number1;
+    private long number1;
     private String address1;
     private int id1;
     private String sex1;
@@ -28,7 +28,17 @@ public class OPHTHALMOLOGIST extends doctors{
     private LocalTime time_appointment;
     private LocalDate date_appointment;
     public OPHTHALMOLOGIST(){
+
         super("Health Appointment");
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+        this.sex1 = sex;
+        this.age1 = age;
+        this.number1 = number;
+        this.address1 = address;
+        this.email = email;
+        this.id1 = id;
         addDoctorComponents();
 
     }
@@ -243,6 +253,7 @@ public class OPHTHALMOLOGIST extends doctors{
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                LocalTime time = null;
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -250,6 +261,16 @@ public class OPHTHALMOLOGIST extends doctors{
                 String sex = (String) comboBox.getSelectedItem();
                 String address = Addressfield.getText();
                 String numberString = numberfield.getText().trim();
+                String selectedMonth = (String) Birthdate.getSelectedItem();
+                String selectedDay = (String) birthdate1.getSelectedItem();
+                String selectedYear = (String) birthdate2.getSelectedItem();
+
+// Convert the selected values to integers
+                int month = Integer.parseInt(selectedMonth);
+                int day = Integer.parseInt(selectedDay);
+                int year = Integer.parseInt(selectedYear);
+// Create a LocalDate object from the selected values
+                LocalDate date1 = LocalDate.of(year, month, day);
 
                 // Check if any of the required fields are empty
                 if (last_name.isEmpty() || first_name.isEmpty() || middle_name.isEmpty() || ageString.isEmpty() || sex.isEmpty() || address.isEmpty() || numberString.isEmpty()) {
@@ -276,6 +297,7 @@ public class OPHTHALMOLOGIST extends doctors{
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
                     if (ophthal.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
+
                         OPHTHALMOLOGIST.this.dispose();
 
                         home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);

@@ -15,6 +15,7 @@ import java.time.LocalTime;
 
 public class Pedia extends doctors{
 
+    private JComboBox<String> date;
     private String loggedInLastName;
     private String loggedInFirstName;
     private String loggedInMiddleName;
@@ -22,13 +23,22 @@ public class Pedia extends doctors{
     private String address1;
     private String sex1;
     private int id1;
-    private int number1;
+    private long number1;
     private String email;
 private LocalTime time_appointment;
 private LocalDate date_appointment;
 
-    public Pedia(){
+    public Pedia(int id, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int age, long number, String email, String address){
         super("Health Appointment");
+        this.loggedInLastName = loggedInLastName;
+        this.loggedInFirstName = loggedInFirstName;
+        this.loggedInMiddleName = loggedInMiddleName;
+        this.sex1 = sex;
+        this.age1 = age;
+        this.number1 = number;
+        this.address1 = address;
+        this.email = email;
+        this.id1 = id;
         addDoctorComponents();
 
     }
@@ -243,6 +253,7 @@ private LocalDate date_appointment;
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                LocalTime time = null;
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -250,6 +261,7 @@ private LocalDate date_appointment;
                 String sex = (String) comboBox.getSelectedItem();
                 String address = Addressfield.getText();
                 String numberString = numberfield.getText().trim();
+
 
                 // Check if any of the required fields are empty
                 if (last_name.isEmpty() || first_name.isEmpty() || middle_name.isEmpty() || ageString.isEmpty() || sex.isEmpty() || address.isEmpty() || numberString.isEmpty()) {
@@ -273,9 +285,21 @@ private LocalDate date_appointment;
                     JOptionPane.showMessageDialog(Pedia.this, "Invalid mobile number. Please enter a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                     return; // Exit the method without proceeding further
                 }
+                /// Get the selected value from the combo box
+                String selectedMonth = (String) Birthdate.getSelectedItem();
+                String selectedDay = (String) birthdate1.getSelectedItem();
+                String selectedYear = (String) birthdate2.getSelectedItem();
+
+// Convert the selected values to integers
+                int month = Integer.parseInt(selectedMonth);
+                int day = Integer.parseInt(selectedDay);
+                int year = Integer.parseInt(selectedYear);
+// Create a LocalDate object from the selected values
+                LocalDate date1 = LocalDate.of(year, month, day);
 
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
                     if (pedia.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
+
                         Pedia.this.dispose();
 
                         home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);

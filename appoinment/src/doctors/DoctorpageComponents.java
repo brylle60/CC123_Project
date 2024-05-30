@@ -1,5 +1,5 @@
 package doctors;
-import constant.TimeSlotManager;
+import TIMESLOTS.TimeSlots;
 import constant.commonconstant;
 import gui.form2Register;
 
@@ -42,10 +42,6 @@ public class DoctorpageComponents extends form2Register {
         timeComboBox1.setFont(new Font("Dialog", Font.PLAIN, 14));
 
         // Add available time slots to the combo box
-        for (LocalTime time : TimeSlotManager.timeSlots.keySet()) {
-            timeComboBox1.addItem(time);
-        }
-
         add(timeLabel);
         add(timeComboBox1);
 
@@ -62,9 +58,6 @@ public class DoctorpageComponents extends form2Register {
         timeComboBox2.setFont(new Font("Dialog", Font.PLAIN, 14));
 
         // Add available time slots to the combo box
-        for (LocalTime time : TimeSlotManager.timeSlots.keySet()) {
-            timeComboBox2.addItem(time);
-        }
 
         add(timeLabel2);
         add(timeComboBox2);

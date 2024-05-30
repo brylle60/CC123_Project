@@ -1,10 +1,7 @@
 package adminpage;
 
-import constant.TimeSlotManager;
 import constant.commonconstant;
 import db.userDb;
-import gui.home;
-import gui.loginpage;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -287,8 +284,6 @@ public class ScheduleTable extends adminform{
                     if (finished) {
                         DefaultTableModel tableModel = (DefaultTableModel) BookedAppointment.getModel();
                         tableModel.removeRow(selectedIndex);
-                        TimeSlotManager.cancelTimeSlot(appointmentTime);
-                        TimeSlotManager.addTimeSlot(appointmentTime);
                         JOptionPane.showMessageDialog(this, "Appointment finished.");
                     } else {
                         JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");

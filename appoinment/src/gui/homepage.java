@@ -1,6 +1,5 @@
 package gui;
 
-import constant.TimeSlotManager;
 import constant.commonconstant;
 import javax.swing.*;
 
@@ -11,7 +10,7 @@ public class homepage extends JFrame {
         setSize(1250, 800);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        TimeSlotManager.saveBookedTimeSlots();
+
 
 
         setLayout(null);

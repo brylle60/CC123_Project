@@ -108,11 +108,11 @@ public class loginpage extends form {
                 //users database validation
                 String email = usernameField.getText();
                 String password = new String(passwordField.getPassword());
-                typeAppointment appointment = new typeAppointment(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number, email, address);
+                 home home= new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName,sex, age, number, email, address);
 
 
                 if (MyJDBC.validateLogin(email, password)) {
-                      appointment.handleSuccessfulLogin(email, password);
+                    handleSuccessfulLogin(email, password);
 
                     loginpage.this.dispose();
                     //new home(loggedInLastName, loggedInFirstName, loggedInMiddleName).setVisible(true);
@@ -182,5 +182,54 @@ public class loginpage extends form {
         if(!password.matches("password"))   return false;
         return true;
     }
+    public void handleSuccessfulLogin(String email, String password) {
+        // Retrieve user information from the database
+        User loggedInUser = getUserFromDatabase(email, password);
+        if (loggedInUser != null) {
+            // Create an instance of the Appoinment class with the logged-in user's information
 
+            new home(loggedInUser.getid(),loggedInUser.getLast_name(), loggedInUser.getFirst_name(),loggedInUser.getMiddle_name(),loggedInUser.getSex(), loggedInUser.getAge(), loggedInUser.getNumber(),loggedInUser.getEmail(), loggedInUser.getAddress()).setVisible(true);
+        }
+    }
+
+    private User getUserFromDatabase(String email, String password) {
+        try {
+            // Check if the user exists and is logged in
+            if (MyJDBC.validateLogin(email, password)) {
+                Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+                PreparedStatement statement = connection.prepareStatement("SELECT idUser_Id, last_name, middle_name, User_email, first_name, sex, age, mobile_number, address, birthdate FROM " + commonconstant.DB_TABLE_NAME + " WHERE User_email = ? AND user_password = ?");
+                statement.setString(1, email);
+                statement.setString(2, password);
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next()) {
+                    int Id = resultSet.getInt("idUser_Id");
+                    String lastName = resultSet.getString("last_name");
+                    String firstName = resultSet.getString("first_name");
+                    String middleName = resultSet.getString("middle_name");
+                    String email1 = resultSet.getString("User_email");
+                    String sex = resultSet.getString("sex");
+                    int age = resultSet.getInt("age");
+                    long mobileNumber = resultSet.getLong("mobile_number");
+                    String address = resultSet.getString("address");
+                    LocalDate birthdate = resultSet.getDate("birthdate").toLocalDate();
+                    boolean logged = true;
+
+                    // Create and return a User object with the retrieved information
+                    return new User(Id, lastName, firstName, middleName, sex, age, mobileNumber, email1, password, address, birthdate, logged);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // If the user is not found or an error occurs, return null
+        return null;
+    }
 }
+
+
+
+
+
+
