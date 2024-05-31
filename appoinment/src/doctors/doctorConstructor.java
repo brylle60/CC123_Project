@@ -1,7 +1,8 @@
 package doctors;
 
-public class appointmentEachConstructor {
-    private int id;
+import java.time.LocalDate;
+
+public class doctorConstructor {
     private String lastName;
     private String firstName;
     private String middleName;
@@ -11,19 +12,20 @@ public class appointmentEachConstructor {
     private long contactNumber;
     private int age;
     private String email;
-    private int birthdate;
-
+    private String password;
+    private LocalDate birthdate;
     // Default constructor
-    public appointmentEachConstructor() {
+
+    public doctorConstructor() {
         this.lastName = "";
         this.firstName = "";
         this.middleName = "";
         this.specialization = "";
+        this.birthdate = LocalDate.parse("");
     }
 
     // Parameterized constructor
-    public appointmentEachConstructor(int id, String lastName, String firstName, String middleName, String specialization, String gender, String address, long contactNumber, int age) {
-        this.id = id;
+    public doctorConstructor(String lastName, String firstName, String middleName, String specialization, String sex, long contactNumber, int age, String password, String email, LocalDate birthdate) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -33,17 +35,12 @@ public class appointmentEachConstructor {
         this.contactNumber = contactNumber;
         this.age = age;
         this.email= email;
+        this.password = password;
         this.birthdate= birthdate ;
     }
 
     // Getters and setters
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getLastName() {
         return lastName;
@@ -115,11 +112,18 @@ public class appointmentEachConstructor {
     public void setEmail(String email) {
         this.email = email;
     }
-    public int getBirthdate(int birthdate) {
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public  String getPassword(){return  password;}
+
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(int birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
+
         this.birthdate= birthdate;
     }
 }

@@ -1,17 +1,19 @@
 package doctors;
-
-import adminpage.AdminHome;
+import db.doctorDb;
 import constant.commonconstant;
-import db.MyJDBC;
 import gui.loginpage;
-import db.MyJDBC.*;
+
+import javax.print.Doc;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+import java.time.LocalDate;
 
-public class loginpageDoc extends doctors {
+public class loginpageDoc extends JFrame {
     private int id;
+    private int age;
     private String lastName;
     private String firstName;
     private String middleName;
@@ -19,21 +21,15 @@ public class loginpageDoc extends doctors {
     private String sex;
     private String address;
     private long contactNumber;
-    private int age;
-    private int birthdate;
-
-    public loginpageDoc(int id, String lastName, String firstName, String middleName, String specialization, String sex, String address, long contactNumber, int age) {
+    private LocalDate birthdate;
+private String password;
+    public loginpageDoc() {
         super("MedCare Doctor's Login");
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.specialization = specialization;
-        this.sex = sex;
-        this.address = address;
-        this.contactNumber = contactNumber;
-        this.age = age;
-        this.birthdate= birthdate;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(900, 700);
+        setLocationRelativeTo(null); // Center the window
+        setResizable(false); // Prevent resizing
+        setLayout(null);
         addGuiComponents();
     }
 
@@ -43,25 +39,25 @@ public class loginpageDoc extends doctors {
         logoLabel.setBounds(55, 30, 300, 300);
         add(logoLabel);
 
-        JLabel greetlabel = new JLabel("Welcome back!");
-        greetlabel.setBounds(230, 115, 520, 100);
-        greetlabel.setForeground(commonconstant.DARKERBLUE_REG);
-        greetlabel.setFont(new Font("Rockwell", Font.BOLD, 47));
-        greetlabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(greetlabel);
+        JLabel greetLabel = new JLabel("Welcome Doctor!");
+        greetLabel.setBounds(230, 115, 520, 100);
+        greetLabel.setForeground(commonconstant.DARKERBLUE_REG);
+        greetLabel.setFont(new Font("Rockwell", Font.BOLD, 47));
+        greetLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(greetLabel);
 
-        JLabel loginlabel = new JLabel("MedCare Login");
-        loginlabel.setBounds(170, 170, 520, 100);
-        loginlabel.setForeground(commonconstant.DARKERBLUE_REG);
-        loginlabel.setFont(new Font("Rockwell", Font.BOLD, 29));
-        loginlabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(loginlabel);
+        JLabel loginLabel = new JLabel("MedCare Doctor Login");
+        loginLabel.setBounds(170, 170, 650, 100);
+        loginLabel.setForeground(commonconstant.DARKERBLUE_REG);
+        loginLabel.setFont(new Font("Rockwell", Font.BOLD, 29));
+        loginLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(loginLabel);
 
-        JLabel usernamelabel = new JLabel("Email:");
-        usernamelabel.setBounds(270, 283, 400, 25);
-        usernamelabel.setForeground(commonconstant.TEXT_COLOR);
-        usernamelabel.setFont(new Font("Dialog", Font.PLAIN, 17));
-        add(usernamelabel);
+        JLabel usernameLabel = new JLabel("Email:");
+        usernameLabel.setBounds(270, 283, 400, 25);
+        usernameLabel.setForeground(commonconstant.TEXT_COLOR);
+        usernameLabel.setFont(new Font("Dialog", Font.PLAIN, 17));
+        add(usernameLabel);
 
         JTextField usernameField = new JTextField();
         usernameField.setBounds(270, 313, 300, 30);
@@ -70,11 +66,11 @@ public class loginpageDoc extends doctors {
         usernameField.setFont(new Font("Dialog", Font.PLAIN, 15));
         add(usernameField);
 
-        JLabel passwordlabel = new JLabel("Password:");
-        passwordlabel.setBounds(270, 360, 400, 25);
-        passwordlabel.setFont(new Font("Dialog", Font.PLAIN, 17));
-        passwordlabel.setForeground(commonconstant.TEXT_COLOR);
-        add(passwordlabel);
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setBounds(270, 360, 400, 25);
+        passwordLabel.setFont(new Font("Dialog", Font.PLAIN, 17));
+        passwordLabel.setForeground(commonconstant.TEXT_COLOR);
+        add(passwordLabel);
 
         JPasswordField passwordField = new JPasswordField();
         passwordField.setBounds(270, 390, 300, 30);
@@ -94,23 +90,30 @@ public class loginpageDoc extends doctors {
             public void actionPerformed(ActionEvent e) {
                 String email = usernameField.getText();
                 String password = new String(passwordField.getPassword());
+                DoctorHomePage homepage = new DoctorHomePage(lastName, firstName, middleName, sex, age, contactNumber, specialization);
 
-                appointmentEachConstructor docConstructor = new appointmentEachConstructor(id, lastName, firstName, middleName, sex, specialization, address, contactNumber, age);
-
-                if (MyJDBC.validateLogin(email, password)) {
-                    // Handle successful login
+                if (doctorDb.validateLogin(email, password)){
+                    handleSuccessfulLogin(email, password);
                     loginpageDoc.this.dispose();
-                    JOptionPane.showMessageDialog(loginpageDoc.this, "Login Successful!");
-                } else if (admin(email, password)) {
-                    new AdminHome().setVisible(true);
-                    loginpageDoc.this.dispose();
-                    JOptionPane.showMessageDialog(loginpageDoc.this, "WELCOME DOCTOR");
-                } else {
-                    JOptionPane.showMessageDialog(loginpageDoc.this, "Login Failed: invalid password and/or email.");
+                    JOptionPane.showMessageDialog(loginpageDoc.this,"Logged in successfully");
+                }else {
+                    JOptionPane.showMessageDialog(loginpageDoc.this,"incorrect email or password");
                 }
+
             }
         });
         add(loginButton);
+
+       JButton back = new JButton("Return");
+       back.setBounds(120, 540, 100, 20 );
+       back.setBackground(commonconstant.BUTTON_COLOR);
+       back.addActionListener(e->{
+
+           loginpageDoc.this.dispose();
+           new loginpage().setVisible(true);
+
+       });
+       add(back);
 
         JPanel panel1 = new JPanel();
         panel1.setLayout(new BorderLayout());
@@ -126,7 +129,51 @@ public class loginpageDoc extends doctors {
         add(image2);
     }
 
-    public boolean admin(String email, String password) {
-        return "brylle@example.com".equals(email) && "password".equals(password);
+    public void handleSuccessfulLogin(String email, String password) {
+        // Retrieve user information from the database
+       doctorConstructor loggedInDoctors = getDocFromDatabase(email, password);
+        if (loggedInDoctors != null) {
+            // Create an instance of the Appoinment class with the logged-in user's information
+
+            new DoctorHomePage(loggedInDoctors.getLastName(), loggedInDoctors.getFirstName(),loggedInDoctors.getMiddleName(),loggedInDoctors.getSex(), loggedInDoctors.getAge(), loggedInDoctors.getContactNumber(), loggedInDoctors.getSpecialization()).setVisible(true);
+        }
     }
+
+
+    private doctorConstructor getDocFromDatabase(String email, String password) {
+        try {
+            Connection connection = DriverManager.getConnection(commonconstant.DB_DOCTORS, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT id, last_name, first_name, middle_name, specialization, sex, age, number, birthdate " +
+                            "FROM doctor_info " +
+                            "WHERE email = ? AND password = ?");
+            statement.setString(1, email);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String lastName = resultSet.getString("last_name");
+                String firstName = resultSet.getString("first_name");
+                String middleName = resultSet.getString("middle_name");
+                String specialization = resultSet.getString("specialization");
+                String sex = resultSet.getString("sex");
+                 int age = resultSet.getInt("age");
+                long contactNumber = resultSet.getLong("number");
+                LocalDate birthdate = resultSet.getDate("birthdate").toLocalDate();
+
+                return new doctorConstructor(lastName, firstName, middleName, specialization, sex, contactNumber, age, password,email, birthdate);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+
+    }
+
+
+
+
 }

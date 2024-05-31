@@ -1,24 +1,24 @@
 package adminpage;
 
-
+import db.doctorDb;
 import constant.commonconstant;
-import db.MyJDBC;
 import gui.form2Register;
-import gui.loginpage;
-
+import doctors.loginpageDoc;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.time.LocalDate;
-import java.util.Arrays;
 import javax.swing.JComboBox;
 
 
 public class regDoctor extends form2Register{
+    private  static  int id;
+  public static  String[] specializations = {
+            "", "Cardiology", "Dermatology", "Endocrinology", "Gastroenterology",
+            "Neurology", "Oncology", "Pediatrics", "Psychiatry", "Radiology",
+            "Surgery", "Urology"
+    };
     private JComboBox<String> combox;
     public regDoctor() {
         super("Doctor Register");
@@ -241,26 +241,22 @@ public class regDoctor extends form2Register{
         add(age);
         add(age1);
 
-        String[] specializations = {
-                "Cardiology", "Dermatology", "Endocrinology", "Gastroenterology",
-                "Neurology", "Oncology", "Pediatrics", "Psychiatry", "Radiology",
-                "Surgery", "Urology"
-        };
+
 
 
         //Specialization
-        JLabel specialization = new JLabel("Specialization: ");
-        specialization.setBounds(590, 375, 400, 25);
-        specialization.setForeground(commonconstant.SECONDARY_COLOR);
-        specialization.setFont(new Font("Dialog",Font.PLAIN, 18));
+        JLabel specializationlabel = new JLabel("Specialization: ");
+        specializationlabel.setBounds(590, 375, 400, 25);
+        specializationlabel.setForeground(commonconstant.SECONDARY_COLOR);
+        specializationlabel.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JComboBox<String> specializationCB= new JComboBox<>(specializations);
-        specializationCB.setFont(new Font("Dialog", Font.PLAIN,18));
-        specializationCB.setForeground(commonconstant.TEXT_COLOR);
-        specializationCB.setBounds(750, 375, 200, 30);
+        comboBox = new JComboBox<>(specializations);
+        comboBox.setFont(new Font("Dialog", Font.PLAIN,18));
+comboBox.setForeground(commonconstant.TEXT_COLOR);
+        comboBox.setBounds(750, 375, 200, 30);
 
-        add(specializationCB);
-        add(specialization);
+        add(comboBox);
+        add(specializationlabel);
 
         JLabel address1 = new JLabel("Address:");
         address1.setBounds(620, 425, 400, 25);
@@ -356,10 +352,13 @@ public class regDoctor extends form2Register{
         regiserButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         regiserButton.setBackground(commonconstant.BUTTON_COLOR);
 
-        regiserButton.setBounds(770, 655, 250,50);
+        regiserButton.setBounds(770, 700, 250,50);
+        JComboBox<String> finalComboBox = comboBox;
         regiserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                String specialization = null;
                 String LastName = null;
                 String FirstName = null;
                 String MiddleName = null;
@@ -390,12 +389,13 @@ public class regDoctor extends form2Register{
                     LastName = nameField1.getText();
                     FirstName = nameField2.getText();
                     MiddleName = nameField3.getText();
-                    sex = comboBox.getSelectedItem().toString();
+                    sex = (String) finalComboBox.getSelectedItem();
                     passsword = new String(passwordField.getPassword());
                     rePassword = new String(repasswordField.getPassword());
                     age = Integer.parseInt(age1.getText());
                     email = emailField.getText();
-                    address = address2.getText();
+                    address= address2.getText();
+
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(regDoctor.this, "Error: Invalid input. Please enter valid values.");
                     return;
@@ -409,14 +409,18 @@ public class regDoctor extends form2Register{
                 int month = Integer.parseInt(selectedMonth);
                 int day = Integer.parseInt(selectedDay);
                 int year = Integer.parseInt(selectedYear);
+
+                 specialization = (String) finalComboBox.getSelectedItem();
+
 // Create a LocalDate object from the selected values
                 LocalDate birthdate = LocalDate.of(year, month, day);
                 Boolean logg = true;
 
-                if (validateuserinput(LastName, FirstName,MiddleName, sex, age, number ,passsword, rePassword, email, address)) {
-                    if (MyJDBC.register(LastName, FirstName, MiddleName, sex, age, number, email, passsword, address, birthdate, logg)) {
+
+                if (validateuserinput(LastName,  FirstName,  MiddleName,  sex,  age,  number,  passsword,  rePassword,  email, birthdate , specialization)) {
+                    if (doctorDb.book( LastName, FirstName,MiddleName, age, sex,passsword, number, birthdate,specialization, email, passsword )) {
                         regDoctor.this.dispose();
-                        loginpage login = new loginpage();
+                        loginpageDoc login = new loginpageDoc();
                         login.setVisible(true);
                         JOptionPane.showMessageDialog(login, "Registered Account Successfully");
                     } else {
@@ -429,28 +433,7 @@ public class regDoctor extends form2Register{
         });
         add(regiserButton);
 
-        JLabel loginLabel2 = new JLabel("Already have an account?");
-        loginLabel2.setForeground(commonconstant.SECONDARY_COLOR);
-        loginLabel2.setBounds(780, 700, 250, 30);
 
-        add(loginLabel2);
-        JLabel loginLabel = new JLabel("<html><u>LOGIN HERE!</u></html>");
-        loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        loginLabel.setForeground(commonconstant.DARKERBLUE_REG);
-        // if the user have already an account or have an existing account
-
-        loginLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                regDoctor.this.dispose();
-
-                new loginpage().setVisible(true);
-            }
-        });
-
-        loginLabel.setBounds(930, 700, 250, 30);
-        add(loginLabel);
 
         //Panel Transparent brown
         JPanel panel1 = new JPanel();
@@ -483,9 +466,9 @@ public class regDoctor extends form2Register{
         add(image3); // left bg picture
 
     }
-    private boolean validateuserinput(String LastName, String FirstName, String MiddleName, String sex, int age, long number,String password, String rePassword, String email, String address){
+    private boolean validateuserinput(String LastName, String FirstName, String MiddleName, String sex, int age, long number, String password, String rePassword, String email, LocalDate birthdate, String specialization){
         //database
-        if ( password.length()==0||rePassword.length()==0 || email.length() == 0|| LastName.isBlank() || FirstName.isBlank() || MiddleName.isBlank() || sex.isBlank() || age == 0 || number == 0 || address.isBlank()) return false;
+        if ( specialization.length() == 0 || password.length()==0||rePassword.length()==0 || email.length() == 0|| LastName.isBlank() || FirstName.isBlank() || MiddleName.isBlank() || sex.isBlank() || age == 0 || number == 0) return false;
 
         if (!password.equals(rePassword)) return false;
         if(email.isBlank())   return false;
@@ -495,9 +478,9 @@ public class regDoctor extends form2Register{
         if(sex.isEmpty()) return false;
         if (age < 0) return false;
         if (number < 0) return false;
-        if (address.isEmpty()) return false;
+        if (specialization.isBlank()) return false;
 
-        return true;
+            return true;
 
 
     }
