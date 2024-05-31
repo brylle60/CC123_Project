@@ -24,17 +24,18 @@ import java.awt.event.MouseEvent;
 import static java.awt.AWTEventMulticaster.add;
 
     public class HistoryAppointments extends doctors{
-        private static int userId;
-        private static String loggedInLastName;
-        private static String loggedInFirstName;
-        private static String loggedInMiddleName;
-        private static int age;
-        private static int number;
-        private static String address;
         private static int id;
+        private static String lastName;
+        private static String firstName;
+        private static String middleName;
+        private static String specialization;
         private static String sex;
+        private static String address;
+        private static long contactNumber;
+        private static int age;
         private static String email;
-        private static schedules loggedInUser;
+        private static String password;
+        private static LocalDate birthdate;
         private static List<schedules> userAppointments;
         private static JList<String> appointmentList;
         private static DefaultListModel<String> listModel;
@@ -49,15 +50,17 @@ import static java.awt.AWTEventMulticaster.add;
 
         private void addDoctorProfileGUI(int id, int age, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, long number, String address, String email) {
 
-            this.userId = id;
-            this.loggedInLastName = loggedInLastName;
-            this.loggedInFirstName = loggedInFirstName;
-            this.loggedInMiddleName = loggedInMiddleName;
+            this.id = id;
+            this.lastName = lastName;
+            this.firstName = firstName;
+            this.middleName = middleName;
+            this.specialization = specialization;
             this.sex = sex;
-            this.age = age;
-            this.number = (int) number;
             this.address = address;
-            this.email = email;
+            this.contactNumber = contactNumber;
+            this.age = age;
+            this.email= email;
+            this.password = password;
         }
 
         private void addDoctorProfileGUI() {
@@ -107,7 +110,7 @@ import static java.awt.AWTEventMulticaster.add;
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     HistoryAppointments.this.dispose();
-                    new OphthalDocPage(id, age, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, number, address, email).setVisible(true);
+                    new DoctorHomePage(  lastName,  firstName,  middleName,  sex,  age,  contactNumber, specialization);
                 }
             });
             add(today);

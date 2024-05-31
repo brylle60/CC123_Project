@@ -27,7 +27,7 @@ public class OPHTHALMOLOGIST extends doctors{
     private String email;
     private LocalTime time_appointment;
     private LocalDate date_appointment;
-    public OPHTHALMOLOGIST(){
+    public OPHTHALMOLOGIST(int id, String loggedInLastName, String loggedInFirstName,String loggedInMiddleName, String sex,int age,long number,String email,String address){
 
         super("Health Appointment");
         this.loggedInLastName = loggedInLastName;

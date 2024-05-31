@@ -9,9 +9,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyJDBC {
-    private static String password;
 
     public static boolean register(String last_name, String first_name, String middle_name, String sex, int age, long number, String email, String password, String address, LocalDate birthdate, Boolean loggin) {
+        try {
+            if (checkuser(email)) {
+                // Email already exists, handle accordingly
+                System.out.println("Error: Email already exists");
+                return false;
+            } else {
+                Connection connection = DriverManager.getConnection(commonconstant.DB_URL, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
+                PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.DB_TABLE_NAME + "(last_name, first_name, middle_name, sex, age, mobile_number,User_email, user_password, address, birthdate, logged_in_users)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                insertUser.setString(1, last_name);
+                insertUser.setString(2, first_name);
+                insertUser.setString(3, middle_name);
+                insertUser.setString(4, sex);
+                insertUser.setInt(5, age);
+                insertUser.setLong(6, number);
+                insertUser.setString(7, email);
+                insertUser.setString(8, password);
+                insertUser.setString(9, address);
+                insertUser.setDate(10, Date.valueOf(birthdate));
+                insertUser.setBoolean(11, loggin);
+                insertUser.executeUpdate();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean registerDoc(String last_name, String first_name, String middle_name, String sex, int age, long number, String email, String password, String address, LocalDate birthdate, Boolean loggin) {
         try {
             if (checkuser(email)) {
                 // Email already exists, handle accordingly

@@ -25,18 +25,18 @@ import java.awt.event.MouseEvent;
 
 import static java.awt.AWTEventMulticaster.add;
 
-public class OphthalDocPage extends doctors{
-    private static int userId;
-    private static String loggedInLastName;
-    private static String loggedInFirstName;
-    private static String loggedInMiddleName;
-    private static int age;
-    private static int number;
-    private static String address;
-    private static int id;
+public class DoctorHomePage extends doctors{
+    private static String lastName;
+    private static String firstName;
+    private static String middleName;
+    private static String specialization;
     private static String sex;
+    private static String address;
+    private static long contactNumber;
+    private static int age;
     private static String email;
-    private static schedules loggedInUser;
+    private static String password;
+    private static LocalDate birthdate;
     private static List<schedules> userAppointments;
     private static JList<String> appointmentList;
     private static DefaultListModel<String> listModel;
@@ -45,11 +45,24 @@ public class OphthalDocPage extends doctors{
     private  JTable opthalAppointmentTable;
 
 
-    public OphthalDocPage(int id, int age, String loggedInLastName, String loggedInFirstName, String loggedInMiddleName, String sex, int number, String address, String email) {
-        super("Ophthalmologist Doctor Page");
+    public DoctorHomePage( String lastName, String firstName, String middleName, String sex, int age, long contactNumber,String specialization){
+        super("Doctor's page");
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.specialization = specialization;
+        this.sex = sex;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.age = age;
+        this.email= email;
+        this.password = password;
 
         addDoctorProfileGUI();
     }
+
+
+
     private void addDoctorProfileGUI() {
 
 
@@ -100,7 +113,7 @@ public class OphthalDocPage extends doctors{
         Confirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                OphthalDocPage.this.dispose();
+                DoctorHomePage.this.dispose();
             }
         });
         add(Confirm);
@@ -114,7 +127,7 @@ public class OphthalDocPage extends doctors{
         UnavailableButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                OphthalDocPage.this.dispose();
+                DoctorHomePage.this.dispose();
             }
         });
         add(UnavailableButton);
@@ -196,7 +209,7 @@ public class OphthalDocPage extends doctors{
         today.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                OphthalDocPage.this.dispose();
+                DoctorHomePage.this.dispose();
                 new HistoryAppointments().setVisible(true);
             }
         });
@@ -211,8 +224,7 @@ public class OphthalDocPage extends doctors{
         logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                OphthalDocPage.this.dispose();
-                userDb.removeBookedTimeSlotsForUser(id);
+                DoctorHomePage.this.dispose();
                 new loginpage().setVisible(true);
             }
         });
@@ -227,13 +239,13 @@ public class OphthalDocPage extends doctors{
         add(patientProfile);
 
         // User information below sa Patient's Profile
-        JLabel frameLabel = new JLabel("First Name: " + loggedInFirstName);
+        JLabel frameLabel = new JLabel("First Name: " + firstName);
         frameLabel.setBounds(65, 350, 300, 25);
         frameLabel.setFont(new Font("Dialog", Font.BOLD, 15));
         frameLabel.setForeground(commonconstant.BLUE_COLOR);
         add(frameLabel);
 
-        JLabel lnameLabel = new JLabel("Last Name: " + loggedInLastName);
+        JLabel lnameLabel = new JLabel("Last Name: " + lastName);
         lnameLabel.setBounds(65, 385, 300, 25);
         lnameLabel.setFont(new Font("Dialog", Font.BOLD, 15));
         lnameLabel.setForeground(commonconstant.BLUE_COLOR);
@@ -259,11 +271,17 @@ public class OphthalDocPage extends doctors{
         genderLabel.setForeground(commonconstant.BLUE_COLOR);
         add(genderLabel);
 
-        JLabel contactNumberLabel = new JLabel("Contact Number: " + number);
+        JLabel contactNumberLabel = new JLabel("Contact Number: " + contactNumber);
         contactNumberLabel.setBounds(65, 525, 300, 25);
         contactNumberLabel.setFont(new Font("Dialog", Font.BOLD, 17));
         contactNumberLabel.setForeground(commonconstant.BLUE_COLOR);
         add(contactNumberLabel);
+
+        JLabel specializationLabel = new JLabel("Specialization: " + specialization);
+        specializationLabel.setBounds(65, 570, 300, 25);
+        specializationLabel.setFont(new Font("Dialog", Font.BOLD, 17));
+        specializationLabel.setForeground(commonconstant.BLUE_COLOR);
+        add(specializationLabel);
 
 
 
@@ -346,7 +364,7 @@ public class OphthalDocPage extends doctors{
                                 boolean cancelled = userDb.cancelAppointment(userId, appointmentTime);
                                 if (cancelled) {
                                     listModel.removeElementAt(selectedIndex);
-                                     // Add the freed time slot back
+                                    // Add the freed time slot back
                                     JOptionPane.showMessageDialog(this, "Appointment cancelled successfully.");
                                 } else {
                                     JOptionPane.showMessageDialog(this, "Failed to cancel the appointment.");
@@ -371,32 +389,32 @@ public class OphthalDocPage extends doctors{
 
 
     //
-private void addGUIOptal() {
+    private void addGUIOptal() {
 
-    JPanel Optalpanel = new JPanel(new BorderLayout());
-    Optalpanel.setBackground(new Color(120, 187, 217, 255));
-    Optalpanel.setBounds(260, 90, 500, 500);
+        JPanel Optalpanel = new JPanel(new BorderLayout());
+        Optalpanel.setBackground(new Color(120, 187, 217, 255));
+        Optalpanel.setBounds(260, 90, 500, 500);
 
-    DefaultTableModel appointmentTableModel = new DefaultTableModel();
-    appointmentTableModel.addColumn("Patient Number");
-    appointmentTableModel.addColumn("Last Name");
-    appointmentTableModel.addColumn("First Name");
-    appointmentTableModel.addColumn("Sex");
-    appointmentTableModel.addColumn("Age");
-    appointmentTableModel.addColumn("Time");
-    appointmentTableModel.addColumn("Date");
+        DefaultTableModel appointmentTableModel = new DefaultTableModel();
+        appointmentTableModel.addColumn("Patient Number");
+        appointmentTableModel.addColumn("Last Name");
+        appointmentTableModel.addColumn("First Name");
+        appointmentTableModel.addColumn("Sex");
+        appointmentTableModel.addColumn("Age");
+        appointmentTableModel.addColumn("Time");
+        appointmentTableModel.addColumn("Date");
 
-    JTable opthalAppointmentTable = new JTable(appointmentTableModel);
-    JScrollPane scrollPane = new JScrollPane(opthalAppointmentTable);
-    scrollPane.setBounds(600, 300, 600, 300);
-    add(scrollPane);
-    //populateAppointmentTable();
-
-
+        JTable opthalAppointmentTable = new JTable(appointmentTableModel);
+        JScrollPane scrollPane = new JScrollPane(opthalAppointmentTable);
+        scrollPane.setBounds(600, 300, 600, 300);
+        add(scrollPane);
+        //populateAppointmentTable();
 
 
 
-   //private void populateAppointmentTable() {
+
+
+        //private void populateAppointmentTable() {
         appointmentTableModel = (DefaultTableModel) opthalAppointmentTable.getModel();
         appointmentTableModel.setRowCount(0);
 
@@ -409,7 +427,7 @@ private void addGUIOptal() {
             int age = appointment.getAge();
             LocalDate date = appointment.getDate();
             LocalTime timeOfAppointment = appointment.getTime();
-             appointmentTableModel.addRow(new Object[]{patientNumber, lastName, firstName, sex, age, timeOfAppointment});
+            appointmentTableModel.addRow(new Object[]{patientNumber, lastName, firstName, sex, age, timeOfAppointment});
         }
     }
 }

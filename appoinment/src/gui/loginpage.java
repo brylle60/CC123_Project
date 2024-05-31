@@ -6,6 +6,8 @@ import adminpage.ScheduleTable;
 import adminpage.User;
 import constant.commonconstant;
 import db.*;
+import doctors.loginpageDoc;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -135,6 +137,23 @@ public class loginpage extends form {
         registerALabel.setForeground(commonconstant.HOME_BG1_BLUE);
         add(registerALabel);
 
+        JLabel drButton  = new JLabel("Are you a doctor?");
+        drButton.setBounds(272, 490, 250, 25);
+        drButton.setForeground(commonconstant.HOME_BG1_BLUE);
+
+        drButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                loginpage.this.dispose();
+
+                new doctors.loginpageDoc().setVisible(true);
+
+            }
+        });
+
+        add(drButton);
+
+
         JLabel registerLabel = new JLabel("<html><u>REGISTER HERE!</u></html>");
         registerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -178,7 +197,7 @@ public class loginpage extends form {
 //        return result;
         if(email.matches("brylle@example.com") && password.matches("password")) return true;
 
-        if (!email.matches("brylle@emaple.com"))    return false;
+        if (!email.matches("brylle@example.com"))    return false;
         if(!password.matches("password"))   return false;
         return true;
     }
