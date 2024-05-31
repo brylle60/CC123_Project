@@ -112,7 +112,7 @@ public class Obstetrics extends doctors{
         fName.setForeground(commonconstant.TEXT_COLOR);
         fName.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField fNamefield = new JTextField();
+        JTextField fNamefield = new JTextField(loggedInFirstName);
         fNamefield.setBounds(450, 200, 450, 25);
         fNamefield.setBackground(commonconstant.SECONDARY_COLOR);
         fNamefield.setForeground(commonconstant.TEXT_COLOR);
@@ -124,7 +124,7 @@ public class Obstetrics extends doctors{
         midName.setForeground(commonconstant.TEXT_COLOR);
         midName.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField Mifield = new JTextField();
+        JTextField Mifield = new JTextField(loggedInMiddleName);
         Mifield.setBounds(450, 265, 450, 25);
         Mifield.setBackground(commonconstant.SECONDARY_COLOR);
         Mifield.setForeground(commonconstant.TEXT_COLOR);
@@ -136,7 +136,7 @@ public class Obstetrics extends doctors{
         lName.setForeground(commonconstant.TEXT_COLOR);
         lName.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField lNamefield = new JTextField();
+        JTextField lNamefield = new JTextField(loggedInLastName);
         lNamefield.setBounds(450, 322, 450, 25);
         lNamefield.setBackground(commonconstant.SECONDARY_COLOR);
         lNamefield.setForeground(commonconstant.TEXT_COLOR);
@@ -147,7 +147,7 @@ public class Obstetrics extends doctors{
         age.setForeground(commonconstant.TEXT_COLOR);
         age.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField agefield = new JTextField();
+        JTextField agefield = new JTextField(age1);
         agefield.setBounds(450, 372, 150, 25);
         agefield.setBackground(commonconstant.SECONDARY_COLOR);
         agefield.setForeground(commonconstant.TEXT_COLOR);
@@ -183,7 +183,7 @@ public class Obstetrics extends doctors{
         Address.setForeground(commonconstant.TEXT_COLOR);
         Address.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField Addressfield = new JTextField();
+        JTextField Addressfield = new JTextField(address1);
         Addressfield.setBounds(450, 420, 350, 25);
         Addressfield.setForeground(commonconstant.TEXT_COLOR);
         Addressfield.setFont(new Font("Dialog",Font.PLAIN, 24));
@@ -193,7 +193,7 @@ public class Obstetrics extends doctors{
         number.setForeground(commonconstant.TEXT_COLOR);
         number.setFont(new Font("Dialog",Font.PLAIN, 18));
 
-        JTextField numberfield = new JTextField();
+        JTextField numberfield = new JTextField(String.valueOf(number1));
         numberfield.setBounds(450, 472, 350, 25);
         numberfield.setForeground(commonconstant.TEXT_COLOR);
         numberfield.setFont(new Font("Dialog",Font.PLAIN, 24));

@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class obstetrics {
     public static boolean register(String last_name, String first_name, String middle_name, String gender, int age, long number, String address, LocalTime time_appointment, LocalDate date_appointment){
         try{
-            Connection connection = DriverManager.getConnection(commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD, commonconstant.DB_DOCTORS);
+            Connection connection = DriverManager.getConnection( commonconstant.DB_DOCTORS, commonconstant.DB_USERNAME, commonconstant.DB_PASSWORD);
             PreparedStatement insertUser = connection.prepareStatement("INSERT INTO " + commonconstant.FAMILY_MED + "( last_name,first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
@@ -24,9 +24,17 @@ public class obstetrics {
             insertUser.setTime(9, Time.valueOf(time_appointment));
             insertUser.setDate(10, Date.valueOf(date_appointment));
 
-            insertUser.executeUpdate();
-            String notificationMessage = "New appointment booked: " + last_name;
-            NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+            int rowsInserted = insertUser.executeUpdate();
+            if (rowsInserted > 0) {
+                // Book the time slot
+
+//
+                // Store the appointment notification
+                String notificationMessage = "New appointment booked: " + last_name;
+                NotificationManager.storeAppointmentNotification(last_name, notificationMessage);
+
+                return true;
+            }
 
         }catch (SQLException e){
             e.printStackTrace();
