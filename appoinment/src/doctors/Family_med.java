@@ -1,5 +1,7 @@
 package doctors;
 
+import TIMESLOTS.DoctorsSchedules;
+import TIMESLOTS.TimeSlots;
 import constant.commonconstant;
 import db.fam_medDb;
 import db.pedia;
@@ -13,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.*;
+import java.util.List;
 
 public class Family_med extends doctors{
 
@@ -244,6 +248,35 @@ public class Family_med extends doctors{
         birthdate2.setForeground(commonconstant.TEXT_COLOR);
         birthdate2.setBounds(720,570,130,30);
 
+        JLabel timeLabel = new JLabel("Select Time Slot");
+        timeLabel.setBounds(450, 610, 200, 30);
+        timeLabel.setForeground(commonconstant.TEXT_COLOR);
+        timeLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+        add(timeLabel);
+
+        JComboBox<String> timeSlotComboBox = new JComboBox<>();
+        timeSlotComboBox.setBounds(650, 610, 200, 30);
+        timeSlotComboBox.setFont(new Font("Dialog", Font.PLAIN, 18));
+        timeSlotComboBox.setForeground(commonconstant.TEXT_COLOR);
+        add(timeSlotComboBox);
+
+        // Assuming you have a doctorId and selectedDate
+        // Assuming you have a doctorId and selectedDate
+        int doctorId = 1; // Replace with the actual doctor ID
+        LocalDate selectedDate = LocalDate.now(); // Replace with the selected date
+
+        DoctorsSchedules doctorSchedule = new DoctorsSchedules(doctorId, selectedDate);
+        doctorSchedule.loadTimeSlots();
+        List<TimeSlots> availableSlots = doctorSchedule.getAvailableTimeSlots();
+
+// Populate the timeSlotComboBox with the available time slots
+        for (TimeSlots timeSlot : availableSlots) {
+            LocalTime startTime = timeSlot.getStartTime();
+            LocalTime endTime = timeSlot.getEndTime();
+            String slotString = String.format("%02d:%02d - %02d:%02d", startTime.getHour(), startTime.getMinute(), endTime.getHour(), endTime.getMinute());
+            timeSlotComboBox.addItem(slotString);
+        }
+
 
 
         JButton submit = new JButton("SUBMIT");
@@ -253,7 +286,8 @@ public class Family_med extends doctors{
         submit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                LocalTime time = null;
+                LocalTime time = LocalTime.ofSecondOfDay(12);
+                time =  LocalTime.ofSecondOfDay(time.getHour());
                 String last_name = lNamefield.getText();
                 String first_name = fNamefield.getText();
                 String middle_name = Mifield.getText();
@@ -271,8 +305,24 @@ public class Family_med extends doctors{
                 int year = Integer.parseInt(selectedYear);
 // Create a LocalDate object from the selected values
                 LocalDate date1 = LocalDate.of(year, month, day);
+                LocalTime startTime = null;
 
-                // Check if any of the required fields are empty
+                String selectedSlotString = (String) timeSlotComboBox.getSelectedItem();
+                if (selectedSlotString != null) {
+                    String[] timeParts = selectedSlotString.split(" - ");
+                    if (timeParts.length == 2) {
+                        String[] startTimeParts = timeParts[0].split(":");
+                        String[] endTimeParts = timeParts[1].split(":");
+
+                        if (startTimeParts.length == 2 && endTimeParts.length == 2) {
+                            startTime = LocalTime.of(Integer.parseInt(startTimeParts[0]), Integer.parseInt(startTimeParts[1]));
+                            LocalTime endTime = LocalTime.of(Integer.parseInt(endTimeParts[0]), Integer.parseInt(endTimeParts[1]));
+                        }
+                    }
+                }
+                        
+
+                            // Check if any of the required fields are empty
                 if (last_name.isEmpty() || first_name.isEmpty() || middle_name.isEmpty() || ageString.isEmpty() || sex.isEmpty() || address.isEmpty() || numberString.isEmpty()) {
                     JOptionPane.showMessageDialog(Family_med.this, "Please fill in all the required fields.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                     return; // Exit the method without proceeding further
@@ -295,10 +345,13 @@ public class Family_med extends doctors{
                     return; // Exit the method without proceeding further
                 }
 
+
                 if (validateUser(last_name, first_name, middle_name, sex, age, number, address)) {
 
-                    if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address, time_appointment, date_appointment)) {
+                    if (fam_medDb.register(last_name, first_name, middle_name, sex, age, number, address, startTime, date1)) {
+
                         Family_med.this.dispose();
+                        doctorSchedule.bookAppointment(startTime);
 
                         home home = new home(id1, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex1, age1, number1, email, address1);
                         home.setVisible(true);
@@ -352,5 +405,4 @@ public class Family_med extends doctors{
 
         return true;
     }
-
-}
+        }

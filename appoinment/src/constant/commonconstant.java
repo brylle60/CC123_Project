@@ -71,7 +71,7 @@ public class commonconstant {
 
 
     //time slot table
-    public static final String TIME = "timestamps";
+    public static final String TIME_SLOTS = "timeSlotmanager";
     // public static final String DB_USER_INFO = "user_data";
 
 
