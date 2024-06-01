@@ -3,11 +3,11 @@ package gui;
 
 import adminpage.AdminHome;
 import adminpage.regDoctor;
-import doctors.OphthalDocPage;
+import doctors.DoctorHomePage;
 import doctors.DoctorTypeAppointment;
 import doctors.DoctorpageComponents;
 import doctors.OPHTHALMOLOGIST;
-import doctors.doctorhomepage;
+
 
 
 import javax.swing.*;
@@ -22,6 +22,7 @@ public class launcher {
     private static int number;
     private static String email;
     private static String address;
+    private static String specialization;
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -29,7 +30,7 @@ public class launcher {
 
         @Override
             public void run() {
-            //new OphthalDocPage(id, age, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, number, address, email).setVisible(true);
+//            new DoctorHomePage(loggedInLastName,loggedInFirstName, loggedInMiddleName, sex, age, number, specialization).setVisible(true);
             new GuestPage().setVisible(true);
 
             }

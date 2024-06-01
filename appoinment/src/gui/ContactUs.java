@@ -201,7 +201,8 @@ public class ContactUs extends homepage {
                 super.mouseClicked(e);
                 userDb.removeBookedTimeSlotsForUser(id);
                 ContactUs.this.dispose();
-                new loginpage().setVisible(true);
+                new home(id, loggedInLastName, loggedInFirstName, loggedInMiddleName, sex, age, number, email, address).setVisible(true);
+
             }
         });
 
